@@ -169,8 +169,12 @@ public final class AuditablePolicyResourceResponse {
     @Override
     @Generated
     public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (!(o instanceof AuditablePolicyResourceResponse)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof AuditablePolicyResourceResponse)) {
+            return false;
+        }
         AuditablePolicyResourceResponse that = (AuditablePolicyResourceResponse) o;
         return policyRequest.equals(that.policyRequest) &&
                 rules.equals(that.rules) &&
