@@ -24,6 +24,7 @@ import org.springframework.boot.test.json.ObjectContent;
 import org.springframework.test.context.ContextConfiguration;
 
 import uk.gov.gchq.palisade.Context;
+import uk.gov.gchq.palisade.service.audit.model.AuditMessage;
 import uk.gov.gchq.palisade.service.audit.model.AuditSuccessMessage;
 
 import java.io.IOException;
@@ -58,16 +59,16 @@ class AuditSuccessMessageTest {
         Map<String, Object> attributes = new HashMap<>();
         attributes.put("messagesSent", "23");
 
-        AuditSuccessMessage auditSuccessMessage = AuditSuccessMessage.Builder.create()
-                .withUserId("originalUserID")
-                .withResourceId("testResourceId")
-                .withContext(context)
-                .withServiceName("testServicename")
-                .withTimestamp(now)
-                .withServerIp("testServerIP")
-                .withServerHostname("testServerHostname")
-                .withAttributes(attributes)
-                .withLeafResourceId("testLeafResourceId");
+        AuditSuccessMessage auditSuccessMessage = AuditSuccessMessage.createAuditSuccessMessage(b -> b
+            .userId("originalUserID")
+            .resourceId("testResourceId")
+            .contextNode(AuditMessage.MAPPER.valueToTree(context))
+            .serviceName("testServicename")
+            .timestamp(now)
+            .serverIP("testServerIP")
+            .serverHostname("testServerHostname")
+            .attributesNode(AuditMessage.MAPPER.valueToTree(attributes))
+            .leafResourceId("testLeafResourceId"));
 
         JsonContent<AuditSuccessMessage> auditSuccessMessageJsonContent = jsonTester.write(auditSuccessMessage);
         ObjectContent<AuditSuccessMessage> auditSuccessMessageObjectContent = jsonTester.parse(auditSuccessMessageJsonContent.getJson());

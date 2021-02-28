@@ -18,10 +18,14 @@ package uk.gov.gchq.palisade.service.audit;
 
 import uk.gov.gchq.palisade.Context;
 import uk.gov.gchq.palisade.service.audit.model.AuditErrorMessage;
+import uk.gov.gchq.palisade.service.audit.model.AuditMessage;
 import uk.gov.gchq.palisade.service.audit.model.AuditSuccessMessage;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static uk.gov.gchq.palisade.service.audit.model.AuditErrorMessage.createAuditErrorMessage;
+import static uk.gov.gchq.palisade.service.audit.model.AuditSuccessMessage.createAuditSuccessMessage;
 
 public final class ApplicationTestData {
 
@@ -47,28 +51,28 @@ public final class ApplicationTestData {
     }
 
     public static AuditErrorMessage auditErrorMessage(final String serviceName) {
-        return AuditErrorMessage.Builder.create()
-                .withUserId(TEST_USER_ID)
-                .withResourceId(TEST_RESOURCE_ID)
-                .withContext(TEST_CONTEXT)
-                .withServiceName(serviceName)
-                .withTimestamp(TEST_TIMESTAMP)
-                .withServerIp(TEST_SERVER_IP)
-                .withServerHostname(TEST_SERVER_NAME)
-                .withAttributes(TEST_ATTRIBUTES)
-                .withError(TEST_EXCEPTION);
+        return createAuditErrorMessage(b -> b
+            .userId(TEST_USER_ID)
+            .resourceId(TEST_RESOURCE_ID)
+            .contextNode(AuditMessage.MAPPER.valueToTree(TEST_CONTEXT))
+            .serviceName(serviceName)
+            .timestamp(TEST_TIMESTAMP)
+            .serverIP(TEST_SERVER_IP)
+            .serverHostname(TEST_SERVER_NAME)
+            .attributesNode(AuditMessage.MAPPER.valueToTree(TEST_ATTRIBUTES))
+            .errorNode(AuditMessage.MAPPER.valueToTree(TEST_EXCEPTION)));
     }
 
     public static AuditSuccessMessage auditSuccessMessage(final String serviceName) {
-        return AuditSuccessMessage.Builder.create()
-                .withUserId(TEST_USER_ID)
-                .withResourceId(TEST_RESOURCE_ID)
-                .withContext(TEST_CONTEXT)
-                .withServiceName(serviceName)
-                .withTimestamp(TEST_TIMESTAMP)
-                .withServerIp(TEST_SERVER_IP)
-                .withServerHostname(TEST_SERVER_NAME)
-                .withAttributes(TEST_ATTRIBUTES)
-                .withLeafResourceId(TEST_LEAF_RESOURCE_ID);
+        return createAuditSuccessMessage(b -> b
+            .userId(TEST_USER_ID)
+            .resourceId(TEST_RESOURCE_ID)
+            .contextNode(AuditMessage.MAPPER.valueToTree(TEST_CONTEXT))
+            .serviceName(serviceName)
+            .timestamp(TEST_TIMESTAMP)
+            .serverIP(TEST_SERVER_IP)
+            .serverHostname(TEST_SERVER_NAME)
+            .attributesNode(AuditMessage.MAPPER.valueToTree(TEST_ATTRIBUTES))
+            .leafResourceId(TEST_LEAF_RESOURCE_ID));
     }
 }

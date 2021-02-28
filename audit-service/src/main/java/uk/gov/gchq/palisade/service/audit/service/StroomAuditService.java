@@ -16,7 +16,6 @@
 
 package uk.gov.gchq.palisade.service.audit.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import event.logging.Activity;
 import event.logging.Authorisation;
 import event.logging.Classification;
@@ -33,6 +32,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import uk.gov.gchq.palisade.Generated;
+import uk.gov.gchq.palisade.service.audit.exception.DeserialisationException;
 import uk.gov.gchq.palisade.service.audit.model.AuditErrorMessage;
 import uk.gov.gchq.palisade.service.audit.model.AuditMessage;
 import uk.gov.gchq.palisade.service.audit.model.AuditSuccessMessage;
@@ -131,7 +131,7 @@ public class StroomAuditService implements AuditService {
         // Log the purpose that was supplied with the request
         try {
             addPurposeToEvent(successEvent, message.getContext());
-        } catch (JsonProcessingException ex) {
+        } catch (DeserialisationException ex) {
             LOGGER.error(JSON_SERIALISING_ERROR, "context", ex.getMessage());
         }
         Event.EventDetail.Authorise authorise = new Event.EventDetail.Authorise();
@@ -175,7 +175,7 @@ public class StroomAuditService implements AuditService {
         // Log the purpose that was supplied with the request
         try {
             addPurposeToEvent(exceptionEvent, message.getContext());
-        } catch (JsonProcessingException ex) {
+        } catch (DeserialisationException ex) {
             LOGGER.error(JSON_SERIALISING_ERROR, "context", ex.getMessage());
         }
         Event.EventDetail.Authorise authorise = new Event.EventDetail.Authorise();

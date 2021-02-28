@@ -25,6 +25,7 @@ import org.springframework.test.context.ContextConfiguration;
 
 import uk.gov.gchq.palisade.Context;
 import uk.gov.gchq.palisade.service.audit.model.AuditErrorMessage;
+import uk.gov.gchq.palisade.service.audit.model.AuditMessage;
 
 import java.io.IOException;
 import java.time.ZoneOffset;
@@ -58,16 +59,16 @@ class AuditErrorMessageTest {
         Map<String, Object> attributes = new HashMap<>();
         attributes.put("messagesSent", "23");
 
-        AuditErrorMessage auditErrorMessage = AuditErrorMessage.Builder.create()
-                .withUserId("originalUserID")
-                .withResourceId("testResourceId")
-                .withContext(context)
-                .withServiceName("testServicename")
-                .withTimestamp(now)
-                .withServerIp("testServerIP")
-                .withServerHostname("testServerHostname")
-                .withAttributes(attributes)
-                .withError(new InternalError("Something went wrong!"));
+        AuditErrorMessage auditErrorMessage = AuditErrorMessage.createAuditErrorMessage(b -> b
+            .userId("originalUserID")
+            .resourceId("testResourceId")
+            .contextNode(AuditMessage.MAPPER.valueToTree(context))
+            .serviceName("testServicename")
+            .timestamp(now)
+            .serverIP("testServerIP")
+            .serverHostname("testServerHostname")
+            .attributesNode(AuditMessage.MAPPER.valueToTree(attributes))
+            .errorNode(AuditMessage.MAPPER.valueToTree(new InternalError("Something went wrong!"))));
 
         JsonContent<AuditErrorMessage> auditErrorMessageJsonContent = jsonTester.write(auditErrorMessage);
         ObjectContent<AuditErrorMessage> auditErrorMessageObjectContent = jsonTester.parse(auditErrorMessageJsonContent.getJson());
@@ -92,11 +93,13 @@ class AuditErrorMessageTest {
                         () -> assertThat(auditErrorMessageObject.getServerIP()).isEqualTo(auditErrorMessage.getServerIP()),
                         () -> assertThat(auditErrorMessageObject.getServerHostname()).isEqualTo(auditErrorMessage.getServerHostname()),
                         () -> assertThat(auditErrorMessageObject.getTimestamp()).isEqualTo(auditErrorMessage.getTimestamp()),
-                        () -> assertThat(auditErrorMessageObject.getErrorNode().get("message").asText())
-                                .isEqualTo(auditErrorMessage.getErrorNode().get("message").asText())
+                        () -> assertThat(auditErrorMessageObject.getErrorNode().get("message").asText()).isEqualTo(auditErrorMessage.getErrorNode().get("message").asText())
                 ),
                 () -> assertAll("ObjectComparison",
-                        () -> assertThat(auditErrorMessageObject).usingRecursiveComparison().isEqualTo(auditErrorMessage)
+                () -> assertThat(auditErrorMessageObject)
+                    .usingRecursiveComparison()
+                    .ignoringFields("error.backtrace")
+                    .isEqualTo(auditErrorMessage)
                 )
         );
     }
