@@ -25,7 +25,7 @@ class ContextTest {
     private final ObjectMapper mapper = new ObjectMapper();
 
     @Test
-    void testJsonShouldSerialiseAndDeseralise() throws JsonProcessingException {
+    void testContextShouldSerialiseAndDeseralise() throws JsonProcessingException {
         // When creating a new Context Object
         var context = new Context().purpose("purpose1");
 

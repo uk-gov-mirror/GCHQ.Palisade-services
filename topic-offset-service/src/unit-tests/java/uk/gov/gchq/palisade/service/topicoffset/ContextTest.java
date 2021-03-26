@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.gov.gchq.palisade.service.user;
+package uk.gov.gchq.palisade.service.topicoffset;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 
-import uk.gov.gchq.palisade.service.user.common.Context;
+import uk.gov.gchq.palisade.service.topicoffset.common.Context;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

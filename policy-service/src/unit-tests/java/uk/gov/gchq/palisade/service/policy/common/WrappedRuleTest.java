@@ -48,7 +48,7 @@ public class WrappedRuleTest {
     }
 
     @Test
-    public void test0Arguments() {
+    void test0Arguments() {
         var exception = assertThrows(IllegalArgumentException.class, () -> new WrappedRule<>(null, null, null));
 
         assertThat(exception)
@@ -58,7 +58,7 @@ public class WrappedRuleTest {
     }
 
     @Test
-    public void testNullPredicate() {
+    void testNullPredicate() {
         var exception = assertThrows(IllegalArgumentException.class, () -> new WrappedRule<>(new TestRule(), o -> o, null));
 
         assertThat(exception)
@@ -68,7 +68,7 @@ public class WrappedRuleTest {
     }
 
     @Test
-    public void testNullFunction() {
+    void testNullFunction() {
         var exception = assertThrows(IllegalArgumentException.class, () -> new WrappedRule<>(new TestRule(), null, o -> true));
 
         assertThat(exception)
@@ -78,7 +78,7 @@ public class WrappedRuleTest {
     }
 
     @Test
-    public void testNullRule() {
+    void testNullRule() {
         var exception = assertThrows(IllegalArgumentException.class, () -> new WrappedRule<>(null, (SerialisableUnaryOperator<String>) String::toString, o -> true));
 
         assertThat(exception)
@@ -88,7 +88,7 @@ public class WrappedRuleTest {
     }
 
     @Test
-    public void test3Arguments() {
+    void test3Arguments() {
         var exception = assertThrows(IllegalArgumentException.class, () -> new WrappedRule<>(new TestRule(), o -> o, o -> true));
 
         assertThat(exception)
