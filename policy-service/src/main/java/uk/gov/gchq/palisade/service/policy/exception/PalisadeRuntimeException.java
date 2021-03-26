@@ -13,20 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package uk.gov.gchq.palisade.service.policy.exception;
 
-package uk.gov.gchq.palisade.contract.policy.common;
+/**
+ * Subtype of {@link RuntimeException} with additional constructors to support the inclusion of a HTTP error message
+ * along with the other exception details.
+ */
+public class PalisadeRuntimeException extends RuntimeException {
 
-import uk.gov.gchq.palisade.Context;
-import uk.gov.gchq.palisade.User;
-import uk.gov.gchq.palisade.resource.Resource;
-import uk.gov.gchq.palisade.rule.Rule;
-
-import java.io.Serializable;
-
-public class PassThroughRule implements Serializable, Rule<Resource> {
-    private static final long serialVersionUID = 1L;
-
-    public Resource apply(final Resource resource, final User user, final Context context) {
-        return resource;
+    /**
+     * Initialises this exception with the given message.
+     *
+     * @param message message for the exception
+     * @param cause   the exception stack trace
+     */
+    public PalisadeRuntimeException(final String message, final Throwable cause) {
+        super(message, cause);
     }
+
 }
