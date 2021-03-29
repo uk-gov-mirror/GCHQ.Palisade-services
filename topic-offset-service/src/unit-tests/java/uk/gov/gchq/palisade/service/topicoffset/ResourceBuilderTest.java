@@ -37,7 +37,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class ResourceBuilderTest {
 
     @Test
-    void invalidSchemaThrowsException() throws URISyntaxException {
+    void testInvalidSchemaThrowsException() throws URISyntaxException {
         // Given
         var uri = new URI("badschema:/path/to/resource");
 
@@ -54,7 +54,7 @@ class ResourceBuilderTest {
     }
 
     @Test
-    void shouldCreateSystemResource() {
+    void testShouldCreateSystemResource() {
         // A file schema uri for a system root should return a SystemResource
         // eg. "file:/" = System "/"
 
@@ -79,7 +79,7 @@ class ResourceBuilderTest {
     }
 
     @Test
-    void shouldCreateDirectoryResource() {
+    void testShouldCreateDirectoryResource() {
         // A file schema uri for a directory should return a DirectoryResource
         // The parents of this DirectoryResource should be zero or more DirectoryResources up-to a root SystemResource
         // eg. "file:/dev/Palisade-common/" = System "/" -> Directory "/dev/" -> Directory "/dev/Palisade-common/"
@@ -106,7 +106,7 @@ class ResourceBuilderTest {
     }
 
     @Test
-    void shouldCreateFileResource() {
+    void testShouldCreateFileResource() {
         // A file schema uri for a file should return a FileResource
         // The parents of this FileResource should be zero or more DirectoryResources up-to a root SystemResource
         // eg. "file:/dev/Palisade-common/pom.xml" = System "/" -> Directory "/dev/" -> Directory "/dev/Palisade-common/" -> File "/dev/Palisade-common/pom.xml"
@@ -139,7 +139,7 @@ class ResourceBuilderTest {
     }
 
     @Test
-    void shouldNormaliseRelativePaths() {
+    void testShouldNormaliseRelativePaths() {
         // A file schema uri for a file with a relative path should return a FileResource with an absolute resource id
         // The parents of this FileResource should be zero or more DirectoryResources up-to a root SystemResource
         // eg. "file:/dev/Palisade-common/pom.xml" = System "/" -> Directory "/dev/" -> Directory "/dev/Palisade-common/" -> File "/dev/Palisade-common/pom.xml"

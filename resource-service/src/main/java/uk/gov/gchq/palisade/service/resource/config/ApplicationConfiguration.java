@@ -31,13 +31,15 @@ import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories;
 import org.springframework.scheduling.annotation.AsyncConfigurer;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
-import uk.gov.gchq.palisade.jsonserialisation.JSONSerialiser;
-import uk.gov.gchq.palisade.resource.LeafResource;
-import uk.gov.gchq.palisade.resource.Resource;
-import uk.gov.gchq.palisade.service.ConnectionDetail;
-import uk.gov.gchq.palisade.service.ResourceConfiguration;
-import uk.gov.gchq.palisade.service.ResourceService;
-import uk.gov.gchq.palisade.service.SimpleConnectionDetail;
+import uk.gov.gchq.palisade.service.resource.common.resource.LeafResource;
+import uk.gov.gchq.palisade.service.resource.common.resource.Resource;
+import uk.gov.gchq.palisade.service.resource.common.service.ConnectionDetail;
+import uk.gov.gchq.palisade.service.resource.common.service.ResourceConfiguration;
+import uk.gov.gchq.palisade.service.resource.common.service.ResourcePrepopulationFactory;
+import uk.gov.gchq.palisade.service.resource.common.service.ResourceService;
+import uk.gov.gchq.palisade.service.resource.common.service.Service;
+import uk.gov.gchq.palisade.service.resource.common.service.SimpleConnectionDetail;
+import uk.gov.gchq.palisade.service.resource.common.util.ResourceBuilder;
 import uk.gov.gchq.palisade.service.resource.exception.ApplicationAsyncExceptionHandler;
 import uk.gov.gchq.palisade.service.resource.repository.CompletenessRepository;
 import uk.gov.gchq.palisade.service.resource.repository.PersistenceLayer;
@@ -98,10 +100,10 @@ public class ApplicationConfiguration implements AsyncConfigurer {
     }
 
     /**
-     * A container for a number of {@link StdResourcePrepopulationFactory} builders used for creating {@link uk.gov.gchq.palisade.resource.Resource}s
+     * A container for a number of {@link StdResourcePrepopulationFactory} builders used for creating {@link Resource}s
      * These resources will be used for prepopulating the {@link ResourceService}
      *
-     * @return a standard {@link uk.gov.gchq.palisade.service.ResourceConfiguration} containing a list of {@link uk.gov.gchq.palisade.service.ResourcePrepopulationFactory}s
+     * @return a standard {@link ResourceConfiguration} containing a list of {@link ResourcePrepopulationFactory}s
      */
     @Bean
     @ConditionalOnProperty(prefix = "population", name = "resourceProvider", havingValue = "std", matchIfMissing = true)
@@ -111,10 +113,10 @@ public class ApplicationConfiguration implements AsyncConfigurer {
     }
 
     /**
-     * A factory for {@link uk.gov.gchq.palisade.resource.Resource} objects, wrapping the {@link uk.gov.gchq.palisade.util.ResourceBuilder} with a type and serialisedFormat
+     * A factory for {@link Resource} objects, wrapping the {@link ResourceBuilder} with a type and serialisedFormat
      * Note that this does not include resolving an appropriate {@link ConnectionDetail}, this is handled elsewhere
      *
-     * @return a standard {@link uk.gov.gchq.palisade.service.ResourcePrepopulationFactory} capable of building a {@link uk.gov.gchq.palisade.resource.Resource} from configuration
+     * @return a standard {@link ResourcePrepopulationFactory} capable of building a {@link Resource} from configuration
      */
     @Bean
     @ConditionalOnProperty(prefix = "population", name = "resourceProvider", havingValue = "std", matchIfMissing = true)
@@ -160,7 +162,7 @@ public class ApplicationConfiguration implements AsyncConfigurer {
 
     /**
      * A bean for the implementation of the SimpleResourceService which is a simple implementation of
-     * {@link ResourceService} which extends {@link uk.gov.gchq.palisade.service.Service}
+     * {@link ResourceService} which extends {@link Service}
      *
      * @return a new instance of SimpleResourceService with a string value dataServiceName retrieved from the relevant profiles yaml
      */
@@ -197,12 +199,12 @@ public class ApplicationConfiguration implements AsyncConfigurer {
     /**
      * Used so that you can create custom mapper by starting with the default and then modifying if needed
      *
-     * @return a default JSONSerialiser ObjectMapper
+     * @return a default ObjectMapper
      */
     @Bean
     @Primary
     public ObjectMapper jacksonObjectMapper() {
-        return JSONSerialiser.createDefaultMapper();
+        return new ObjectMapper();
     }
 
     @Override

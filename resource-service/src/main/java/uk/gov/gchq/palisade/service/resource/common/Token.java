@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package uk.gov.gchq.palisade.service.resource.model;
+package uk.gov.gchq.palisade.service.resource.common;
 
 /**
  * Simply stores the expected header key for Tokens
