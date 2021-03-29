@@ -13,17 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package uk.gov.gchq.palisade.service.filteredresource.model;
+package uk.gov.gchq.palisade.service.filteredresource.exception;
 
 /**
- * Marks the start or end of a stream of messages.
- * Will be present in headers to indicate the message is empty and marks the start/end of the stream.
- * Will not be present for all other (content-ful) messages.
+ * Subtype of {@link RuntimeException} with additional constructors to support the inclusion of a HTTP error message
+ * along with the other exception details.
  */
-public enum StreamMarker {
-    START,
-    END;
+public class PalisadeRuntimeException extends RuntimeException {
 
-    public static final String HEADER = "x-stream-marker";
+    /**
+     * Initialises this exception with the given message.
+     *
+     * @param message message for the exception
+     * @param cause   the exception stack trace
+     */
+    public PalisadeRuntimeException(final String message, final Throwable cause) {
+        super(message, cause);
+    }
+
 }

@@ -25,7 +25,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
-import uk.gov.gchq.palisade.jsonserialisation.JSONSerialiser;
 import uk.gov.gchq.palisade.service.filteredresource.repository.exception.JpaTokenErrorMessagePersistenceLayer;
 import uk.gov.gchq.palisade.service.filteredresource.repository.exception.TokenErrorMessageController;
 import uk.gov.gchq.palisade.service.filteredresource.repository.exception.TokenErrorMessageController.TokenErrorMessageCommand;
@@ -86,7 +85,7 @@ public class ApplicationConfiguration {
      * kafka to recieve and persist AuditErrorMessages to the backing store
      *
      * @param persistenceLayer A link to the backing store technology, for the storage of tokens and exceptions
-     * @return a new ErrorMessageEventService, instansiated with a link to the backing store.
+     * @return a new ErrorMessageEventService, instantiated with a link to the backing store.
      */
     @Bean
     ErrorMessageEventService errorMessageEventService(final TokenErrorMessagePersistenceLayer persistenceLayer) {
@@ -126,7 +125,7 @@ public class ApplicationConfiguration {
     @Primary
     @Bean("jsonSerialiser")
     ObjectMapper objectMapper() {
-        return JSONSerialiser.createDefaultMapper();
+        return new ObjectMapper();
     }
 
 }
