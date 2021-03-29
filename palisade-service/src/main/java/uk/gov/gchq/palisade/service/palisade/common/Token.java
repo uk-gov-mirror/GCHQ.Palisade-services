@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.gov.gchq.palisade.service.palisade.model;
+package uk.gov.gchq.palisade.service.palisade.common;
 
 /**
  * Simply stores the expected header key for Tokens
