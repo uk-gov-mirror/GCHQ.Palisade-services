@@ -22,6 +22,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
+import uk.gov.gchq.palisade.service.palisade.common.jsonserialisation.JSONSerialiser;
 import uk.gov.gchq.palisade.service.palisade.service.PalisadeService;
 import uk.gov.gchq.palisade.service.palisade.service.UUIDPalisadeService;
 
@@ -45,7 +46,7 @@ public class ApplicationConfiguration {
     @Bean
     @Primary
     public ObjectMapper objectMapper() {
-        return new ObjectMapper();
+        return JSONSerialiser.createDefaultMapper();
     }
 
 }

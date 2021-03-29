@@ -34,10 +34,10 @@ import java.util.LinkedList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class ResourceBuilderTest {
+class ResourceBuilderTest {
 
     @Test
-    void testSnvalidSchemaThrowsException() throws URISyntaxException {
+    void testsInvalidSchemaThrowsException() throws URISyntaxException {
         // Given
         var uri = new URI("badschema:/path/to/resource");
 

@@ -31,6 +31,7 @@ import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories;
 import org.springframework.scheduling.annotation.AsyncConfigurer;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
+import uk.gov.gchq.palisade.service.resource.common.jsonserialisation.JSONSerialiser;
 import uk.gov.gchq.palisade.service.resource.common.resource.LeafResource;
 import uk.gov.gchq.palisade.service.resource.common.resource.Resource;
 import uk.gov.gchq.palisade.service.resource.common.service.ConnectionDetail;
@@ -204,7 +205,7 @@ public class ApplicationConfiguration implements AsyncConfigurer {
     @Bean
     @Primary
     public ObjectMapper jacksonObjectMapper() {
-        return new ObjectMapper();
+        return JSONSerialiser.createDefaultMapper();
     }
 
     @Override

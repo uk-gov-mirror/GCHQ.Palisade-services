@@ -25,6 +25,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
+import uk.gov.gchq.palisade.service.filteredresource.common.jsonserialisation.JSONSerialiser;
 import uk.gov.gchq.palisade.service.filteredresource.repository.exception.JpaTokenErrorMessagePersistenceLayer;
 import uk.gov.gchq.palisade.service.filteredresource.repository.exception.TokenErrorMessageController;
 import uk.gov.gchq.palisade.service.filteredresource.repository.exception.TokenErrorMessageController.TokenErrorMessageCommand;
@@ -125,7 +126,7 @@ public class ApplicationConfiguration {
     @Primary
     @Bean("jsonSerialiser")
     ObjectMapper objectMapper() {
-        return new ObjectMapper();
+        return JSONSerialiser.createDefaultMapper();
     }
 
 }

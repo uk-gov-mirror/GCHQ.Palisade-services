@@ -28,6 +28,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.scheduling.annotation.AsyncConfigurer;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
+import uk.gov.gchq.palisade.service.policy.common.jsonserialisation.JSONSerialiser;
 import uk.gov.gchq.palisade.service.policy.common.resource.LeafResource;
 import uk.gov.gchq.palisade.service.policy.common.resource.Resource;
 import uk.gov.gchq.palisade.service.policy.common.rule.Rule;
@@ -139,7 +140,7 @@ public class ApplicationConfiguration implements AsyncConfigurer {
     @Bean
     @Primary
     ObjectMapper objectMapper() {
-        return new ObjectMapper();
+        return JSONSerialiser.createDefaultMapper();
     }
 
     @Override
