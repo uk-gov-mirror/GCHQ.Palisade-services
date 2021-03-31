@@ -35,6 +35,7 @@
         <scala.version>2.13</scala.version>
         <akka.version>2.6.8</akka.version>
         <alpakka.version>2.0.4</alpakka.version>
+        <commons-io.version>2.6</commons-io.version>
         <commons-lang3.version>3.8.1</commons-lang3.version>
 
         <!-- Test dependency versions -->
@@ -73,6 +74,16 @@
             <groupId>com.typesafe.akka</groupId>
             <artifactId>akka-discovery_${scala.version}</artifactId>
             <version>${akka.version}</version>
+        </dependency>
+
+        <!--
+        ~ Apache Dependencies
+        -->
+        <dependency>
+            <!-- Utility classes used mainly for byte conversions -->
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons-io.version}</version>
         </dependency>
         <dependency>
             <!-- A package of utility classes for classes in java.lang's hierarchy -->

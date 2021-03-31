@@ -92,7 +92,7 @@ class RedisPersistenceContractTest {
         // Given
         String token = "token";
 
-        DataReaderRequest readerRequest = new DataReaderRequest()
+        var readerRequest = new DataReaderRequest()
                 .user(new User().userId("test-user"))
                 .resource(new FileResource().id("/resource/id")
                         .serialisedFormat("avro")
@@ -102,7 +102,7 @@ class RedisPersistenceContractTest {
                 .context(new Context().purpose("test-purpose"))
                 .rules(new Rules<>());
 
-        AuthorisedDataRequest authorisedDataRequest = AuthorisedDataRequest.Builder.create().withResource(new FileResource().id("/resource/id")
+        var authorisedDataRequest = AuthorisedDataRequest.Builder.create().withResource(new FileResource().id("/resource/id")
                 .serialisedFormat("avro")
                 .type(Employee.class.getTypeName())
                 .connectionDetail(new SimpleConnectionDetail().serviceName("data-service"))
@@ -119,11 +119,11 @@ class RedisPersistenceContractTest {
         ));
 
         // When
-        DataRequest dataRequest = DataRequest.Builder.create()
+        var dataRequest = DataRequest.Builder.create()
                 .withToken(token)
                 .withLeafResourceId(readerRequest.getResource().getId());
-        CompletableFuture<AuthorisedDataRequest> futureDataResponse = service.authoriseRequest(dataRequest);
-        AuthorisedDataRequest authorisedDataFromResource = futureDataResponse.join();
+        var futureDataResponse = service.authoriseRequest(dataRequest);
+        var authorisedDataFromResource = futureDataResponse.join();
         // Then
         assertAll("ObjectComparison",
                 () -> assertThat(authorisedDataFromResource)

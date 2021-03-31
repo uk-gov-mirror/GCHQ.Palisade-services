@@ -48,6 +48,7 @@ import uk.gov.gchq.palisade.contract.attributemask.ContractTestData;
 import uk.gov.gchq.palisade.service.attributemask.AttributeMaskingApplication;
 import uk.gov.gchq.palisade.service.attributemask.domain.AuthorisedRequestEntity;
 import uk.gov.gchq.palisade.service.attributemask.model.AttributeMaskingRequest;
+import uk.gov.gchq.palisade.service.attributemask.repository.AuthorisedRequestsRepository;
 import uk.gov.gchq.palisade.service.attributemask.service.AttributeMaskingService;
 import uk.gov.gchq.palisade.service.attributemask.stream.PropertiesConfigurer;
 
@@ -66,11 +67,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest(
         classes = {RedisPersistenceContractTest.class, AttributeMaskingApplication.class},
         webEnvironment = WebEnvironment.RANDOM_PORT,
-        properties = {"spring.data.redis.repositories.timeToLive.AuthorisedRequestEntity=5s", "akka.discovery.config.services.kafka.from-config=false"}
+        properties = {"spring.data.redis.repositories.timeToLive.AuthorisedRequestEntity=1s", "akka.discovery.config.services.kafka.from-config=false"}
 )
 @Import({RedisPersistenceContractTest.KafkaInitializer.Config.class})
 @ContextConfiguration(initializers = {RedisPersistenceContractTest.KafkaInitializer.class, RedisPersistenceContractTest.RedisInitializer.class})
-@ActiveProfiles({"redis", "akka-test"})
+@ActiveProfiles({"redis", "akka-test", "debug"})
 class RedisPersistenceContractTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(RedisPersistenceContractTest.class);
 

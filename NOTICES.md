@@ -20,8 +20,11 @@ List of third-party dependencies grouped by their license type
 * akka-stream-typed ([com.typesafe.akka:akka-stream-typed_2.13:2.6.10](https://akka.io/))
 * akka-stream ([com.typesafe.akka:akka-stream_2.13:2.6.10](https://akka.io/))
 * akka-stream ([com.typesafe.akka:akka-stream_2.13:2.6.8](https://akka.io/))
+* Apache Commons IO ([commons-io:commons-io:2.6](http://commons.apache.org/proper/commons-io/))
 * event-logging-api ([event-logging:event-logging:v4.0.5_schema-v3.2.4](no url defined))
 * Reactive Relational Database Connectivity - H2 ([io.r2dbc:r2dbc-h2:0.8.4.RELEASE](https://github.com/r2dbc/r2dbc-h2))
+* Apache Avro ([org.apache.avro:avro:1.8.2](http://avro.apache.org))
+* Apache Commons Lang ([org.apache.commons:commons-lang3:3.8.1](http://commons.apache.org/proper/commons-lang/))
 * Apache Hadoop Common ([org.apache.hadoop:hadoop-common:3.2.1](no url defined))
 * spring-boot-starter ([org.springframework.boot:spring-boot-starter:2.3.1.RELEASE](https://spring.io/projects/spring-boot))
 * spring-boot-starter-actuator ([org.springframework.boot:spring-boot-starter-actuator:2.3.1.RELEASE](https://spring.io/projects/spring-boot))
@@ -33,9 +36,9 @@ List of third-party dependencies grouped by their license type
 * spring-boot-starter-test ([org.springframework.boot:spring-boot-starter-test:2.3.1.RELEASE](https://spring.io/projects/spring-boot))
 * spring-boot-starter-web ([org.springframework.boot:spring-boot-starter-web:2.3.1.RELEASE](https://spring.io/projects/spring-boot))
 * Spring Cloud Starter OpenFeign ([org.springframework.cloud:spring-cloud-starter-openfeign:2.2.2.RELEASE](https://projects.spring.io/spring-cloud))
-* common ([uk.gov.gchq.palisade:common:0.5.0-SNAPSHOT](https://github.com/gchq/Palisade-common))
 * hadoop-reader ([uk.gov.gchq.palisade:hadoop-reader:0.5.0-SNAPSHOT](https://github.com/gchq/Palisade-readers/tree/develop/hadoop-reader))
 * hadoop-resource ([uk.gov.gchq.palisade:hadoop-resource:0.5.0-SNAPSHOT](https://github.com/gchq/Palisade-readers/tree/develop/hadoop-resource))
+* readers-common ([uk.gov.gchq.palisade:readers-common:0.5.0-SNAPSHOT](https://github.com/gchq/Palisade-readers/tree/develop/readers-common))
 
 ### [Common Development and Distribution License (CDDL) 1.1](./licenses/cddl_gpl_1.1.txt):
 * JAXB Runtime ([org.glassfish.jaxb:jaxb-runtime:2.3.0-b170127.1453](http://jaxb.java.net/jaxb-runtime-parent/jaxb-runtime))
