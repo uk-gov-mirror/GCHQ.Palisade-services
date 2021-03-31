@@ -36,7 +36,7 @@ import scala.Function1;
 
 import uk.gov.gchq.palisade.service.audit.model.AuditErrorMessage;
 import uk.gov.gchq.palisade.service.audit.model.AuditSuccessMessage;
-import uk.gov.gchq.palisade.service.audit.model.Token;
+import uk.gov.gchq.palisade.service.audit.common.Token;
 import uk.gov.gchq.palisade.service.audit.service.AuditServiceAsyncProxy;
 import uk.gov.gchq.palisade.service.audit.service.KafkaProducerService;
 import uk.gov.gchq.palisade.service.audit.stream.ConsumerTopicConfiguration;

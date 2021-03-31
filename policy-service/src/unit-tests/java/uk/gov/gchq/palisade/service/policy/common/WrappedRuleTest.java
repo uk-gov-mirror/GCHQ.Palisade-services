@@ -23,10 +23,11 @@ import uk.gov.gchq.palisade.service.policy.common.rule.WrappedRule;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class WrappedRuleTest {
+@SuppressWarnings("java:S5778")
+class WrappedRuleTest {
 
     @Test
-    public void testArgumentWithNoErrors() {
+    void testArgumentWithNoErrors() {
         // Given
         WrappedRule<String> rule1 = new WrappedRule<>(new TestRule(), null, null);
         WrappedRule<String> rule2 = new WrappedRule<>(null, o -> o, null);

@@ -26,9 +26,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 class RulesTest {
     private final ObjectMapper mapper = new ObjectMapper();
 
-
     @Test
-    public void testThatUpdatingDifferentRules() {
+    void testThatUpdatingDifferentRules() {
         // Given
         final Rules<String> ruleOne = new Rules<>();
         ruleOne.addRule("ruleOne", new TestRule());
@@ -43,7 +42,7 @@ class RulesTest {
     }
 
     @Test
-    public void testUpdatingTheSameRule() {
+    void testUpdatingTheSameRule() {
         final Rules<String> ruleOne = new Rules<>();
         ruleOne.addRule("one", new TestRule());
 
@@ -56,7 +55,7 @@ class RulesTest {
     }
 
     @Test
-    public void testSerialisingRuleEqualsString() throws JsonProcessingException {
+    void testSerialisingRuleEqualsString() throws JsonProcessingException {
         var rules = new Rules<String>()
                 .message("Age off and visibility filtering")
                 .addRule("ageOffRule", new TestRule()

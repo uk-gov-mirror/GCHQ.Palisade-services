@@ -38,6 +38,8 @@
         <alpakka.version>2.0.4</alpakka.version>
         <caffeine.version>2.8.1</caffeine.version>
         <commons-lang3.version>3.8.1</commons-lang3.version>
+        <commons-io.version>1.3.2</commons-io.version>
+
 
         <!-- Test dependency versions -->
         <testcontainers.version>1.14.3</testcontainers.version>
@@ -82,6 +84,11 @@
             <artifactId>commons-lang3</artifactId>
             <version>${commons-lang3.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons-io.version}</version>
+        </dependency>
         <!--
         ~ Spring Boot
         -->
@@ -115,14 +122,6 @@
         <!--
         ~ Test Dependencies
         -->
-        <dependency>
-            <!-- Palisade test rules -->
-            <groupId>uk.gov.gchq.palisade</groupId>
-            <artifactId>common</artifactId>
-            <version>0.5.0-${common.revision}</version>
-            <classifier>tests</classifier>
-            <scope>test</scope>
-        </dependency>
         <dependency>
             <!-- SpringBootTest -->
             <groupId>org.springframework.boot</groupId>

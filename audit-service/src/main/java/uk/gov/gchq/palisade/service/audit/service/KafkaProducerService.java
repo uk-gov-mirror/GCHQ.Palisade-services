@@ -29,7 +29,7 @@ import org.springframework.http.ResponseEntity;
 
 import uk.gov.gchq.palisade.service.audit.model.AuditErrorMessage;
 import uk.gov.gchq.palisade.service.audit.model.AuditSuccessMessage;
-import uk.gov.gchq.palisade.service.audit.model.Token;
+import uk.gov.gchq.palisade.service.audit.common.Token;
 import uk.gov.gchq.palisade.service.audit.stream.ConsumerTopicConfiguration;
 import uk.gov.gchq.palisade.service.audit.stream.ProducerTopicConfiguration.Topic;
 

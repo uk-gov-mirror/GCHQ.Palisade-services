@@ -277,7 +277,7 @@ class RedisPersistenceTest {
 
         @Override
         public void initialize(@NotNull final ConfigurableApplicationContext context) {
-            context.getEnvironment().setActiveProfiles("redis", "akkatest");
+            context.getEnvironment().setActiveProfiles("redis", "akka-test");
             // Start container
             REDIS.start();
 
@@ -297,7 +297,7 @@ class RedisPersistenceTest {
 
         @Override
         public void initialize(final ConfigurableApplicationContext configurableApplicationContext) {
-            configurableApplicationContext.getEnvironment().setActiveProfiles("redis", "akkatest");
+            configurableApplicationContext.getEnvironment().setActiveProfiles("redis", "akka-test");
             kafka.addEnv("KAFKA_AUTO_CREATE_TOPICS_ENABLE", "false");
             kafka.addEnv("KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR", "1");
             kafka.start();
