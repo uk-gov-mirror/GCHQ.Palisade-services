@@ -75,7 +75,6 @@
             <artifactId>akka-discovery_${scala.version}</artifactId>
             <version>${akka.version}</version>
         </dependency>
-
         <!--
         ~ Apache Dependencies
         -->

@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
 
-import uk.gov.gchq.palisade.service.resource.common.Context;
+import uk.gov.gchq.palisade.reader.common.Context;
 import uk.gov.gchq.palisade.service.resource.common.Generated;
 
 import java.util.Map;

@@ -50,7 +50,7 @@ class ResourceBuilderTest {
         assertThat(exception)
                 .as("Check that the message attached appropriately describes the exception")
                 .extracting(Throwable::getMessage)
-                .isEqualTo("No enum constant uk.gov.gchq.palisade.service.policy.common.util.ResourceBuilder.Scheme.BADSCHEMA");
+                .isEqualTo("No enum constant uk.gov.gchq.palisade.service.topicoffset.common.util.ResourceBuilder.Scheme.BADSCHEMA");
     }
 
     @Test

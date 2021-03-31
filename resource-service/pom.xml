@@ -67,6 +67,13 @@
             <artifactId>hadoop-resource</artifactId>
             <version>0.5.0-${readers.revision}</version>
         </dependency>
+        <dependency>
+            <!-- Readers Common to contain common data service code -->
+            <groupId>uk.gov.gchq.palisade</groupId>
+            <artifactId>readers-common</artifactId>
+            <version>0.5.0-${readers.revision}</version>
+        </dependency>
+
         <!--
         ~ Akka and Alpakka (Kafka)
         -->
@@ -122,7 +129,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis-reactive</artifactId>
         </dependency>
-
         <!--
         ~ Test dependencies
         -->

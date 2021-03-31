@@ -21,7 +21,7 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 
-import uk.gov.gchq.palisade.service.resource.common.UserId;
+import uk.gov.gchq.palisade.reader.common.UserId;
 
 import java.io.IOException;
 

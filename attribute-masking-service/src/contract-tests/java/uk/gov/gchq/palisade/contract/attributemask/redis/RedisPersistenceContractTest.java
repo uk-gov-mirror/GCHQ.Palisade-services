@@ -47,8 +47,6 @@ import org.testcontainers.containers.KafkaContainer;
 import uk.gov.gchq.palisade.contract.attributemask.ContractTestData;
 import uk.gov.gchq.palisade.service.attributemask.AttributeMaskingApplication;
 import uk.gov.gchq.palisade.service.attributemask.domain.AuthorisedRequestEntity;
-import uk.gov.gchq.palisade.service.attributemask.model.AttributeMaskingRequest;
-import uk.gov.gchq.palisade.service.attributemask.repository.AuthorisedRequestsRepository;
 import uk.gov.gchq.palisade.service.attributemask.service.AttributeMaskingService;
 import uk.gov.gchq.palisade.service.attributemask.stream.PropertiesConfigurer;
 
@@ -71,7 +69,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 )
 @Import({RedisPersistenceContractTest.KafkaInitializer.Config.class})
 @ContextConfiguration(initializers = {RedisPersistenceContractTest.KafkaInitializer.class, RedisPersistenceContractTest.RedisInitializer.class})
-@ActiveProfiles({"redis", "akka-test", "debug"})
+@ActiveProfiles({"redis", "akka-test"})
 class RedisPersistenceContractTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(RedisPersistenceContractTest.class);
 
@@ -110,7 +108,7 @@ class RedisPersistenceContractTest {
         service.storeAuthorisedRequest(token, request).join();
 
         // Then the request is persisted in redis
-       var redisKey = "AuthorisedRequestEntity:" + new AuthorisedRequestEntity.AuthorisedRequestEntityId(token, request.getResourceId()).getUniqueId();
+        var redisKey = "AuthorisedRequestEntity:" + new AuthorisedRequestEntity.AuthorisedRequestEntityId(token, request.getResourceId()).getUniqueId();
 
         assertThat(redisTemplate.keys(redisKey))
                 .as("Check that the key is stored in the redisTemplate")

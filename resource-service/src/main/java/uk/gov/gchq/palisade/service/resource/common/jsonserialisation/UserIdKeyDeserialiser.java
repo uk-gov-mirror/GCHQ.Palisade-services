@@ -19,7 +19,7 @@ package uk.gov.gchq.palisade.service.resource.common.jsonserialisation;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.KeyDeserializer;
 
-import uk.gov.gchq.palisade.service.resource.common.UserId;
+import uk.gov.gchq.palisade.reader.common.UserId;
 
 import java.io.IOException;
 

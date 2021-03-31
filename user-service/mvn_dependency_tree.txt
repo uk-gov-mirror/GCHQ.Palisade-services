@@ -71,6 +71,8 @@ uk.gov.gchq.palisade:user-service:jar:0.5.0-SNAPSHOT
 |     |  \- io.netty:netty-codec:jar:4.1.50.Final:compile
 |     +- io.netty:netty-transport:jar:4.1.50.Final:compile
 |     \- io.projectreactor:reactor-core:jar:3.3.6.RELEASE:compile
++- commons-io:commons-io:jar:2.6:compile
++- org.apache.commons:commons-lang3:jar:3.8.1:compile
 +- org.springframework.boot:spring-boot-starter-test:jar:2.3.1.RELEASE:test
 |  +- org.springframework.boot:spring-boot-test:jar:2.3.1.RELEASE:test
 |  +- org.springframework.boot:spring-boot-test-autoconfigure:jar:2.3.1.RELEASE:test

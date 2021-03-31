@@ -216,8 +216,6 @@ public class JSONSerialiser {
 
         mapper.registerModule(ResourceKeySerialiser.getModule());
 
-        mapper.registerModule(UserIdKeySerialiser.getModule());
-
         // Use the 'setFilters' method so it is compatible with older versions of jackson
         mapper.setFilterProvider(getFilterProvider());
 

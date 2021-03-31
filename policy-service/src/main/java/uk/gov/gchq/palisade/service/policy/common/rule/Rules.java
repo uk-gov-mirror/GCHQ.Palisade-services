@@ -17,9 +17,6 @@
 package uk.gov.gchq.palisade.service.policy.common.rule;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import uk.gov.gchq.palisade.service.policy.common.Generated;
 
@@ -48,8 +45,6 @@ public class Rules<T extends Serializable> implements Serializable {
 
     private String message;
     private LinkedHashMap<String, Rule<T>> rulesMap;
-    private final ObjectMapper objectMapper = new ObjectMapper();
-    private static final Logger LOGGER = LoggerFactory.getLogger(Rules.class);
 
     /**
      * Constructs an empty instance of Rules.

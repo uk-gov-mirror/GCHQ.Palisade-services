@@ -47,14 +47,14 @@ import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.KafkaContainer;
 import reactor.core.publisher.Flux;
 
+import uk.gov.gchq.palisade.reader.common.Context;
+import uk.gov.gchq.palisade.reader.common.SimpleConnectionDetail;
+import uk.gov.gchq.palisade.reader.common.User;
+import uk.gov.gchq.palisade.reader.common.resource.LeafResource;
+import uk.gov.gchq.palisade.reader.common.resource.impl.DirectoryResource;
+import uk.gov.gchq.palisade.reader.common.resource.impl.FileResource;
+import uk.gov.gchq.palisade.reader.common.util.ResourceBuilder;
 import uk.gov.gchq.palisade.service.resource.ResourceApplication;
-import uk.gov.gchq.palisade.service.resource.common.Context;
-import uk.gov.gchq.palisade.service.resource.common.User;
-import uk.gov.gchq.palisade.service.resource.common.resource.LeafResource;
-import uk.gov.gchq.palisade.service.resource.common.resource.impl.DirectoryResource;
-import uk.gov.gchq.palisade.service.resource.common.resource.impl.FileResource;
-import uk.gov.gchq.palisade.service.resource.common.service.SimpleConnectionDetail;
-import uk.gov.gchq.palisade.service.resource.common.util.ResourceBuilder;
 import uk.gov.gchq.palisade.service.resource.model.AuditableResourceResponse;
 import uk.gov.gchq.palisade.service.resource.model.ResourceRequest;
 import uk.gov.gchq.palisade.service.resource.repository.ReactivePersistenceLayer;
@@ -319,9 +319,9 @@ class RedisPersistenceTest {
         public static class Config {
 
             private final List<NewTopic> topics = List.of(
-                    new NewTopic("resource", 3, (short) 1),
-                    new NewTopic("user", 3, (short) 1),
-                    new NewTopic("error", 3, (short) 1));
+                    new NewTopic("resource", 1, (short) 1),
+                    new NewTopic("user", 1, (short) 1),
+                    new NewTopic("error", 1, (short) 1));
 
             @Bean
             KafkaContainer kafkaContainer() throws ExecutionException, InterruptedException {
