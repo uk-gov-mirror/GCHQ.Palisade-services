@@ -45,7 +45,7 @@ class ResourceRequestTest {
                 .isEqualTo(resourceRequest);
 
         assertThat(actualInstance)
-                .as("Ignoring the error, check %s using recursion)", resourceRequest.getClass().getSimpleName())
+                .as("Using recursion, check that the %s object has been deserialised successfully", resourceRequest.getClass().getSimpleName())
                 .usingRecursiveComparison()
                 .isEqualTo(resourceRequest);
     }

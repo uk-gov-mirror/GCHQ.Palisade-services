@@ -35,49 +35,51 @@ class SimpleResourceServiceTest {
 
     @Test
     void testJavaFilesInUnitTest() throws IOException {
-        // Given
+        // Given we create a file and add it to the service
         var unitTestJava = (DirectoryResource) ResourceBuilder.create(new File("./src/unit-tests/java").getCanonicalFile().toURI());
         var resource = (LeafResource) ResourceBuilder.create(
-                new File("./src/unit-tests/java/uk/gov/gchq/palisade/service/resource/ApplicationTestData.java").getCanonicalFile().toURI()
-        );
+                new File("./src/unit-tests/java/uk/gov/gchq/palisade/service/resource/ApplicationTestData.java").getCanonicalFile().toURI());
+
         resource.type("java.lang.String").serialisedFormat("java").connectionDetail(new SimpleConnectionDetail().serviceName("data-service"));
         Set<LeafResource> testFiles = new HashSet<>();
 
-        // When
+        // When we get the file by the ID of the directory
         service.getResourcesById(unitTestJava.getId()).forEachRemaining(testFiles::add);
 
-        // Then
+        // Then its been retrieved successfully
         assertThat(testFiles)
-                .as("Check that when getting a resource by its ID, the correct resource is returned")
+                .as("Check that the returned file is in the list returned")
                 .contains(resource);
     }
 
     @Test
     void testCanFindTestResourceAvro() throws IOException {
-        // Given
+        // Given we create a avro file
         var avroFileURI = new File("./src/unit-tests/resources/test_resource.avro").getCanonicalFile().toURI();
         var testResourceAvro = (LeafResource) ResourceBuilder.create(avroFileURI);
         var testResourceDir = (DirectoryResource) testResourceAvro.getParent();
 
-        // Given
+        // Given we add the avro to our list of expected returned files
         var expectedAvroResource = FunctionalIterator.fromIterator(service.query(avroFileURI, x -> true));
         var leafResource = expectedAvroResource.next();
 
-        // When
+        // When we request the avro by passing in the id of its directory
         var resourcesById = FunctionalIterator.fromIterator(service.getResourcesById(testResourceDir.getId()))
                 .filter(resource -> resource.getSerialisedFormat().equals("avro"));
 
-        // Then
+        // Then it has been retrieved successfully
         assertThat(resourcesById.next())
-                .as("Check that when getting resource by ID, the correct resource is returned")
+                .as("Check that the file has been returned successfully")
+                .usingRecursiveComparison()
                 .isEqualTo(leafResource);
 
-        // When
+        // When we get the resource by its serialised format
         var resourcesByFormat = FunctionalIterator.fromIterator(service.getResourcesBySerialisedFormat(leafResource.getSerialisedFormat()))
                 .filter(resource -> resource.getId().equals(leafResource.getId()));
 
         assertThat(resourcesByFormat.next())
-                .as("Check that when getting resource by its format, the correct resource is returned")
+                .as("Check that the file has been returned successfully")
+                .usingRecursiveComparison()
                 .isEqualTo(leafResource);
     }
 }

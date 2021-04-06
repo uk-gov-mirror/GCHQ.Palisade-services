@@ -34,7 +34,7 @@ class AuditErrorMessageTest extends AbstractSerialisationTest {
      * Takes the JSON Object, deserialises and tests against the original Object
      *
      * @throws Exception if any error occurs during (de)serialisation
-     * @see AbstractSerialisationTest#testInstance(Object)
+     * @see AbstractSerialisationTest#assertSerialisation(Class, Object)
      */
     @Test
     void testAuditErrorMessageSerialisation() throws Exception {

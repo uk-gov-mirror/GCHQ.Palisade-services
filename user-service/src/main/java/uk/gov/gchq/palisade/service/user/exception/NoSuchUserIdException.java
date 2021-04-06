@@ -22,8 +22,7 @@ import uk.gov.gchq.palisade.service.user.common.UserId;
 import uk.gov.gchq.palisade.service.user.service.UserService;
 
 /**
- * A {@code NoSuchUserIdException} is a {@link RuntimeException} thrown by a
- * {@link UserService} implementation to
+ * A {@code NoSuchUserIdException} is a {@link RuntimeException} thrown by a {@link UserService} implementation to
  * indicate that the requested {@link UserId} doesn't exist,
  * or is not known to that {@code Service} instance.
  */

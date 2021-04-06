@@ -55,9 +55,8 @@ class ResourceResponseTest {
                 .isEqualTo(resourceResponse);
 
         assertThat(actualInstance)
-                .as("Ignoring the error, check %s using recursion)", resourceResponse.getClass().getSimpleName())
+                .as("Using recursion, check that the %s object has been deserialised successfully", resourceResponse.getClass().getSimpleName())
                 .usingRecursiveComparison()
                 .isEqualTo(resourceResponse);
     }
-
 }

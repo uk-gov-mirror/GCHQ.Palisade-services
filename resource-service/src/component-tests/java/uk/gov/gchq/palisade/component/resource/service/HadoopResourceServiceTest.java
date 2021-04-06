@@ -24,7 +24,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import uk.gov.gchq.palisade.reader.common.ConnectionDetail;
 import uk.gov.gchq.palisade.reader.common.SimpleConnectionDetail;
 import uk.gov.gchq.palisade.reader.common.resource.ChildResource;
 import uk.gov.gchq.palisade.reader.common.resource.LeafResource;
@@ -43,13 +42,10 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class HadoopResourceServiceTest {
@@ -92,7 +88,7 @@ class HadoopResourceServiceTest {
         writeFile(fs, dir, FILE_NAME_VALUE_00001, FORMAT_VALUE, TYPE_VALUE);
         writeFile(fs, dir, FILE_NAME_VALUE_00002, FORMAT_VALUE, TYPE_VALUE);
 
-        ConnectionDetail connectionDetail = new SimpleConnectionDetail().serviceName("data-service-mock");
+        var connectionDetail = new SimpleConnectionDetail().serviceName("data-service-mock");
         id1 = dir.resolve(getFileNameFromResourceDetails(FILE_NAME_VALUE_00001, TYPE_VALUE, FORMAT_VALUE));
         resource1 = ((LeafResource) ResourceBuilder.create(id1))
                 .type(TYPE_CLASSNAME)
@@ -119,8 +115,9 @@ class HadoopResourceServiceTest {
         resourcesById.forEachRemaining(resultList::add);
 
         // Then assert that the expected resource(s) are returned
-        List<LeafResource> expected = Collections.singletonList(resource1);
-        assertThat(resultList).isEqualTo(expected);
+        assertThat(resultList)
+                .as("Check that when I get a resource by its Id, the correct resource is returned")
+                .containsOnly(resource1);
     }
 
     @Test
@@ -129,11 +126,14 @@ class HadoopResourceServiceTest {
 
         // When making a get request to the resource service by resourceId
         final URI found = new URI(HDFS, "/unknownDir" + id1.getPath(), null);
-        Exception exception = assertThrows(Exception.class,
+        var exception = assertThrows(Exception.class,
                 () -> resourceService.getResourcesById(found.toString()), HadoopResourceService.ERROR_OUT_SCOPE);
 
+        var outOfScope = String.format(HadoopResourceService.ERROR_OUT_SCOPE, found, config.get(CommonConfigurationKeysPublic.FS_DEFAULT_NAME_KEY));
         // Then assert the expected error message is returned
-        assertThat(String.format(HadoopResourceService.ERROR_OUT_SCOPE, found, config.get(CommonConfigurationKeysPublic.FS_DEFAULT_NAME_KEY))).isEqualTo(exception.getMessage());
+        assertThat(outOfScope)
+                .as("Check that when I try to get a resource in an unknown directory, the correct error message is thrown")
+                .isEqualTo(exception.getMessage());
     }
 
     @Test
@@ -146,8 +146,9 @@ class HadoopResourceServiceTest {
         resourcesById.forEachRemaining(resultList::add);
 
         // Then assert that the expected resource(s) are returned
-        List<LeafResource> expected = Arrays.asList(resource1, resource2);
-        assertThat(resultList.size()).isEqualTo(expected.size());
+        assertThat(resultList)
+                .as("Check that when I get resources by the Id of the directory, the correct resources are returned")
+                .containsOnly(resource1, resource2);
     }
 
     @Test
@@ -161,8 +162,9 @@ class HadoopResourceServiceTest {
         resourcesById.forEachRemaining(resourceList::add);
 
         // Then assert that the expected resource(s) are returned
-        List<LeafResource> expected = Arrays.asList(resource1, resource2);
-        assertThat(resourceList.size()).isEqualTo(expected.size());
+        assertThat(resourceList)
+                .as("Check that when I get resources by the Id of the directory, the correct resources are returned")
+                .containsOnly(resource1, resource2);
     }
 
     @Test
@@ -177,8 +179,9 @@ class HadoopResourceServiceTest {
         resourcesByType.forEachRemaining(resultList::add);
 
         // Then assert that the expected resource(s) are returned
-        List<LeafResource> expected = Arrays.asList(resource1, resource2);
-        assertThat(resultList.size()).isEqualTo(expected.size());
+        assertThat(resultList)
+                .as("Check that when I get resources by their type, the correct resources are returned")
+                .containsOnly(resource1, resource2);
     }
 
     @Test
@@ -192,8 +195,9 @@ class HadoopResourceServiceTest {
         resourcesBySerialisedFormat.forEachRemaining(resultList::add);
 
         // Then assert that the expected resource(s) are returned
-        List<LeafResource> expected = Arrays.asList(resource1, resource2);
-        assertThat(resultList.size()).isEqualTo(expected.size());
+        assertThat(resultList)
+                .as("Check that when I get resources by their format, the correct resources are returned")
+                .containsOnly(resource1, resource2);
 
     }
 
@@ -207,14 +211,16 @@ class HadoopResourceServiceTest {
         resourcesByResource.forEachRemaining(resultList::add);
 
         // Then assert that the expected resource(s) are returned
-        List<LeafResource> expected = Arrays.asList(resource1, resource2);
-        assertThat(resultList.size()).isEqualTo(expected.size());
+        assertThat(resultList)
+                .as("Check that when I get resources by the same resource, the correct resources are returned")
+                .containsOnly(resource1, resource2);
     }
 
     @Test
     void testAddResource() {
-        boolean success = resourceService.addResource(null);
-        assertThat(success).isFalse();
+        assertThat(resourceService.addResource(null))
+                .as("Check that when adding a invalid resource, the correct response is returned")
+                .isFalse();
     }
 
     @Test
@@ -225,40 +231,45 @@ class HadoopResourceServiceTest {
         final ParentResource parent1 = fileResource.getParent();
 
         assertThat(dir.resolve("folder1/folder2/"))
+                .as("Check the URI of the parent is the correct URI")
                 .hasToString(parent1.getId());
-        assertAll(
-                () -> assertThat(parent1).isInstanceOf(ChildResource.class),
-                () -> assertThat(parent1).isInstanceOf(DirectoryResource.class)
-        );
+
+        assertThat(parent1)
+                .as("Check that the ParentResource has been instantiated correctly")
+                .isInstanceOf(ChildResource.class)
+                .isInstanceOf(DirectoryResource.class);
 
         final ChildResource child = (ChildResource) parent1;
-
         final ParentResource parent2 = child.getParent();
 
         assertThat(dir.resolve("folder1/"))
+                .as("Check that the URI of the parent is the correct URI")
                 .hasToString(parent2.getId());
-        assertAll(
-                () -> assertThat(parent2).isInstanceOf(ChildResource.class),
-                () -> assertThat(parent2).isInstanceOf(DirectoryResource.class)
-        );
+
+        assertThat(parent2)
+                .as("Check that the ParentResource has been instantiated correctly")
+                .isInstanceOf(ChildResource.class)
+                .isInstanceOf(DirectoryResource.class);
 
         final ChildResource child2 = (ChildResource) parent2;
 
         final ParentResource parent3 = child2.getParent();
 
         assertThat(dir)
+                .as("Check that the URI returned is the correct parent id")
                 .hasToString(parent3.getId());
-        assertAll(
-                () -> assertThat(parent3).isInstanceOf(ChildResource.class),
-                () -> assertThat(parent3).isInstanceOf(DirectoryResource.class)
-        );
+
+        assertThat(parent3)
+                .as("Check that the ParentResource has been instantiated correctly")
+                .isInstanceOf(ChildResource.class)
+                .isInstanceOf(DirectoryResource.class);
 
 
         final ChildResource child3 = (ChildResource) parent3;
-
         final ParentResource parent4 = child3.getParent();
 
         assertThat(root)
+                .as("Check the URI of the root is correct")
                 .hasToString(parent4.getId());
     }
 
