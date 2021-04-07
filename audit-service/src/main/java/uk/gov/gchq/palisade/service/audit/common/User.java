@@ -29,7 +29,7 @@ import java.util.StringJoiner;
 import static java.util.Objects.requireNonNull;
 
 /**
- * A {@link User} contains the details about a user of Palisade.
+ * A User contains the details about a user of Palisade.
  * It contains their unique user ID {@link UserId}, their roles and their auths.
  * The user roles are based on the role or function of the user's job.
  * For example it could be used for deciding what actions users are allowed to perform, such as READ/WRITE.
@@ -48,16 +48,16 @@ public class User implements Serializable {
     private Set<String> auths = new HashSet<>();
 
     /**
-     * Constructs an empty User.
+     * Constructs an empty {@link User}.
      */
     public User() {
         //no-args constructor needed for serialization only
     }
 
     /**
-     * Copy constructor for a User.
+     * Copy constructor for a {@link User}.
      *
-     * @param user the User that will be copied.
+     * @param user the {@link User} that will be copied.
      */
     User(final User user) {
         requireNonNull(user, "User to be cloned cannot be null");
@@ -159,31 +159,31 @@ public class User implements Serializable {
     }
 
     @Generated
-    public void setUserId(final UserId userId) {
+    public final void setUserId(final UserId userId) {
         requireNonNull(userId);
         this.userId = userId;
     }
 
     @Generated
     public Set<String> getRoles() {
-        return roles;
+        return new HashSet<>(roles);
     }
 
     @Generated
-    public void setRoles(final Set<String> roles) {
+    public final void setRoles(final Set<String> roles) {
         requireNonNull(roles);
-        this.roles = roles;
+        this.roles = new HashSet<>(roles);
     }
 
     @Generated
     public Set<String> getAuths() {
-        return auths;
+        return new HashSet<>(auths);
     }
 
     @Generated
-    public void setAuths(final Set<String> auths) {
+    public final void setAuths(final Set<String> auths) {
         requireNonNull(auths);
-        this.auths = auths;
+        this.auths = new HashSet<>(auths);
     }
 
     @JsonGetter("class")
