@@ -23,6 +23,8 @@ import uk.gov.gchq.palisade.service.attributemask.common.User;
 import java.io.Serializable;
 
 public class HasSensitiveAuthRule<T extends Serializable> implements Serializable, Rule<T> {
+    private static final long serialVersionUID = 1L;
+
     @Override
     public T apply(final T record, final User user, final Context context) {
         if (user.getAuths().contains("Sensitive")) {

@@ -29,7 +29,6 @@ import org.springframework.core.serializer.support.SerializationFailedException;
 import uk.gov.gchq.palisade.service.audit.common.Token;
 import uk.gov.gchq.palisade.service.audit.model.AuditErrorMessage;
 import uk.gov.gchq.palisade.service.audit.model.AuditSuccessMessage;
-import uk.gov.gchq.palisade.service.audit.model.Token;
 
 import java.util.function.Function;
 import java.util.function.Supplier;

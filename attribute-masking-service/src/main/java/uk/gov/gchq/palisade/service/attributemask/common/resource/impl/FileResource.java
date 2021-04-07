@@ -24,6 +24,9 @@ import uk.gov.gchq.palisade.service.attributemask.common.service.ConnectionDetai
 import java.io.Serializable;
 import java.util.Map;
 
+/**
+ * A FileResource represents a file stored in a storage technology somewhere that will be accessed by Palisade
+ */
 public class FileResource extends AbstractLeafResource {
     private static final long serialVersionUID = 1L;
 

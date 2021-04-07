@@ -48,15 +48,30 @@ public class Context {
     private static final String PURPOSE = "purpose";
     private Map<String, Object> contents;
 
+    /**
+     * Create a new context object with an empty hashMap of attributes
+     */
     public Context() {
         this(new HashMap<>());
     }
 
+    /**
+     * Create a new context object, passing in a map of attributes
+     *
+     * @param contents a map of attributes, containing a purpose
+     */
     @JsonCreator
+    @SuppressWarnings("java:S1699")
     public Context(@JsonProperty("contents") final Map<String, Object> contents) {
         this.setContents(contents);
     }
 
+    /**
+     * Sets the contents of this Context object
+     *
+     * @param contents a map of contents that will be added to this class
+     * @return the Context class with attached contents
+     */
     @Generated
     public Context contents(final Map<String, Object> contents) {
         this.setContents(contents);
@@ -80,6 +95,12 @@ public class Context {
         return Collections.unmodifiableMap(contents);
     }
 
+    /**
+     * Adds a purpose, or reason for requesting data to the Context object.
+     *
+     * @param purpose a String containing why the User wants access to the data
+     * @return the Context object with the purpose attached to the contents object
+     */
     @JsonIgnore
     @Generated
     public Context purpose(final String purpose) {
@@ -87,6 +108,7 @@ public class Context {
         return this;
     }
 
+    @SuppressWarnings({"java:S112", "java:S1166"})
     @JsonIgnore
     public String getPurpose() {
         try {
@@ -96,11 +118,22 @@ public class Context {
         }
     }
 
+    /**
+     * Get the purpose by the key value in the map
+     *
+     * @param key the key value associated with the purpose
+     * @return the Object purpose associated with to the String key
+     */
     @Generated
     public Object get(final String key) {
         return contents.get(key);
     }
 
+    /**
+     * @param key
+     * @param value
+     * @return
+     */
     @Generated
     public Context put(final String key, final Object value) {
         requireNonNull(key, "The key cannot be null.");
