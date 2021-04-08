@@ -21,8 +21,6 @@ import com.fasterxml.jackson.databind.KeyDeserializer;
 
 import uk.gov.gchq.palisade.reader.common.UserId;
 
-import java.io.IOException;
-
 /**
  * A deseraliser class used for deseralising UserIds
  */
