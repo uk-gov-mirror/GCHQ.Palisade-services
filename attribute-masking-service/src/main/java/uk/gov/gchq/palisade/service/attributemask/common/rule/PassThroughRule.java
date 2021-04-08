@@ -16,13 +16,19 @@
 
 package uk.gov.gchq.palisade.service.attributemask.common.rule;
 
-
 import uk.gov.gchq.palisade.service.attributemask.common.Context;
 import uk.gov.gchq.palisade.service.attributemask.common.User;
 
 import java.io.Serializable;
 
-public class PassThroughRule<T extends Serializable> implements Serializable, Rule<T> {
+/**
+ * A Pass through rule that returns all records without filtering
+ *
+ * @param <T> The record to be returned
+ */
+public class PassThroughRule<T extends Serializable> implements Rule<T> {
+    private static final long serialVersionUID = 1L;
+
     @Override
     public T apply(final T record, final User user, final Context context) {
         return record;
