@@ -54,7 +54,7 @@ public class ManagedService implements Service {
     public boolean isHealthy() {
         Collection<URI> clientUris = this.uriSupplier.get();
         return clientUris.stream()
-                .map(clientUri -> {
+                .map((URI clientUri) -> {
                     int status = HttpStatus.NOT_FOUND.value();
                     try {
                         status = this.managedClient.getHealth(clientUri).status();
@@ -80,7 +80,7 @@ public class ManagedService implements Service {
     public void setLoggers(final String packageName, final String configuredLevel) throws IOException {
         Collection<URI> clientUris = this.uriSupplier.get();
         Optional<Response> failures = clientUris.stream()
-                .map(clientUri -> {
+                .map((URI clientUri) -> {
                     Response response = this.managedClient.setLoggers(clientUri, packageName, configuredLevel);
                     LOGGER.debug("Client uri {} responded with {}", clientUri, response);
                     return response;

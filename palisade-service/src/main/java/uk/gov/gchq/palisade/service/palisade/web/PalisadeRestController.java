@@ -59,6 +59,7 @@ public class PalisadeRestController {
      * @param request body {@link PalisadeClientRequest} of the request message
      * @return dataURL a unique URL to identify the data available for this request
      */
+    @SuppressWarnings("java:S2221") // Suppress specific exception code smell
     @PostMapping(value = "/registerDataRequest", consumes = "application/json", produces = "application/json")
     public ResponseEntity<PalisadeClientResponse> registerDataRequest(final @RequestBody PalisadeClientRequest request) {
         LOGGER.debug("registerDataRequest called with request {}", request);

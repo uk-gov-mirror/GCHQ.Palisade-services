@@ -50,6 +50,7 @@ import java.util.concurrent.Executor;
 @Configuration
 public class ApplicationConfiguration implements AsyncConfigurer {
     private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationConfiguration.class);
+    private static final int THREAD_POOL = 6;
 
     /**
      * A container for a number of {@link StdPolicyPrepopulationFactory} builders used for creating Policies
@@ -148,7 +149,7 @@ public class ApplicationConfiguration implements AsyncConfigurer {
     public Executor getAsyncExecutor() {
         ThreadPoolTaskExecutor ex = new ThreadPoolTaskExecutor();
         ex.setThreadNamePrefix("AppThreadPool-");
-        ex.setCorePoolSize(6);
+        ex.setCorePoolSize(THREAD_POOL);
         LOGGER.info("Starting ThreadPoolTaskExecutor with core = [{}] max = [{}]", ex.getCorePoolSize(), ex.getMaxPoolSize());
         return ex;
     }

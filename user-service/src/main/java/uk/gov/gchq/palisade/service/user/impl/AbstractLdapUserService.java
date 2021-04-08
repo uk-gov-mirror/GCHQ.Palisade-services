@@ -65,6 +65,8 @@ import static java.util.Objects.requireNonNull;
  * This implementation does not allow you to add users.
  * </p>
  */
+@SuppressWarnings({"java:S134", "java:S3776", "java:S1699", "java:S1068"})
+// Suppress nested ifs, cognitive complexity, private variable and try-with resources code smells
 public abstract class AbstractLdapUserService implements UserService {
     protected static final String[] ESCAPED_CHARS = new String[]{"\\", "#", "+", "<", ">", ";", "\"", "@", "(", ")", "*", "="};
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractLdapUserService.class);

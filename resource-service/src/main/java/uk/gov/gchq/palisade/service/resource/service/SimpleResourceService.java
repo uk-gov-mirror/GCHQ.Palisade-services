@@ -60,6 +60,7 @@ public class SimpleResourceService implements ResourceService {
         this.resourceType = resourceType;
     }
 
+    @SuppressWarnings("java:S2095") // Suppress try with resources code smell
     private static FunctionalIterator<File> filesOf(final Path path) {
         try {
             Stream<Path> filesWalk = Files.walk(path);
@@ -113,6 +114,7 @@ public class SimpleResourceService implements ResourceService {
         }
     }
 
+    @SuppressWarnings("java:S1166") // Suppress exception handling code smell
     private static URI filesystemURI(final String fileString) {
         try {
             return new File(fileString).getCanonicalFile().toURI();

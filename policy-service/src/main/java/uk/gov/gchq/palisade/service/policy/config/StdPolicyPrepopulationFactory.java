@@ -72,6 +72,7 @@ public class StdPolicyPrepopulationFactory implements PolicyPrepopulationFactory
         this.recordRules = recordRules;
     }
 
+    @SuppressWarnings("java:S2658") // Suppress dynamic class loading smell
     private static Rule createRule(final String rule) {
         try {
             LOGGER.debug("Adding rule {}", rule);

@@ -17,6 +17,7 @@
 package uk.gov.gchq.palisade.service.resource.service;
 
 import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.FileSystem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,9 +25,18 @@ import uk.gov.gchq.palisade.reader.common.resource.LeafResource;
 
 import java.io.IOException;
 
+/**
+ * Configuration class to create a Hadoop Resource Service
+ */
 public class ConfiguredHadoopResourceService extends HadoopResourceService {
     private static final Logger LOGGER = LoggerFactory.getLogger(ConfiguredHadoopResourceService.class);
 
+    /**
+     * Configuration constructor, taking in the hadoop config used to connect to hadoop
+     *
+     * @param configuration {@link org.apache.hadoop.conf.Configuration} configuration
+     * @throws IOException the {@link Exception} thrown when there is an issue getting the {@link FileSystem} from the {@link Configuration}
+     */
     public ConfiguredHadoopResourceService(final Configuration configuration) throws IOException {
         super(configuration);
     }

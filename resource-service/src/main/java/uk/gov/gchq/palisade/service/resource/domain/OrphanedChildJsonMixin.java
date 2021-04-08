@@ -20,7 +20,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import uk.gov.gchq.palisade.reader.common.resource.ParentResource;
 
-// Erase parent when storing entity clob, it will be rebuilt
+/**
+ * Erase parent when storing entity clob, it will be rebuilt
+ */
 public abstract class OrphanedChildJsonMixin {
     @JsonIgnore
     abstract ParentResource getParent();
