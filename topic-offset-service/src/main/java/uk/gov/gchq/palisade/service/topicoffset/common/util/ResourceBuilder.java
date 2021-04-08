@@ -37,21 +37,20 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
-//**
- *Provides a common set of utilities for constructing resources with all parents
-         *automatically constructed recursively.This primarily targets filesystem-like
-         *resources(Files,Directories etc.)
-         *Internally,the resourceId is converted to a URI.
-         *Can produce any of the following output types:
-         *-{@link FileResource}
-        *-{@link DirectoryResource}
-        *-{@link SystemResource}
-        *Any parents automatically constructed will also be from this collection.
-        *If another method of creating a resource is required(i.e.directly using strings)
-        *there is no guarantee that this can correctly resolve parents.Instead use the
-        *methods provided by the appropriate resource impl.
-        */
-
+/**
+ * Provides a common set of utilities for constructing resources with all parents
+ * automatically constructed recursively. This primarily targets filesystem-like
+ * resources (Files, Directories etc.)
+ * Internally, the resourceId is converted to a URI.
+ * Can produce any of the following output types:
+ * - {@link FileResource}
+ * - {@link DirectoryResource}
+ * - {@link SystemResource}
+ * Any parents automatically constructed will also be from this collection.
+ * If another method of creating a resource is required (i.e. directly using strings)
+ * there is no guarantee that this can correctly resolve parents. Instead use the
+ * methods provided by the appropriate resource impl.
+ */
 public class ResourceBuilder {
     private static final Logger LOGGER = LoggerFactory.getLogger(ResourceBuilder.class);
     private static final URI ROOT;
