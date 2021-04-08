@@ -25,7 +25,8 @@ import java.io.Serializable;
 import java.util.Map;
 
 /**
- * A FileResource represents a file stored in a storage technology somewhere that will be accessed by Palisade
+ * A FileResource is the Palisade representation of a file, which extends a LeafResource.
+ * {@code eg. "file:/dev/Palisade/pom.xml" = System "/" -> Directory "/dev/" -> Directory "/dev/Palisade/" -> File "/dev/Palisade/pom.xml" }
  */
 public class FileResource extends AbstractLeafResource {
     private static final long serialVersionUID = 1L;

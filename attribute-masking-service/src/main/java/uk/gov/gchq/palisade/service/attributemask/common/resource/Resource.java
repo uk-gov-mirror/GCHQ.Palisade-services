@@ -39,6 +39,12 @@ import java.io.Serializable;
 )
 public interface Resource extends Comparable<Resource>, Serializable {
 
+    /**
+     * Sets the id of the resource
+     *
+     * @param id a String value of the resources Id
+     * @return the id of the newly created resource
+     */
     Resource id(String id);
 
     String getId();

@@ -20,12 +20,15 @@ import uk.gov.gchq.palisade.service.policy.common.Context;
 import uk.gov.gchq.palisade.service.policy.common.User;
 import uk.gov.gchq.palisade.service.policy.common.resource.LeafResource;
 
-import java.io.Serializable;
+/**
+ * A Test rule created to filter out resources if the leafResources format is a txt format
+ */
+public class IsTextResourceRule implements Rule<LeafResource> {
+    private static final long serialVersionUID = 1L;
 
-public class IsTextResourceRule implements Serializable, Rule<LeafResource> {
     @Override
     public LeafResource apply(final LeafResource record, final User user, final Context context) {
-        if (record.getSerialisedFormat().equalsIgnoreCase("txt")) {
+        if ("txt".equalsIgnoreCase(record.getSerialisedFormat())) {
             return record;
         }
         return null;

@@ -23,7 +23,7 @@ import java.util.StringJoiner;
 import static java.util.Objects.requireNonNull;
 
 /**
- * A UserId uniquely identifies a {@link User}.
+ * A {@link UserId} uniquely identifies a {@link User}.
  */
 public class UserId implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -31,16 +31,16 @@ public class UserId implements Serializable {
     private String id;
 
     /**
-     * Constructs an empty UserId.
+     * Constructs an empty {@link UserId}.
      */
     public UserId() {
         //no-args constructor needed for serialization only
     }
 
     /**
-     * Copy constructor for a UserId.
+     * Copy constructor for a {@link UserId}.
      *
-     * @param userId the UserId that will be copied.
+     * @param userId the {@link UserId} that will be copied.
      */
     UserId(final UserId userId) {
         requireNonNull(userId, "UserId to be cloned cannot be null");
@@ -65,7 +65,7 @@ public class UserId implements Serializable {
     }
 
     @Generated
-    public void setId(final String id) {
+    public final void setId(final String id) {
         requireNonNull(id);
         this.id = id;
     }

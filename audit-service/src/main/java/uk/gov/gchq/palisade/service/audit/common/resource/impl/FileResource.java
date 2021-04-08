@@ -16,7 +16,6 @@
 
 package uk.gov.gchq.palisade.service.audit.common.resource.impl;
 
-
 import uk.gov.gchq.palisade.service.audit.common.resource.AbstractLeafResource;
 import uk.gov.gchq.palisade.service.audit.common.resource.ParentResource;
 import uk.gov.gchq.palisade.service.audit.common.service.ConnectionDetail;
@@ -24,6 +23,10 @@ import uk.gov.gchq.palisade.service.audit.common.service.ConnectionDetail;
 import java.io.Serializable;
 import java.util.Map;
 
+/**
+ * A FileResource is the Palisade representation of a file, which extends a LeafResource.
+ * {@code eg. "file:/dev/Palisade/pom.xml" = System "/" -> Directory "/dev/" -> Directory "/dev/Palisade/" -> File "/dev/Palisade/pom.xml" }
+ */
 public class FileResource extends AbstractLeafResource {
     private static final long serialVersionUID = 1L;
 

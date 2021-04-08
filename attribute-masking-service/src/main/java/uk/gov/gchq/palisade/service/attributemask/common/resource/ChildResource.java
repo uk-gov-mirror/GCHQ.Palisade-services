@@ -21,6 +21,7 @@ package uk.gov.gchq.palisade.service.attributemask.common.resource;
  * getter and setters to get the parent resource.
  */
 public interface ChildResource extends Resource {
+
     /**
      * Create a ChildResource and pass in its parent as {@link ParentResource}
      *

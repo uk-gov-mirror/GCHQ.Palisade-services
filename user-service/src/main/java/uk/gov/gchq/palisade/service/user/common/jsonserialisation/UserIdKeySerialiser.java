@@ -25,9 +25,15 @@ import uk.gov.gchq.palisade.service.user.common.UserId;
 
 import java.io.IOException;
 
+/**
+ * A seraliser class used for seralising UserIds
+ */
 public class UserIdKeySerialiser extends StdSerializer<UserId> {
     private static final long serialVersionUID = 1L;
 
+    /**
+     * A Seraliser constructor that loads the UserId class
+     */
     public UserIdKeySerialiser() {
         super(UserId.class);
     }

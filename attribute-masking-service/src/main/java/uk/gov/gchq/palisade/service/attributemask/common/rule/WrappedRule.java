@@ -75,6 +75,13 @@ public class WrappedRule<T extends Serializable> implements Rule<T> {
         this.predicate = predicate;
     }
 
+    /**
+     * A Seralisiable WrappedRule constuctor, taking the rule, function and predicate
+     *
+     * @param rule      the rule to be applied to the resource
+     * @param function  the simple {@link UnaryOperator} rule to wrap.
+     * @param predicate the simple {@link Predicate} rule to wrap.
+     */
     @JsonCreator
     public WrappedRule(@JsonProperty("rule") final Rule<T> rule,
                        @JsonProperty("function") final SerialisableUnaryOperator<T> function,

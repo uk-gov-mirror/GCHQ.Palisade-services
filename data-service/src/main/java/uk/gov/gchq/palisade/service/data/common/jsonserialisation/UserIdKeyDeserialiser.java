@@ -23,10 +23,12 @@ import uk.gov.gchq.palisade.reader.common.UserId;
 
 import java.io.IOException;
 
+/**
+ * A deseraliser class used for deseralising UserIds
+ */
 class UserIdKeyDeserialiser extends KeyDeserializer {
     @Override
-    public Object deserializeKey(final String key, final DeserializationContext ctxt)
-            throws IOException {
+    public Object deserializeKey(final String key, final DeserializationContext deserializationContext) {
         return JSONSerialiser.deserialise(key, UserId.class);
     }
 }

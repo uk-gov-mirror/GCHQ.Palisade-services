@@ -37,9 +37,9 @@ import java.io.Serializable;
 public interface ConnectionDetail extends Serializable {
 
     /**
-     * Creates the ConnectionDetail and returns the name of the Service
+     * Creates a default connection detail of the Service Name
      *
-     * @return the name of the service which is storing the resource
+     * @return a service name as a connection detail
      */
     String createConnection();
 
