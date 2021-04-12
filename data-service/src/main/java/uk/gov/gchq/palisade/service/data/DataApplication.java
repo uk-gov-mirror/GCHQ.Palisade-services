@@ -28,7 +28,7 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.event.EventListener;
 
-import uk.gov.gchq.palisade.reader.common.DataReader;
+import uk.gov.gchq.palisade.service.data.common.DataReader;
 import uk.gov.gchq.palisade.service.data.config.StdSerialiserConfiguration;
 import uk.gov.gchq.palisade.service.data.config.StdSerialiserPrepopulationFactory;
 import uk.gov.gchq.palisade.service.data.model.TokenMessagePair;
@@ -36,7 +36,7 @@ import uk.gov.gchq.palisade.service.data.service.AuditMessageService;
 import uk.gov.gchq.palisade.service.data.stream.ProducerTopicConfiguration;
 
 /**
- * Starter for the Data Service.  Will start the service and initalise all of the components needed to run the service.
+ * Starter for the Data Service.  Will start the service and initialise all the components needed to run the service.
  */
 @SpringBootApplication
 @EnableConfigurationProperties({ProducerTopicConfiguration.class})
@@ -88,7 +88,7 @@ public class DataApplication {
 
     /**
      * Performs the tasks that need to be done after Spring initialisation.  This includes the configuration of the
-     * serialiser and the starting of the Kafka consumer needed for sending audit messages to the Audit Service.
+     * serialiser, and the starting of the Kafka consumer needed for sending audit messages to the Audit Service.
      */
     @EventListener(ApplicationReadyEvent.class)
     public void initPostConstruct() {

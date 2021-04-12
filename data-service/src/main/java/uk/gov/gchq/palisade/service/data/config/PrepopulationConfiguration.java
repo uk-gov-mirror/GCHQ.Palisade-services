@@ -21,8 +21,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import uk.gov.gchq.palisade.reader.common.DataFlavour;
-import uk.gov.gchq.palisade.reader.common.data.seralise.Serialiser;
+import uk.gov.gchq.palisade.service.data.common.DataFlavour;
+import uk.gov.gchq.palisade.service.data.common.seralise.Serialiser;
 
 import java.util.Map;
 

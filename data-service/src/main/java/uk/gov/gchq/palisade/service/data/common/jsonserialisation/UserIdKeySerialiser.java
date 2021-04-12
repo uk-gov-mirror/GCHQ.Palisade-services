@@ -21,12 +21,12 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 
-import uk.gov.gchq.palisade.reader.common.UserId;
+import uk.gov.gchq.palisade.service.data.common.UserId;
 
 import java.io.IOException;
 
 /**
- * A seraliser class used for seralising UserIds
+ * A seraliser class used for serialising UserIds
  */
 public class UserIdKeySerialiser extends StdSerializer<UserId> {
     private static final long serialVersionUID = 1L;

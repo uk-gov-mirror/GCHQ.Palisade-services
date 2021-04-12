@@ -22,9 +22,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import uk.gov.gchq.palisade.reader.common.Context;
-import uk.gov.gchq.palisade.reader.exception.PalisadeRuntimeException;
+import uk.gov.gchq.palisade.service.resource.common.Context;
 import uk.gov.gchq.palisade.service.resource.common.Generated;
+import uk.gov.gchq.palisade.service.resource.exception.PalisadeRuntimeException;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;

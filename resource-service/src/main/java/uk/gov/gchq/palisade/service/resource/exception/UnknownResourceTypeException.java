@@ -17,7 +17,7 @@
 package uk.gov.gchq.palisade.service.resource.exception;
 
 
-import uk.gov.gchq.palisade.reader.common.resource.Resource;
+import uk.gov.gchq.palisade.service.resource.common.resource.Resource;
 
 /**
  * An {@code UnknownResourceType} is a {@link RuntimeException} thrown by the

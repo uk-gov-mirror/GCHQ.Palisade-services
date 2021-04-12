@@ -22,8 +22,8 @@ import org.junit.jupiter.api.Test;
 import uk.gov.gchq.palisade.reader.common.Context;
 import uk.gov.gchq.palisade.reader.common.SimpleConnectionDetail;
 import uk.gov.gchq.palisade.reader.common.User;
-import uk.gov.gchq.palisade.reader.common.resource.impl.FileResource;
-import uk.gov.gchq.palisade.reader.common.resource.impl.SystemResource;
+import uk.gov.gchq.palisade.service.data.common.resource.impl.FileResource;
+import uk.gov.gchq.palisade.service.data.common.resource.impl.SystemResource;
 import uk.gov.gchq.palisade.service.resource.model.ResourceResponse;
 
 import static org.assertj.core.api.Assertions.assertThat;

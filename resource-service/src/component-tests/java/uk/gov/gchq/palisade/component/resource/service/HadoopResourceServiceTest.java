@@ -24,13 +24,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import uk.gov.gchq.palisade.reader.common.SimpleConnectionDetail;
-import uk.gov.gchq.palisade.reader.common.resource.ChildResource;
-import uk.gov.gchq.palisade.reader.common.resource.LeafResource;
-import uk.gov.gchq.palisade.reader.common.resource.ParentResource;
-import uk.gov.gchq.palisade.reader.common.resource.impl.DirectoryResource;
-import uk.gov.gchq.palisade.reader.common.resource.impl.FileResource;
-import uk.gov.gchq.palisade.reader.common.util.ResourceBuilder;
+import uk.gov.gchq.palisade.service.resource.common.resource.ChildResource;
+import uk.gov.gchq.palisade.service.resource.common.resource.LeafResource;
+import uk.gov.gchq.palisade.service.resource.common.resource.ParentResource;
+import uk.gov.gchq.palisade.service.resource.common.resource.impl.DirectoryResource;
+import uk.gov.gchq.palisade.service.resource.common.resource.impl.FileResource;
+import uk.gov.gchq.palisade.service.resource.common.service.SimpleConnectionDetail;
+import uk.gov.gchq.palisade.service.resource.common.util.ResourceBuilder;
 import uk.gov.gchq.palisade.service.resource.service.HadoopResourceService;
 import uk.gov.gchq.palisade.service.resource.util.HadoopResourceDetails;
 

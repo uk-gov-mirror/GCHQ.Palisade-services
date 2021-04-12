@@ -23,10 +23,10 @@ package uk.gov.gchq.palisade.service.attributemask.common.resource;
 public interface ChildResource extends Resource {
 
     /**
-     * Create a ChildResource and pass in its parent as {@link ParentResource}
+     * Creates a child resource by specifying its parent
      *
-     * @param parent the parent of this Child Resource
-     * @return the Child Resource with its parent attached
+     * @param parent the parent of this ChildResource
+     * @return a ChildResource with a parent in its hierarchy
      */
     ChildResource parent(ParentResource parent);
 

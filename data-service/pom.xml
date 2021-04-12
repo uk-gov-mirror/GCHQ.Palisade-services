@@ -123,14 +123,6 @@
             <artifactId>hadoop-reader</artifactId>
             <version>0.5.0-${readers.revision}</version>
         </dependency>
-
-        <dependency>
-            <!-- Readers Common to contain common data service code -->
-            <groupId>uk.gov.gchq.palisade</groupId>
-            <artifactId>readers-common</artifactId>
-            <version>0.5.0-${readers.revision}</version>
-        </dependency>
-
         <!--
           Testing dependencies
         -->

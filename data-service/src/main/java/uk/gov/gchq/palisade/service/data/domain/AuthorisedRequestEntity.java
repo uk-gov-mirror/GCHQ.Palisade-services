@@ -19,11 +19,11 @@ import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.redis.core.RedisHash;
 import org.springframework.data.redis.core.index.Indexed;
 
-import uk.gov.gchq.palisade.reader.common.Context;
-import uk.gov.gchq.palisade.reader.common.User;
-import uk.gov.gchq.palisade.reader.common.resource.LeafResource;
-import uk.gov.gchq.palisade.reader.common.rule.Rules;
+import uk.gov.gchq.palisade.service.data.common.Context;
 import uk.gov.gchq.palisade.service.data.common.Generated;
+import uk.gov.gchq.palisade.service.data.common.User;
+import uk.gov.gchq.palisade.service.data.common.resource.LeafResource;
+import uk.gov.gchq.palisade.service.data.common.rule.Rules;
 
 import javax.persistence.Column;
 import javax.persistence.Convert;

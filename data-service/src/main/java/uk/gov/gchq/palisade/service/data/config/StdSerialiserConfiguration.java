@@ -16,8 +16,8 @@
 
 package uk.gov.gchq.palisade.service.data.config;
 
-import uk.gov.gchq.palisade.reader.common.data.seralise.Serialiser;
 import uk.gov.gchq.palisade.service.data.common.Generated;
+import uk.gov.gchq.palisade.service.data.common.seralise.Serialiser;
 
 import java.util.ArrayList;
 import java.util.Collections;

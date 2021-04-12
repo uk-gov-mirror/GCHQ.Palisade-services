@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
 
-import uk.gov.gchq.palisade.reader.common.Context;
+import uk.gov.gchq.palisade.service.resource.common.Context;
 import uk.gov.gchq.palisade.service.resource.common.Generated;
 
 import java.util.Map;
@@ -30,7 +30,7 @@ import java.util.StringJoiner;
 /**
  * Represents information for an error that has occurred during the processing of a request. This information is
  * forwarded to the audit-service.
- * Note all of the services can potentially send an error message.
+ * Note all the services can potentially send an error message.
  */
 public final class AuditErrorMessage extends AuditMessage {
 

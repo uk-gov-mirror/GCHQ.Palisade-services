@@ -28,9 +28,9 @@ import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 import org.springframework.lang.Nullable;
 
-import uk.gov.gchq.palisade.reader.common.resource.ChildResource;
-import uk.gov.gchq.palisade.reader.common.resource.Resource;
 import uk.gov.gchq.palisade.service.resource.common.Generated;
+import uk.gov.gchq.palisade.service.resource.common.resource.ChildResource;
+import uk.gov.gchq.palisade.service.resource.common.resource.Resource;
 
 import java.io.Serializable;
 import java.util.StringJoiner;
@@ -40,7 +40,7 @@ import java.util.StringJoiner;
  * In this case the ResourceID and ResourceEntity make up the key
  * This contains all objects that will be inserted into the database, including how they are serialised and indexed
  */
-@Table("resources")
+@Table("src/main/resources")
 public class ResourceEntity implements Serializable, Persistable<String> {
     private static final long serialVersionUID = 1L;
 

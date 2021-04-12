@@ -23,9 +23,9 @@ import akka.stream.javadsl.Source;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import uk.gov.gchq.palisade.reader.common.ResourcePrepopulationFactory;
-import uk.gov.gchq.palisade.reader.common.ResourceService;
-import uk.gov.gchq.palisade.reader.common.resource.LeafResource;
+import uk.gov.gchq.palisade.service.resource.common.resource.LeafResource;
+import uk.gov.gchq.palisade.service.resource.common.service.ResourcePrepopulationFactory;
+import uk.gov.gchq.palisade.service.resource.common.service.ResourceService;
 import uk.gov.gchq.palisade.service.resource.exception.NoSuchResourceException;
 import uk.gov.gchq.palisade.service.resource.model.AuditErrorMessage;
 import uk.gov.gchq.palisade.service.resource.model.AuditableResourceResponse;
@@ -64,7 +64,7 @@ public class ResourceServicePersistenceProxy {
     }
 
     /**
-     * Uses a resource to get any {@link LeafResource}s associated with the it.
+     * Uses a resource to get any {@link LeafResource}s associated with it.
      *
      * @param request the the {@link ResourceRequest} that contains the resourceId used to retrieve resources
      * @return a {@link Source} of {@link LeafResource}s associated with the resource

@@ -26,8 +26,8 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import uk.gov.gchq.palisade.reader.HadoopDataReader;
-import uk.gov.gchq.palisade.reader.common.DataReader;
-import uk.gov.gchq.palisade.reader.common.SerialisedDataReader;
+import uk.gov.gchq.palisade.service.data.common.DataReader;
+import uk.gov.gchq.palisade.service.data.common.SerialisedDataReader;
 import uk.gov.gchq.palisade.service.data.common.jsonserialisation.JSONSerialiser;
 import uk.gov.gchq.palisade.service.data.repository.AuthorisedRequestsRepository;
 import uk.gov.gchq.palisade.service.data.repository.JpaPersistenceLayer;
@@ -53,7 +53,7 @@ public class ApplicationConfiguration {
      * Bean for the {@link JpaPersistenceLayer}.
      * Connect the Redis or Caffeine backed repository to the persistence layer, providing an executor for any async requests
      *
-     * @param requestsRepository an instance of the requests repository, backed by either caffeine or redis (depending on profile)
+     * @param requestsRepository an instance of the requests' repository, backed by either caffeine or redis (depending on profile)
      * @param executor           an async executor, preferably a {@link org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor}
      * @return a {@link JpaPersistenceLayer} wrapping the repository instance, providing async methods for getting data from persistence
      */
