@@ -40,7 +40,7 @@ import java.util.StringJoiner;
  * In this case the ResourceID and ResourceEntity make up the key
  * This contains all objects that will be inserted into the database, including how they are serialised and indexed
  */
-@Table("src/main/resources")
+@Table("resources")
 public class ResourceEntity implements Serializable, Persistable<String> {
     private static final long serialVersionUID = 1L;
 

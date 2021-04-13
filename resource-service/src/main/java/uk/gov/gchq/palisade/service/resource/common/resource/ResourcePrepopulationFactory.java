@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package uk.gov.gchq.palisade.service.resource.common.service;
+package uk.gov.gchq.palisade.service.resource.common.resource;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -23,9 +23,6 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
-import uk.gov.gchq.palisade.service.resource.common.resource.LeafResource;
-import uk.gov.gchq.palisade.service.resource.common.resource.Resource;
 
 import java.util.Map.Entry;
 import java.util.function.Function;

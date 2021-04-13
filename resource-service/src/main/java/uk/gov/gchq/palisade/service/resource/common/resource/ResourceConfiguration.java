@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package uk.gov.gchq.palisade.service.resource.common.service;
+package uk.gov.gchq.palisade.service.resource.common.resource;
 
 import java.net.URI;
 import java.util.List;

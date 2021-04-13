@@ -21,9 +21,8 @@ import org.slf4j.LoggerFactory;
 
 import uk.gov.gchq.palisade.service.resource.common.resource.LeafResource;
 import uk.gov.gchq.palisade.service.resource.common.resource.Resource;
-import uk.gov.gchq.palisade.service.resource.common.service.ResourceService;
-import uk.gov.gchq.palisade.service.resource.common.service.Service;
-import uk.gov.gchq.palisade.service.resource.common.service.SimpleConnectionDetail;
+import uk.gov.gchq.palisade.service.resource.common.resource.ResourceService;
+import uk.gov.gchq.palisade.service.resource.common.resource.impl.SimpleConnectionDetail;
 import uk.gov.gchq.palisade.service.resource.common.util.ResourceBuilder;
 import uk.gov.gchq.palisade.service.resource.exception.NoSuchResourceException;
 import uk.gov.gchq.palisade.service.resource.service.FunctionalIterator.PlainIterator;

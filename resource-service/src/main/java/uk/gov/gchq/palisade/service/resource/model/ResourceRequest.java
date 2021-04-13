@@ -18,6 +18,7 @@ package uk.gov.gchq.palisade.service.resource.model;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -25,7 +26,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import uk.gov.gchq.palisade.service.resource.common.Context;
 import uk.gov.gchq.palisade.service.resource.common.Generated;
-import uk.gov.gchq.palisade.service.resource.common.User;
+import uk.gov.gchq.palisade.service.resource.common.user.User;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -38,6 +39,7 @@ import java.util.StringJoiner;
  * uk.gov.gchq.palisade.service.palisade.response.UserResponse is the response with the data from user-service included.
  * uk.gov.gchq.palisade.service.resource.model.ResourceRequest is the input for the resource-service.
  */
+@JsonIgnoreType
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public final class ResourceRequest {
 

@@ -19,13 +19,13 @@ package uk.gov.gchq.palisade.service.resource.common.util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.gov.gchq.palisade.service.resource.common.resource.ConnectionDetail;
 import uk.gov.gchq.palisade.service.resource.common.resource.LeafResource;
 import uk.gov.gchq.palisade.service.resource.common.resource.ParentResource;
 import uk.gov.gchq.palisade.service.resource.common.resource.Resource;
 import uk.gov.gchq.palisade.service.resource.common.resource.impl.DirectoryResource;
 import uk.gov.gchq.palisade.service.resource.common.resource.impl.FileResource;
 import uk.gov.gchq.palisade.service.resource.common.resource.impl.SystemResource;
-import uk.gov.gchq.palisade.service.resource.common.service.ConnectionDetail;
 
 import java.io.File;
 import java.io.IOException;

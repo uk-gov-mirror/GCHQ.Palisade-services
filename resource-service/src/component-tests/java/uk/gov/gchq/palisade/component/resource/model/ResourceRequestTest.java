@@ -20,7 +20,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 
 import uk.gov.gchq.palisade.service.resource.common.Context;
-import uk.gov.gchq.palisade.service.resource.common.User;
+import uk.gov.gchq.palisade.service.resource.common.user.User;
 import uk.gov.gchq.palisade.service.resource.model.ResourceRequest;
 
 import static org.assertj.core.api.Assertions.assertThat;

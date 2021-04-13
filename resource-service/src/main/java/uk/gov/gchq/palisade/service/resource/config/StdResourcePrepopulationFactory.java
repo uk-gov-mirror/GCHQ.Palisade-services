@@ -17,11 +17,11 @@
 package uk.gov.gchq.palisade.service.resource.config;
 
 import uk.gov.gchq.palisade.service.resource.common.Generated;
+import uk.gov.gchq.palisade.service.resource.common.resource.ConnectionDetail;
 import uk.gov.gchq.palisade.service.resource.common.resource.LeafResource;
 import uk.gov.gchq.palisade.service.resource.common.resource.ParentResource;
 import uk.gov.gchq.palisade.service.resource.common.resource.Resource;
-import uk.gov.gchq.palisade.service.resource.common.service.ConnectionDetail;
-import uk.gov.gchq.palisade.service.resource.common.service.ResourcePrepopulationFactory;
+import uk.gov.gchq.palisade.service.resource.common.resource.ResourcePrepopulationFactory;
 import uk.gov.gchq.palisade.service.resource.common.util.ResourceBuilder;
 
 import java.net.URI;

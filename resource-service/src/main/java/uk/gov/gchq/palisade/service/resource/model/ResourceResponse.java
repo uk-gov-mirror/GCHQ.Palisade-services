@@ -23,8 +23,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import uk.gov.gchq.palisade.service.resource.common.Context;
 import uk.gov.gchq.palisade.service.resource.common.Generated;
-import uk.gov.gchq.palisade.service.resource.common.User;
 import uk.gov.gchq.palisade.service.resource.common.resource.LeafResource;
+import uk.gov.gchq.palisade.service.resource.common.user.User;
 
 import java.util.Objects;
 import java.util.Optional;

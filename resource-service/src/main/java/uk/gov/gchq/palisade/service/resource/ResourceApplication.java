@@ -33,8 +33,8 @@ import org.springframework.context.event.EventListener;
 
 import uk.gov.gchq.palisade.service.resource.common.resource.LeafResource;
 import uk.gov.gchq.palisade.service.resource.common.resource.Resource;
-import uk.gov.gchq.palisade.service.resource.common.service.ResourcePrepopulationFactory;
-import uk.gov.gchq.palisade.service.resource.common.service.ResourceService;
+import uk.gov.gchq.palisade.service.resource.common.resource.ResourcePrepopulationFactory;
+import uk.gov.gchq.palisade.service.resource.common.resource.ResourceService;
 import uk.gov.gchq.palisade.service.resource.repository.PersistenceLayer;
 import uk.gov.gchq.palisade.service.resource.stream.ConsumerTopicConfiguration;
 import uk.gov.gchq.palisade.service.resource.stream.ProducerTopicConfiguration;

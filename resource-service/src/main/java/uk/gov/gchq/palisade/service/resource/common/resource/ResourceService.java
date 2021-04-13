@@ -14,10 +14,7 @@
  * limitations under the License.
  */
 
-package uk.gov.gchq.palisade.service.resource.common.service;
-
-import uk.gov.gchq.palisade.service.resource.common.resource.LeafResource;
-import uk.gov.gchq.palisade.service.resource.common.resource.Resource;
+package uk.gov.gchq.palisade.service.resource.common.resource;
 
 import java.util.Iterator;
 
@@ -35,7 +32,7 @@ import java.util.Iterator;
  * don't happen to be any resources that do not match a request, instead they will simply return empty ${@link Iterator}
  * instances.
  */
-public interface ResourceService extends Service {
+public interface ResourceService {
 
     /**
      * Get a list of resources based on a specific resource. This allows for the retrieval of the appropriate {@link
