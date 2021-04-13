@@ -20,7 +20,7 @@ import uk.gov.gchq.palisade.service.user.common.Generated;
 import uk.gov.gchq.palisade.service.user.common.User;
 import uk.gov.gchq.palisade.service.user.common.service.UserConfiguration;
 import uk.gov.gchq.palisade.service.user.common.service.UserPrepopulationFactory;
-import uk.gov.gchq.palisade.service.user.service.UserService;
+import uk.gov.gchq.palisade.service.user.common.service.UserService;
 
 import java.util.ArrayList;
 import java.util.Collections;

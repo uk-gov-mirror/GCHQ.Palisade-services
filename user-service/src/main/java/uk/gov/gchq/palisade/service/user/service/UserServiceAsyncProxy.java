@@ -20,6 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import uk.gov.gchq.palisade.service.user.common.User;
+import uk.gov.gchq.palisade.service.user.common.service.UserService;
 import uk.gov.gchq.palisade.service.user.model.AuditErrorMessage;
 import uk.gov.gchq.palisade.service.user.model.AuditableUserResponse;
 import uk.gov.gchq.palisade.service.user.model.UserRequest;
