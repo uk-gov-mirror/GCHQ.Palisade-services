@@ -20,12 +20,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import uk.gov.gchq.palisade.reader.common.data.seralise.SimpleStringSerialiser;
+import uk.gov.gchq.palisade.service.data.common.request.DataReaderRequest;
 import uk.gov.gchq.palisade.service.data.common.resource.LeafResource;
 import uk.gov.gchq.palisade.service.data.common.resource.impl.FileResource;
 import uk.gov.gchq.palisade.service.data.common.resource.impl.SystemResource;
 import uk.gov.gchq.palisade.service.data.common.rule.Rule;
 import uk.gov.gchq.palisade.service.data.common.rule.Rules;
-import uk.gov.gchq.palisade.service.data.common.request.DataReaderRequest;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

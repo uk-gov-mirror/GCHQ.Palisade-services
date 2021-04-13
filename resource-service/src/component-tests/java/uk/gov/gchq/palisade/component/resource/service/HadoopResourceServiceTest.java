@@ -111,7 +111,7 @@ class HadoopResourceServiceTest {
         List<LeafResource> resultList = new ArrayList<>();
 
         // When making a get request to the resource service by resourceId
-        final Iterator<LeafResource> resourcesById = resourceService.getResourcesById(id1.toString());
+        var resourcesById = resourceService.getResourcesById(id1.toString());
         resourcesById.forEachRemaining(resultList::add);
 
         // Then assert that the expected resource(s) are returned
@@ -207,7 +207,7 @@ class HadoopResourceServiceTest {
         List<LeafResource> resultList = new ArrayList<>();
 
         // When making a get request to the resource service by resource
-        final Iterator<LeafResource> resourcesByResource = resourceService.getResourcesByResource(new DirectoryResource().id(dir.toString()));
+        Iterator<LeafResource> resourcesByResource = resourceService.getResourcesByResource(new DirectoryResource().id(dir.toString()));
         resourcesByResource.forEachRemaining(resultList::add);
 
         // Then assert that the expected resource(s) are returned

@@ -48,7 +48,7 @@ import java.util.Objects;
  * - {@link SystemResource}
  * Any parents automatically constructed will also be from this collection.
  * If another method of creating a resource is required (i.e. directly using strings)
- * there is no guarantee that this can correctly resolve parents. Instead use the
+ * there is no guarantee that this can correctly resolve parents. Instead, use the
  * methods provided by the appropriate resource impl.
  */
 public class ResourceBuilder {

@@ -48,12 +48,9 @@ import uk.gov.gchq.palisade.service.resource.repository.ReactivePersistenceLayer
 import uk.gov.gchq.palisade.service.resource.repository.ResourceRepository;
 import uk.gov.gchq.palisade.service.resource.repository.SerialisedFormatRepository;
 import uk.gov.gchq.palisade.service.resource.repository.TypeRepository;
-import uk.gov.gchq.palisade.service.resource.service.ConfiguredHadoopResourceService;
-import uk.gov.gchq.palisade.service.resource.service.HadoopResourceService;
 import uk.gov.gchq.palisade.service.resource.service.ResourceServicePersistenceProxy;
 import uk.gov.gchq.palisade.service.resource.service.SimpleResourceService;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.concurrent.Executor;
@@ -171,20 +168,6 @@ public class ApplicationConfiguration implements AsyncConfigurer {
     @ConditionalOnProperty(prefix = "resource", name = "implementation", havingValue = "simple", matchIfMissing = true)
     public ResourceService simpleResourceService() {
         return new SimpleResourceService(dataServiceName, resourceServiceConfigProperties.getDefaultType());
-    }
-
-
-    /**
-     * A bean for the implementation of the HadoopResourceService which implements {@link ResourceService} used for retrieving resources from Hadoop
-     *
-     * @param config hadoop configuration
-     * @return a {@link ConfiguredHadoopResourceService} used for adding connection details to leaf resources
-     * @throws IOException ioexception
-     */
-    @Bean("hadoopResourceService")
-    @ConditionalOnProperty(prefix = "resource", name = "implementation", havingValue = "hadoop")
-    public HadoopResourceService hadoopResourceService(final org.apache.hadoop.conf.Configuration config) throws IOException {
-        return new ConfiguredHadoopResourceService(config);
     }
 
     /**
