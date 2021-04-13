@@ -36,6 +36,7 @@ List of third-party dependencies grouped by their license type
 * common ([uk.gov.gchq.palisade:common:0.5.0-SNAPSHOT](https://github.com/gchq/Palisade-common))
 * hadoop-reader ([uk.gov.gchq.palisade:hadoop-reader:0.5.0-SNAPSHOT](https://github.com/gchq/Palisade-readers/tree/develop/hadoop-reader))
 * hadoop-resource ([uk.gov.gchq.palisade:hadoop-resource:0.5.0-SNAPSHOT](https://github.com/gchq/Palisade-readers/tree/develop/hadoop-resource))
+* readers-common ([uk.gov.gchq.palisade:readers-common:0.5.0-SNAPSHOT](https://github.com/gchq/Palisade-readers/tree/develop/readers-common))
 
 ### [Common Development and Distribution License (CDDL) 1.1](./licenses/cddl_gpl_1.1.txt):
 * JAXB Runtime ([org.glassfish.jaxb:jaxb-runtime:2.3.0-b170127.1453](http://jaxb.java.net/jaxb-runtime-parent/jaxb-runtime))

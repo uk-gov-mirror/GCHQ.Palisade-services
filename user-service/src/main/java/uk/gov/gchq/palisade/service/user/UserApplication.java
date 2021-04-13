@@ -71,7 +71,7 @@ public class UserApplication {
             final Collection<RunnableGraph<?>> runners,
             final Materializer materialiser,
             final UserServiceCachingProxy service,
-            @Qualifier("userConfiguration") final UserConfiguration configuration,
+            final UserConfiguration configuration,
             @Qualifier("threadPoolTaskExecutor") final Executor executor) {
         this.service = service;
         this.userConfig = configuration;
