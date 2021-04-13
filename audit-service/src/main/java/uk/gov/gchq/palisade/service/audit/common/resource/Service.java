@@ -14,34 +14,29 @@
  * limitations under the License.
  */
 
-package uk.gov.gchq.palisade.service.audit.common.service;
+package uk.gov.gchq.palisade.service.audit.common.resource;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
-
-import java.io.Serializable;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
- * A High level API for passing details of how to connect to a resource
+ * This class defines the top level services API.
+ * <p>
+ * The only requirement is that there is a process method, used to process all requests that are passed to a service.
  */
-@JsonPropertyOrder(value = {"class", "host", "port"}, alphabetic = true)
+@JsonPropertyOrder(value = {"class"}, alphabetic = true)
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.CLASS,
         include = As.EXISTING_PROPERTY,
-        property = "class",
-        defaultImpl = SimpleConnectionDetail.class
+        property = "class"
 )
-public interface ConnectionDetail extends Serializable {
-
-    /**
-     * Creates a default connection detail of the Service Name
-     *
-     * @return a service name as a connection detail
-     */
-    String createConnection();
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
+public interface Service {
 
     @JsonGetter("class")
     default String getClassName() {

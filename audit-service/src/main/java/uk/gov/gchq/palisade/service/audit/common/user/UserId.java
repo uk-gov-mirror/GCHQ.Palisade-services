@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
-package uk.gov.gchq.palisade.service.audit.common;
+package uk.gov.gchq.palisade.service.audit.common.user;
+
+import uk.gov.gchq.palisade.service.audit.common.Generated;
 
 import java.io.Serializable;
 import java.util.Objects;
