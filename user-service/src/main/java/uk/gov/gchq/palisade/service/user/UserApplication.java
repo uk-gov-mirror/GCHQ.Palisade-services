@@ -32,7 +32,7 @@ import org.springframework.context.event.EventListener;
 import uk.gov.gchq.palisade.service.user.common.User;
 import uk.gov.gchq.palisade.service.user.common.service.UserConfiguration;
 import uk.gov.gchq.palisade.service.user.common.service.UserPrepopulationFactory;
-import uk.gov.gchq.palisade.service.user.service.UserService;
+import uk.gov.gchq.palisade.service.user.common.service.UserService;
 import uk.gov.gchq.palisade.service.user.service.UserServiceCachingProxy;
 import uk.gov.gchq.palisade.service.user.stream.ConsumerTopicConfiguration;
 import uk.gov.gchq.palisade.service.user.stream.ProducerTopicConfiguration;

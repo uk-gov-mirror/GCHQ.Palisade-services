@@ -15,7 +15,12 @@
  */
 package uk.gov.gchq.palisade.service.user.config;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
@@ -29,12 +34,11 @@ import org.springframework.scheduling.annotation.AsyncConfigurer;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import uk.gov.gchq.palisade.service.user.common.User;
-import uk.gov.gchq.palisade.service.user.common.jsonserialisation.JSONSerialiser;
 import uk.gov.gchq.palisade.service.user.common.service.UserConfiguration;
 import uk.gov.gchq.palisade.service.user.common.service.UserPrepopulationFactory;
+import uk.gov.gchq.palisade.service.user.common.service.UserService;
 import uk.gov.gchq.palisade.service.user.exception.ApplicationAsyncExceptionHandler;
 import uk.gov.gchq.palisade.service.user.service.NullUserService;
-import uk.gov.gchq.palisade.service.user.service.UserService;
 import uk.gov.gchq.palisade.service.user.service.UserServiceAsyncProxy;
 import uk.gov.gchq.palisade.service.user.service.UserServiceCachingProxy;
 
@@ -119,7 +123,15 @@ public class ApplicationConfiguration implements AsyncConfigurer {
     @Bean
     @Primary
     public ObjectMapper objectMapper() {
-        return JSONSerialiser.createDefaultMapper();
+        return new ObjectMapper()
+                .setSerializationInclusion(JsonInclude.Include.NON_NULL)
+                .configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false)
+                .configure(SerializationFeature.CLOSE_CLOSEABLE, true)
+                .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, true)
+                .configure(DeserializationFeature.FAIL_ON_INVALID_SUBTYPE, false)
+                .disable(DeserializationFeature.ADJUST_DATES_TO_CONTEXT_TIME_ZONE)
+                .registerModule(new Jdk8Module())
+                .registerModule(new JavaTimeModule());
     }
 
     @Override

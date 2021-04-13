@@ -20,8 +20,8 @@ import org.slf4j.LoggerFactory;
 
 import uk.gov.gchq.palisade.service.user.common.User;
 import uk.gov.gchq.palisade.service.user.common.UserId;
+import uk.gov.gchq.palisade.service.user.common.service.UserService;
 import uk.gov.gchq.palisade.service.user.exception.NoSuchUserIdException;
-import uk.gov.gchq.palisade.service.user.service.UserService;
 
 import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;

@@ -23,6 +23,7 @@ import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 
 import uk.gov.gchq.palisade.service.user.common.User;
+import uk.gov.gchq.palisade.service.user.common.service.UserService;
 
 /**
  * This acts as a caching layer on top of an implementation of the user-service.

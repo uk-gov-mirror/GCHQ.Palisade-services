@@ -16,6 +16,7 @@
 package uk.gov.gchq.palisade.service.user.service;
 
 import uk.gov.gchq.palisade.service.user.common.User;
+import uk.gov.gchq.palisade.service.user.common.service.UserService;
 import uk.gov.gchq.palisade.service.user.exception.NoSuchUserIdException;
 
 /**

@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
-package uk.gov.gchq.palisade.service.user.service;
+package uk.gov.gchq.palisade.service.user.common.service;
 
 import uk.gov.gchq.palisade.service.user.common.User;
-import uk.gov.gchq.palisade.service.user.common.service.Service;
 import uk.gov.gchq.palisade.service.user.exception.NoSuchUserIdException;
 
 /**
