@@ -14,13 +14,15 @@
  * limitations under the License.
  */
 
-package uk.gov.gchq.palisade.service.data.common;
+package uk.gov.gchq.palisade.service.data.common.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.gov.gchq.palisade.service.data.common.Context;
 import uk.gov.gchq.palisade.service.data.common.rule.Rule;
 import uk.gov.gchq.palisade.service.data.common.rule.Rules;
+import uk.gov.gchq.palisade.service.data.common.user.User;
 
 import java.io.Serializable;
 import java.net.URL;

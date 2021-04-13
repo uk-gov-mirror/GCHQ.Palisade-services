@@ -17,9 +17,9 @@
 package uk.gov.gchq.palisade.service.data;
 
 import uk.gov.gchq.palisade.service.data.common.Context;
-import uk.gov.gchq.palisade.service.data.common.ResponseWriter;
-import uk.gov.gchq.palisade.service.data.common.SimpleConnectionDetail;
-import uk.gov.gchq.palisade.service.data.common.User;
+import uk.gov.gchq.palisade.service.data.common.data.ResponseWriter;
+import uk.gov.gchq.palisade.service.data.common.resource.SimpleConnectionDetail;
+import uk.gov.gchq.palisade.service.data.common.user.User;
 import uk.gov.gchq.palisade.service.data.common.request.DataReaderRequest;
 import uk.gov.gchq.palisade.service.data.common.request.DataReaderResponse;
 import uk.gov.gchq.palisade.service.data.common.resource.LeafResource;

@@ -16,8 +16,8 @@
 
 package uk.gov.gchq.palisade.service.data.service;
 
-import uk.gov.gchq.palisade.service.data.common.DataReader;
-import uk.gov.gchq.palisade.service.data.common.Service;
+import uk.gov.gchq.palisade.service.data.common.data.DataReader;
+import uk.gov.gchq.palisade.service.data.common.data.Service;
 import uk.gov.gchq.palisade.service.data.exception.ForbiddenException;
 import uk.gov.gchq.palisade.service.data.exception.ReadException;
 import uk.gov.gchq.palisade.service.data.model.AuthorisedDataRequest;

@@ -17,6 +17,7 @@
 package uk.gov.gchq.palisade.service.data.common;
 
 import uk.gov.gchq.palisade.service.data.common.rule.Rule;
+import uk.gov.gchq.palisade.service.data.common.user.User;
 
 public class TestRule implements Rule<String> {
     @Override

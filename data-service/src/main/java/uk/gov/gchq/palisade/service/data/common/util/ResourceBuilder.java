@@ -19,7 +19,7 @@ package uk.gov.gchq.palisade.service.data.common.util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import uk.gov.gchq.palisade.service.data.common.ConnectionDetail;
+import uk.gov.gchq.palisade.service.data.common.resource.ConnectionDetail;
 import uk.gov.gchq.palisade.service.data.common.resource.LeafResource;
 import uk.gov.gchq.palisade.service.data.common.resource.ParentResource;
 import uk.gov.gchq.palisade.service.data.common.resource.Resource;

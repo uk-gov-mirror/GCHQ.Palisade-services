@@ -14,7 +14,10 @@
  * limitations under the License.
  */
 
-package uk.gov.gchq.palisade.service.data.common;
+package uk.gov.gchq.palisade.service.data.common.resource;
+
+import uk.gov.gchq.palisade.service.data.common.Generated;
+import uk.gov.gchq.palisade.service.data.common.data.Service;
 
 import java.util.Objects;
 import java.util.StringJoiner;

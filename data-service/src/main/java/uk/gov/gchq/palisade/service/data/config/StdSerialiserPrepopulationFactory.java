@@ -16,7 +16,7 @@
 
 package uk.gov.gchq.palisade.service.data.config;
 
-import uk.gov.gchq.palisade.service.data.common.DataFlavour;
+import uk.gov.gchq.palisade.service.data.common.data.DataFlavour;
 import uk.gov.gchq.palisade.service.data.common.Generated;
 import uk.gov.gchq.palisade.service.data.common.seralise.Serialiser;
 import uk.gov.gchq.palisade.service.data.exception.SerialiserConstructorNotFoundException;

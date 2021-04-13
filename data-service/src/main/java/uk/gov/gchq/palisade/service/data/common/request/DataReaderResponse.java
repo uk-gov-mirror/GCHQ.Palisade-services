@@ -17,7 +17,7 @@
 package uk.gov.gchq.palisade.service.data.common.request;
 
 import uk.gov.gchq.palisade.service.data.common.Generated;
-import uk.gov.gchq.palisade.service.data.common.ResponseWriter;
+import uk.gov.gchq.palisade.service.data.common.data.ResponseWriter;
 
 import java.util.Objects;
 import java.util.StringJoiner;

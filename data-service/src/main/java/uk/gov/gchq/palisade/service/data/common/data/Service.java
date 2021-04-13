@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package uk.gov.gchq.palisade.service.data.common;
+package uk.gov.gchq.palisade.service.data.common.data;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -24,16 +24,10 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-import uk.gov.gchq.palisade.service.data.common.resource.LeafResource;
-import uk.gov.gchq.palisade.service.data.common.resource.Resource;
-
-import java.util.Map.Entry;
-import java.util.function.Function;
-
 /**
- * This class defines the top level of persistence prepopulation.
+ * This class defines the top level services API.
  * <p>
- * The only requirement is that there is a build method to construct a LeafResource
+ * The only requirement is that there is a process method, used to process all requests that are passed to a service.
  */
 @JsonPropertyOrder(value = {"class"}, alphabetic = true)
 @JsonTypeInfo(
@@ -42,15 +36,7 @@ import java.util.function.Function;
         property = "class"
 )
 @JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
-public interface ResourcePrepopulationFactory {
-
-    /**
-     * Creates a {@link LeafResource} using the data within an implementation of the {@link ResourcePrepopulationFactory}.
-     *
-     * @param connectionDetailMapper a function mapping the connection detail {@link String}s to proper {@link ConnectionDetail}s
-     * @return the {@link LeafResource} that has been created.
-     */
-    Entry<Resource, LeafResource> build(Function<String, ConnectionDetail> connectionDetailMapper);
+public interface Service {
 
     @JsonGetter("class")
     default String getClassName() {

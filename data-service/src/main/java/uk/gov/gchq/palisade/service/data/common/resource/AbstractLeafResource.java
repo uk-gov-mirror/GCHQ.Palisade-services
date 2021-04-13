@@ -16,7 +16,6 @@
 
 package uk.gov.gchq.palisade.service.data.common.resource;
 
-import uk.gov.gchq.palisade.service.data.common.ConnectionDetail;
 import uk.gov.gchq.palisade.service.data.common.Generated;
 import uk.gov.gchq.palisade.service.data.common.resource.impl.FileResource;
 

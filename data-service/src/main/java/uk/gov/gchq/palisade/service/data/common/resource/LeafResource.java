@@ -16,8 +16,6 @@
 
 package uk.gov.gchq.palisade.service.data.common.resource;
 
-import uk.gov.gchq.palisade.service.data.common.ConnectionDetail;
-
 /**
  * A leaf resource is the interface for any resource that can be read for data
  * and is not just part of the hierarchical resource structure.

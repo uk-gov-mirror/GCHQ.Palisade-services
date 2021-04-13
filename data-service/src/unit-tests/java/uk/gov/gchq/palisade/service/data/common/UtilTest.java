@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 import uk.gov.gchq.palisade.service.data.common.rule.Rules;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static uk.gov.gchq.palisade.service.data.common.Util.applyRulesToItem;
+import static uk.gov.gchq.palisade.service.data.common.util.Util.applyRulesToItem;
 
 class UtilTest {
 

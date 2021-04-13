@@ -19,7 +19,7 @@ package uk.gov.gchq.palisade.service.data.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import uk.gov.gchq.palisade.service.data.common.DataReader;
+import uk.gov.gchq.palisade.service.data.common.data.DataReader;
 import uk.gov.gchq.palisade.service.data.common.request.DataReaderRequest;
 import uk.gov.gchq.palisade.service.data.common.request.DataReaderResponse;
 import uk.gov.gchq.palisade.service.data.domain.AuthorisedRequestEntity;

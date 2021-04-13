@@ -15,7 +15,7 @@
  */
 package uk.gov.gchq.palisade.service.data.common.exception;
 
-import uk.gov.gchq.palisade.service.data.common.DataReader;
+import uk.gov.gchq.palisade.service.data.common.data.DataReader;
 import uk.gov.gchq.palisade.service.data.common.request.DataReaderRequest;
 
 /**

@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-package uk.gov.gchq.palisade.service.data.common;
+package uk.gov.gchq.palisade.service.data.common.data;
 
+import uk.gov.gchq.palisade.service.data.common.Generated;
 import uk.gov.gchq.palisade.service.data.common.request.DataReaderRequest;
 import uk.gov.gchq.palisade.service.data.common.request.DataReaderResponse;
 import uk.gov.gchq.palisade.service.data.common.resource.LeafResource;
