@@ -20,9 +20,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 
 import uk.gov.gchq.palisade.service.attributemask.common.Context;
+import uk.gov.gchq.palisade.service.attributemask.common.resource.SimpleConnectionDetail;
 import uk.gov.gchq.palisade.service.attributemask.common.resource.impl.FileResource;
 import uk.gov.gchq.palisade.service.attributemask.common.resource.impl.SystemResource;
-import uk.gov.gchq.palisade.service.attributemask.common.service.SimpleConnectionDetail;
 import uk.gov.gchq.palisade.service.attributemask.model.AttributeMaskingResponse;
 
 import static org.assertj.core.api.Assertions.assertThat;

@@ -20,14 +20,14 @@ import org.apache.kafka.clients.producer.ProducerRecord;
 
 import uk.gov.gchq.palisade.service.attributemask.common.Context;
 import uk.gov.gchq.palisade.service.attributemask.common.Token;
-import uk.gov.gchq.palisade.service.attributemask.common.User;
-import uk.gov.gchq.palisade.service.attributemask.common.UserId;
 import uk.gov.gchq.palisade.service.attributemask.common.resource.LeafResource;
+import uk.gov.gchq.palisade.service.attributemask.common.resource.SimpleConnectionDetail;
 import uk.gov.gchq.palisade.service.attributemask.common.resource.impl.FileResource;
 import uk.gov.gchq.palisade.service.attributemask.common.resource.impl.SystemResource;
 import uk.gov.gchq.palisade.service.attributemask.common.rule.Rule;
 import uk.gov.gchq.palisade.service.attributemask.common.rule.Rules;
-import uk.gov.gchq.palisade.service.attributemask.common.service.SimpleConnectionDetail;
+import uk.gov.gchq.palisade.service.attributemask.common.user.User;
+import uk.gov.gchq.palisade.service.attributemask.common.user.UserId;
 import uk.gov.gchq.palisade.service.attributemask.model.AttributeMaskingRequest;
 import uk.gov.gchq.palisade.service.attributemask.model.AttributeMaskingResponse;
 import uk.gov.gchq.palisade.service.attributemask.model.StreamMarker;

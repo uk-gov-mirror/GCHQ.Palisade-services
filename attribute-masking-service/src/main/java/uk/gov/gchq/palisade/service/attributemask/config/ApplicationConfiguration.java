@@ -16,13 +16,17 @@
 
 package uk.gov.gchq.palisade.service.attributemask.config;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
-import uk.gov.gchq.palisade.service.attributemask.common.jsonserialisation.JSONSerialiser;
 import uk.gov.gchq.palisade.service.attributemask.common.resource.LeafResource;
 import uk.gov.gchq.palisade.service.attributemask.common.resource.impl.FileResource;
 import uk.gov.gchq.palisade.service.attributemask.repository.AuthorisedRequestsRepository;
@@ -68,10 +72,23 @@ public class ApplicationConfiguration {
         return new AttributeMaskingAspect();
     }
 
+    /**
+     * Used so that you can create custom mapper by starting with the default and then modifying if needed
+     *
+     * @return a configured object mapper
+     */
     @Bean
     @Primary
-    ObjectMapper objectMapper() {
-        return JSONSerialiser.createDefaultMapper();
+    public ObjectMapper objectMapper() {
+        return new ObjectMapper()
+                .setSerializationInclusion(JsonInclude.Include.NON_NULL)
+                .configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false)
+                .configure(SerializationFeature.CLOSE_CLOSEABLE, true)
+                .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, true)
+                .configure(DeserializationFeature.FAIL_ON_INVALID_SUBTYPE, false)
+                .disable(DeserializationFeature.ADJUST_DATES_TO_CONTEXT_TIME_ZONE)
+                .registerModule(new Jdk8Module())
+                .registerModule(new JavaTimeModule());
     }
 
 }

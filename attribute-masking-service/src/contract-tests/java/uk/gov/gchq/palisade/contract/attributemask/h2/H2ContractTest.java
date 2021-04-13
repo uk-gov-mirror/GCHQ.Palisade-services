@@ -26,7 +26,7 @@ import org.springframework.test.context.ActiveProfiles;
 import uk.gov.gchq.palisade.contract.attributemask.ContractTestData;
 import uk.gov.gchq.palisade.service.attributemask.AttributeMaskingApplication;
 import uk.gov.gchq.palisade.service.attributemask.common.Context;
-import uk.gov.gchq.palisade.service.attributemask.common.User;
+import uk.gov.gchq.palisade.service.attributemask.common.user.User;
 import uk.gov.gchq.palisade.service.attributemask.repository.AuthorisedRequestsRepository;
 import uk.gov.gchq.palisade.service.attributemask.service.AttributeMaskingService;
 

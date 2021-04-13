@@ -18,8 +18,8 @@ package uk.gov.gchq.palisade.service.attributemask.common.resource.impl;
 
 
 import uk.gov.gchq.palisade.service.attributemask.common.resource.AbstractLeafResource;
+import uk.gov.gchq.palisade.service.attributemask.common.resource.ConnectionDetail;
 import uk.gov.gchq.palisade.service.attributemask.common.resource.ParentResource;
-import uk.gov.gchq.palisade.service.attributemask.common.service.ConnectionDetail;
 
 import java.io.Serializable;
 import java.util.Map;

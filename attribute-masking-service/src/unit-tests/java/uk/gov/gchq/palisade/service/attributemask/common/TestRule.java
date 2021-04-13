@@ -17,6 +17,7 @@
 package uk.gov.gchq.palisade.service.attributemask.common;
 
 import uk.gov.gchq.palisade.service.attributemask.common.rule.Rule;
+import uk.gov.gchq.palisade.service.attributemask.common.user.User;
 
 public class TestRule implements Rule<String> {
     @Override

@@ -14,60 +14,48 @@
  * limitations under the License.
  */
 
-package uk.gov.gchq.palisade.service.attributemask.common;
+package uk.gov.gchq.palisade.service.attributemask.common.resource;
 
-import java.io.Serializable;
+import uk.gov.gchq.palisade.service.attributemask.common.Generated;
+
 import java.util.Objects;
 import java.util.StringJoiner;
 
 import static java.util.Objects.requireNonNull;
 
 /**
- * A {@link UserId} uniquely identifies a {@link User}.
+ * A simple implementation of the {@link ConnectionDetail} that holds a reference to the Service name
  */
-public class UserId implements Serializable {
+public class SimpleConnectionDetail implements ConnectionDetail {
     private static final long serialVersionUID = 1L;
 
-    private String id;
+    private String serviceName;
 
-    /**
-     * Constructs an empty {@link UserId}.
-     */
-    public UserId() {
+    public SimpleConnectionDetail() {
         //no-args constructor needed for serialization only
     }
 
-    /**
-     * Copy constructor for a {@link UserId}.
-     *
-     * @param userId the {@link UserId} that will be copied.
-     */
-    UserId(final UserId userId) {
-        requireNonNull(userId, "UserId to be cloned cannot be null");
-        this.setId(userId.getId());
-    }
-
-    /**
-     * Updates the id of the UserID
-     *
-     * @param id a non null String representing the id of the user
-     * @return the UserId object
-     */
     @Generated
-    public UserId id(final String id) {
-        this.setId(id);
+    public SimpleConnectionDetail serviceName(final String serviceName) {
+        this.setServiceName(serviceName);
         return this;
     }
 
     @Generated
-    public String getId() {
-        return id;
+    public String getServiceName() {
+        return serviceName;
     }
 
     @Generated
-    public final void setId(final String id) {
-        requireNonNull(id);
-        this.id = id;
+    public void setServiceName(final String serviceName) {
+        requireNonNull(serviceName);
+        this.serviceName = serviceName;
+    }
+
+    @Override
+    @Generated
+    public String createConnection() {
+        return getServiceName();
     }
 
     @Override
@@ -76,24 +64,25 @@ public class UserId implements Serializable {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof UserId)) {
+        if (!(o instanceof SimpleConnectionDetail)) {
             return false;
         }
-        UserId userId = (UserId) o;
-        return id.equals(userId.id);
+        SimpleConnectionDetail that = (SimpleConnectionDetail) o;
+        return serviceName.equals(that.serviceName);
     }
 
     @Override
     @Generated
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(serviceName);
     }
 
     @Override
     @Generated
     public String toString() {
-        return new StringJoiner(", ", UserId.class.getSimpleName() + "[", "]")
-                .add("id='" + id + "'")
+        return new StringJoiner(", ", SimpleConnectionDetail.class.getSimpleName() + "[", "]")
+                .add("serviceName='" + serviceName + "'")
+                .add(super.toString())
                 .toString();
     }
 }

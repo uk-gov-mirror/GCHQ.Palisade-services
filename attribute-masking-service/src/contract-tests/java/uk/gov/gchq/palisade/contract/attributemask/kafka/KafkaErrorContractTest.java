@@ -52,10 +52,10 @@ import uk.gov.gchq.palisade.contract.attributemask.KafkaInitializer.RequestSeria
 import uk.gov.gchq.palisade.service.attributemask.AttributeMaskingApplication;
 import uk.gov.gchq.palisade.service.attributemask.common.Context;
 import uk.gov.gchq.palisade.service.attributemask.common.Token;
-import uk.gov.gchq.palisade.service.attributemask.common.User;
 import uk.gov.gchq.palisade.service.attributemask.common.resource.LeafResource;
 import uk.gov.gchq.palisade.service.attributemask.common.resource.impl.FileResource;
 import uk.gov.gchq.palisade.service.attributemask.common.rule.Rules;
+import uk.gov.gchq.palisade.service.attributemask.common.user.User;
 import uk.gov.gchq.palisade.service.attributemask.model.AttributeMaskingRequest;
 import uk.gov.gchq.palisade.service.attributemask.model.AuditErrorMessage;
 import uk.gov.gchq.palisade.service.attributemask.repository.PersistenceLayer;

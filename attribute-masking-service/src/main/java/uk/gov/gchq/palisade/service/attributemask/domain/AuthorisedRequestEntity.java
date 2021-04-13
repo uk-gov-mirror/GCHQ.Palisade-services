@@ -22,9 +22,9 @@ import org.springframework.data.redis.core.index.Indexed;
 
 import uk.gov.gchq.palisade.service.attributemask.common.Context;
 import uk.gov.gchq.palisade.service.attributemask.common.Generated;
-import uk.gov.gchq.palisade.service.attributemask.common.User;
 import uk.gov.gchq.palisade.service.attributemask.common.resource.LeafResource;
 import uk.gov.gchq.palisade.service.attributemask.common.rule.Rules;
+import uk.gov.gchq.palisade.service.attributemask.common.user.User;
 import uk.gov.gchq.palisade.service.attributemask.config.RedisTtlConfiguration;
 
 import javax.persistence.Column;

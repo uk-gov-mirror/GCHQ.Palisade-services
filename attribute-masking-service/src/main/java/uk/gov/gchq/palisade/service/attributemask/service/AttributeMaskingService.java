@@ -23,9 +23,9 @@ import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
 import uk.gov.gchq.palisade.service.attributemask.common.Context;
-import uk.gov.gchq.palisade.service.attributemask.common.User;
 import uk.gov.gchq.palisade.service.attributemask.common.resource.LeafResource;
 import uk.gov.gchq.palisade.service.attributemask.common.rule.Rules;
+import uk.gov.gchq.palisade.service.attributemask.common.user.User;
 import uk.gov.gchq.palisade.service.attributemask.model.AttributeMaskingRequest;
 import uk.gov.gchq.palisade.service.attributemask.model.AttributeMaskingResponse;
 import uk.gov.gchq.palisade.service.attributemask.model.AuditErrorMessage;
