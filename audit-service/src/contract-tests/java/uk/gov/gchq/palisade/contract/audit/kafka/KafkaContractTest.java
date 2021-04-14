@@ -42,7 +42,7 @@ import org.testcontainers.containers.KafkaContainer;
 import uk.gov.gchq.palisade.contract.audit.ContractTestData;
 import uk.gov.gchq.palisade.service.audit.AuditApplication;
 import uk.gov.gchq.palisade.service.audit.config.AuditServiceConfigProperties;
-import uk.gov.gchq.palisade.service.audit.service.AuditService;
+import uk.gov.gchq.palisade.service.audit.common.audit.AuditService;
 
 import java.io.File;
 import java.util.Arrays;
@@ -118,9 +118,9 @@ class KafkaContractTest {
     @AfterEach
     void tearDown() {
         Arrays.stream(new File(auditServiceConfigProperties.getErrorDirectory()).listFiles())
-            .filter(file -> (file.getName().startsWith("Success") || file.getName().startsWith("Error")))
-            .peek(file -> LOGGER.info("Deleting file {}", file.getName()))
-            .forEach(File::deleteOnExit);
+                .filter(file -> (file.getName().startsWith("Success") || file.getName().startsWith("Error")))
+                .peek(file -> LOGGER.info("Deleting file {}", file.getName()))
+                .forEach(File::deleteOnExit);
     }
 
     @Test
@@ -167,7 +167,7 @@ class KafkaContractTest {
                 GOOD_SUCCESS_RECORD_NODE_FACTORY.get().limit(1L),
                 BAD_SUCCESS_RECORD_NODE_FACTORY.get().limit(2L),
                 GOOD_SUCCESS_RECORD_NODE_FACTORY.get().limit(1L))
-            .flatMap(Function.identity());
+                .flatMap(Function.identity());
 
         // WHEN - we write to the input
         runStreamOf(requests);
@@ -193,8 +193,8 @@ class KafkaContractTest {
         // THEN - check an "Error-..." file has been created
         var actualErrorCount = currentErrorCount.get();
         assertThat(actualErrorCount)
-            .as("Check exactly 1 'Error' file has been created")
-            .isEqualTo(expectedErrorCount);
+                .as("Check exactly 1 'Error' file has been created")
+                .isEqualTo(expectedErrorCount);
     }
 
     @Test
@@ -213,8 +213,8 @@ class KafkaContractTest {
         // Then check a "Success-..." file has been created
         var actualSuccessCount = currentSuccessCount.get();
         assertThat(actualSuccessCount)
-            .as("Check exactly 1 'Success' file has been created")
-            .isEqualTo(expectedSuccessCount);
+                .as("Check exactly 1 'Success' file has been created")
+                .isEqualTo(expectedSuccessCount);
 
     }
 
@@ -224,12 +224,12 @@ class KafkaContractTest {
 
         // When - we write to the input
         ProducerSettings<String, JsonNode> producerSettings = ProducerSettings
-            .create(akkaActorSystem, keySerialiser, valueSerialiser)
-            .withBootstrapServers(bootstrapServers);
+                .create(akkaActorSystem, keySerialiser, valueSerialiser)
+                .withBootstrapServers(bootstrapServers);
 
         Source.fromJavaStream(() -> requests)
-            .runWith(Producer.plainSink(producerSettings), akkaMaterialiser)
-            .toCompletableFuture().join();
+                .runWith(Producer.plainSink(producerSettings), akkaMaterialiser)
+                .toCompletableFuture().join();
 
         waitForService();
 

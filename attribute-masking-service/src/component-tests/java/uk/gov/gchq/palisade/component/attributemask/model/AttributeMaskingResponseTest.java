@@ -20,8 +20,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 
 import uk.gov.gchq.palisade.service.attributemask.common.Context;
-import uk.gov.gchq.palisade.service.attributemask.common.resource.SimpleConnectionDetail;
 import uk.gov.gchq.palisade.service.attributemask.common.resource.impl.FileResource;
+import uk.gov.gchq.palisade.service.attributemask.common.resource.impl.SimpleConnectionDetail;
 import uk.gov.gchq.palisade.service.attributemask.common.resource.impl.SystemResource;
 import uk.gov.gchq.palisade.service.attributemask.model.AttributeMaskingResponse;
 
@@ -34,7 +34,7 @@ class AttributeMaskingResponseTest {
      * Takes the JSON Object, deserialises and tests against the original Object
      *
      * @throws JsonProcessingException throws if the {@link AttributeMaskingResponse} object cannot be converted to a JsonContent.
-     *                     This equates to a failure to serialise or deserialise the string.
+     *                                 This equates to a failure to serialise or deserialise the string.
      */
     @Test
     void testGroupedDependantAttributeMaskingResponseSerialisingAndDeserialising() throws JsonProcessingException {

@@ -24,7 +24,7 @@ import uk.gov.gchq.palisade.service.policy.common.resource.LeafResource;
 import uk.gov.gchq.palisade.service.policy.common.resource.Resource;
 import uk.gov.gchq.palisade.service.policy.common.rule.Rule;
 import uk.gov.gchq.palisade.service.policy.common.rule.Rules;
-import uk.gov.gchq.palisade.service.policy.common.service.PolicyPrepopulationFactory;
+import uk.gov.gchq.palisade.service.policy.common.policy.PolicyPrepopulationFactory;
 import uk.gov.gchq.palisade.service.policy.common.util.ResourceBuilder;
 
 import java.io.Serializable;

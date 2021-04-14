@@ -12,7 +12,7 @@
 #
 # Copied from: https://github.com/helm/charts/blob/6c85be7b88748171afd17affe8b1b57c66bf66a2/incubator/kafka/templates/deployment-kafka-exporter.yaml
 
-{{- if .Values.prometheus.kafka.enabled }}
+  {{- if .Values.prometheus.kafka.enabled }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -24,37 +24,37 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-    {{- include "kafka.monitor.matchLabels" . | nindent 6 }}
+  {{- include "kafka.monitor.matchLabels" . | nindent 6 }}
   template:
     metadata:
       annotations:
-{{- if and .Values.prometheus.kafka.enabled  (not .Values.prometheus.operator.enabled) }}
+        {{- if and .Values.prometheus.kafka.enabled  (not .Values.prometheus.operator.enabled) }}
         prometheus.io/scrape: "true"
         prometheus.io/port: {{ .Values.prometheus.kafka.port | quote }}
-{{- end }}
+      {{- end }}
       labels:
-      {{- include "kafka.monitor.labels" . | nindent 8 }}
+    {{- include "kafka.monitor.labels" . | nindent 8 }}
     spec:
       containers:
       - image: "{{ .Values.prometheus.kafka.image }}:{{ .Values.prometheus.kafka.imageTag }}"
         name: kafka-exporter
         args:
-          - --kafka.server={{ template "kafka.fullname" . }}:9092
-          - --web.listen-address=:{{ .Values.prometheus.kafka.port }}
+        - --kafka.server={{ template "kafka.fullname" . }}:9092
+        - --web.listen-address=:{{ .Values.prometheus.kafka.port }}
         ports:
-          - containerPort: {{ .Values.prometheus.kafka.port }}
+        - containerPort: {{ .Values.prometheus.kafka.port }}
         resources:
-{{ toYaml .Values.prometheus.kafka.resources | indent 10 }}
-{{- if .Values.prometheus.kafka.tolerations }}
+      {{ toYaml .Values.prometheus.kafka.resources | indent 10 }}
+      {{- if .Values.prometheus.kafka.tolerations }}
       tolerations:
-{{ toYaml .Values.prometheus.kafka.tolerations | indent 8 }}
-{{- end }}
-{{- if .Values.prometheus.kafka.affinity }}
+      {{ toYaml .Values.prometheus.kafka.tolerations | indent 8 }}
+      {{- end }}
+      {{- if .Values.prometheus.kafka.affinity }}
       affinity:
-{{ toYaml .Values.prometheus.kafka.affinity | indent 8 }}
-{{- end }}
-{{- if .Values.prometheus.kafka.nodeSelector }}
+      {{ toYaml .Values.prometheus.kafka.affinity | indent 8 }}
+      {{- end }}
+      {{- if .Values.prometheus.kafka.nodeSelector }}
       nodeSelector:
-{{ toYaml .Values.prometheus.kafka.nodeSelector | indent 8 }}
-{{- end }}
-{{- end }}
+  {{ toYaml .Values.prometheus.kafka.nodeSelector | indent 8 }}
+  {{- end }}
+  {{- end }}

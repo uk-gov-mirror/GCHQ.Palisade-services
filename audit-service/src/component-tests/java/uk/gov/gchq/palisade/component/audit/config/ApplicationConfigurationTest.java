@@ -22,7 +22,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 
 import uk.gov.gchq.palisade.service.audit.config.ApplicationConfiguration;
-import uk.gov.gchq.palisade.service.audit.service.AuditService;
+import uk.gov.gchq.palisade.service.audit.common.audit.AuditService;
 import uk.gov.gchq.palisade.service.audit.service.LoggerAuditService;
 import uk.gov.gchq.palisade.service.audit.service.SimpleAuditService;
 import uk.gov.gchq.palisade.service.audit.service.StroomAuditService;
@@ -39,10 +39,10 @@ class ApplicationConfigurationTest {
     @Test
     void testConfigurationDefinesLoadedServices(@Autowired final Map<String, AuditService> auditServices) {
         assertThat(auditServices.values())
-            .extracting(as -> (Class) as.getClass())
-            .containsExactlyInAnyOrder(
-                LoggerAuditService.class,
-                StroomAuditService.class,
-                SimpleAuditService.class);
+                .extracting(as -> (Class) as.getClass())
+                .containsExactlyInAnyOrder(
+                        LoggerAuditService.class,
+                        StroomAuditService.class,
+                        SimpleAuditService.class);
     }
 }

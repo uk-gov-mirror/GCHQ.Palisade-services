@@ -5,7 +5,6 @@ List of third-party dependencies grouped by their license type
 * Jackson datatype: jdk8 ([com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.11.0](https://github.com/FasterXML/jackson-modules-java8/jackson-datatype-jdk8))
 * Jackson datatype: JSR310 ([com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.11.0](https://github.com/FasterXML/jackson-modules-java8/jackson-datatype-jsr310))
 * Caffeine cache ([com.github.ben-manes.caffeine:caffeine:2.8.1](https://github.com/ben-manes/caffeine))
-* Gson ([com.google.code.gson:gson:2.8.5](https://github.com/google/gson/gson))
 * akka-actor-testkit-typed ([com.typesafe.akka:akka-actor-testkit-typed_2.13:2.6.10](https://akka.io/))
 * akka-discovery ([com.typesafe.akka:akka-discovery_2.13:2.6.10](https://akka.io/))
 * akka-discovery ([com.typesafe.akka:akka-discovery_2.13:2.6.8](https://akka.io/))
@@ -37,7 +36,6 @@ List of third-party dependencies grouped by their license type
 * spring-boot-starter-test ([org.springframework.boot:spring-boot-starter-test:2.3.1.RELEASE](https://spring.io/projects/spring-boot))
 * spring-boot-starter-web ([org.springframework.boot:spring-boot-starter-web:2.3.1.RELEASE](https://spring.io/projects/spring-boot))
 * Spring Cloud Starter OpenFeign ([org.springframework.cloud:spring-cloud-starter-openfeign:2.2.2.RELEASE](https://projects.spring.io/spring-cloud))
-* hadoop-reader ([uk.gov.gchq.palisade:hadoop-reader:0.5.0-SNAPSHOT](https://github.com/gchq/Palisade-readers/tree/develop/hadoop-reader))
 
 ### [Common Development and Distribution License (CDDL) 1.1](./licenses/cddl_gpl_1.1.txt):
 * JAXB Runtime ([org.glassfish.jaxb:jaxb-runtime:2.3.0-b170127.1453](http://jaxb.java.net/jaxb-runtime-parent/jaxb-runtime))

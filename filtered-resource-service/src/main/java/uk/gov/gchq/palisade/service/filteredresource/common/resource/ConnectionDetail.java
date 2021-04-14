@@ -22,6 +22,8 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 
+import uk.gov.gchq.palisade.service.filteredresource.common.resource.impl.SimpleConnectionDetail;
+
 import java.io.Serializable;
 
 /**

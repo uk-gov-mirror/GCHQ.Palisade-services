@@ -24,6 +24,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.slf4j.LoggerFactory;
 
+import uk.gov.gchq.palisade.service.audit.common.audit.AuditService;
 import uk.gov.gchq.palisade.service.audit.model.AuditErrorMessage;
 import uk.gov.gchq.palisade.service.audit.model.AuditSuccessMessage;
 

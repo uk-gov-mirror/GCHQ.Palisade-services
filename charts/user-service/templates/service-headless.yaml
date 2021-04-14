@@ -23,8 +23,8 @@ spec:
   clusterIP: None
   publishNotReadyAddresses: true
   ports:
-    - name: broker
-      port: {{ .Values.service.internalPort }}
+  - name: broker
+    port: {{ .Values.service.internalPort }}
   selector:
     app.kubernetes.io/name: {{ include "user-service.name" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}

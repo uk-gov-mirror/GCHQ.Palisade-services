@@ -19,9 +19,9 @@ package uk.gov.gchq.palisade.service.policy.config;
 import uk.gov.gchq.palisade.service.policy.common.Generated;
 import uk.gov.gchq.palisade.service.policy.common.resource.Resource;
 import uk.gov.gchq.palisade.service.policy.common.rule.Rules;
-import uk.gov.gchq.palisade.service.policy.common.service.PolicyConfiguration;
-import uk.gov.gchq.palisade.service.policy.common.service.PolicyPrepopulationFactory;
-import uk.gov.gchq.palisade.service.policy.service.PolicyService;
+import uk.gov.gchq.palisade.service.policy.common.policy.PolicyConfiguration;
+import uk.gov.gchq.palisade.service.policy.common.policy.PolicyPrepopulationFactory;
+import uk.gov.gchq.palisade.service.policy.common.policy.PolicyService;
 
 import java.util.ArrayList;
 import java.util.Collections;

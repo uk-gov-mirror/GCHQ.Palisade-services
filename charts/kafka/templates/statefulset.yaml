@@ -14,7 +14,7 @@
 #
 # Originally based on https://github.com/helm/charts/blob/6c85be7b88748171afd17affe8b1b57c66bf66a2/incubator/kafka/templates/statefulset.yaml
 
-{{- $advertisedListenersOverride := first (pluck "advertised.listeners" .Values.configurationOverrides) }}
+  {{- $advertisedListenersOverride := first (pluck "advertised.listeners" .Values.configurationOverrides) }}
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -47,7 +47,7 @@ spec:
       {{- include "kafka.broker.labels" . | nindent 8 }}
       {{- if .Values.podLabels }}
       ## Custom pod labels
-      {{- toYaml .Values.podLabels | indent 8 }}
+    {{- toYaml .Values.podLabels | indent 8 }}
     {{- end }}
     spec:
       {{- if .Values.schedulerName }}
@@ -132,7 +132,7 @@ spec:
           {{- end }}
           {{- if .Values.livenessProbe.failureThreshold }}
           failureThreshold: {{ .Values.livenessProbe.failureThreshold }}
-          {{- end }}
+        {{- end }}
         {{- end }}
         readinessProbe:
           tcpSocket:
@@ -200,7 +200,7 @@ spec:
           value: "{{ .Values.jmx.port }}"
             {{- end }}
             {{- range $secret := .Values.secrets }}
-            {{- if not $secret.mountPath }}
+          {{- if not $secret.mountPath }}
           {{- range $key := $secret.keys }}
         - name: {{ (print ($secret.name | replace "-" "_") "_" $key) | upper }}
           valueFrom:
@@ -240,17 +240,17 @@ spec:
           {{- if $secret.mountPath }}
           {{- if $secret.keys }}
           {{- range $key := $secret.keys }}
-        - name: {{ include "kafka.fullname" $ }}-{{ $secret.name }}
+        - name: {{ include "kafka.fullname" $ }}- {{ $secret.name }}
           mountPath: {{ $secret.mountPath }}/{{ $key }}
           subPath: {{ $key }}
           readOnly: true
-            {{- end }}
+          {{- end }}
           {{- else }}
-        - name: {{ include "kafka.fullname" $ }}-{{ $secret.name }}
+        - name: {{ include "kafka.fullname" $ }}- {{ $secret.name }}
           mountPath: {{ $secret.mountPath }}
           readOnly: true
-          {{- end }}
         {{- end }}
+      {{- end }}
       {{- end }}
       {{- $needsVolumePermissions := and .Values.volumePermissions.enabled (and  .Values.persistence.enabled .Values.securityContext.enabled) }}
       {{- if $needsVolumePermissions }}
@@ -278,15 +278,15 @@ spec:
           name: {{ .Values.jmx.configMap.overrideName }}
           {{- else }}
           name: {{ include "kafka.fullname" . }}-metrics
-          {{- end }}
+        {{- end }}
         {{- end }}
         {{- range .Values.secrets }}
         {{- if .mountPath }}
-      - name: {{ include "kafka.fullname" $ }}-{{ .name }}
+      - name: {{ include "kafka.fullname" $ }}- {{ .name }}
         secret:
           secretName: {{ .name }}
         {{- end }}
-        {{- end }}
+      {{- end }}
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
   {{- if .Values.persistence.enabled }}
   volumeClaimTemplates:
@@ -305,8 +305,8 @@ spec:
       {{- if eq $provisioning "static" }}
       selector:
         matchLabels:
-          selectorFilter: {{ $config.name }}-{{ include "palisade.namespace" . }}
-      {{- end }}
-  {{- end }}
+          selectorFilter: {{ $config.name }}- {{ include "palisade.namespace" . }}
+                            {{- end }}
+                            {{- end }}
 
 

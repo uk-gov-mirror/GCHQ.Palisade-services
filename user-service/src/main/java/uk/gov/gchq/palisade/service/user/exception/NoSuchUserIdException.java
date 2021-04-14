@@ -18,8 +18,8 @@ package uk.gov.gchq.palisade.service.user.exception;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import uk.gov.gchq.palisade.service.user.common.UserId;
-import uk.gov.gchq.palisade.service.user.common.service.UserService;
+import uk.gov.gchq.palisade.service.user.common.user.UserId;
+import uk.gov.gchq.palisade.service.user.common.user.UserService;
 
 /**
  * A {@code NoSuchUserIdException} is a {@link RuntimeException} thrown by a {@link UserService} implementation to

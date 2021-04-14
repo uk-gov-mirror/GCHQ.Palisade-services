@@ -41,7 +41,7 @@ public abstract class AbstractLeafResource extends AbstractResource implements L
     private ParentResource parent;
     private HashMap<String, Serializable> attributes = new HashMap<>();
 
-    public AbstractLeafResource() {
+    protected AbstractLeafResource() {
     }
 
     @Generated

@@ -86,15 +86,15 @@ class StroomAuditServiceTest {
         var eventDetail = event.getEventDetail();
 
         assertAll(
-            () -> assertThat(eventSource.getDevice().getHostName()).isEqualTo(TEST_SERVER_NAME),
-            () -> assertThat(eventSource.getDevice().getIPAddress()).isEqualTo(TEST_SERVER_IP),
-            () -> assertThat(eventSource.getUser().getId()).isEqualTo(TEST_USER_ID),
-            () -> assertThat(eventDetail.getTypeId()).isEqualTo(DATA_SERVICE.value),
-            () -> assertThat(eventDetail.getDescription()).isEqualTo(READ_SUCCESS),
-            () -> assertThat(eventDetail.getPurpose().getJustification()).isEqualTo(TEST_PURPOSE),
-            () -> assertThat(eventDetail.getAuthorise().getObjects().get(0).getId()).isEqualTo(TEST_LEAF_RESOURCE_ID),
-            () -> assertThat(eventDetail.getAuthorise().getOutcome().isSuccess()).isTrue(),
-            () -> assertThat(eventChain.getActivity().getId()).isEqualTo(TEST_TOKEN)
+                () -> assertThat(eventSource.getDevice().getHostName()).isEqualTo(TEST_SERVER_NAME),
+                () -> assertThat(eventSource.getDevice().getIPAddress()).isEqualTo(TEST_SERVER_IP),
+                () -> assertThat(eventSource.getUser().getId()).isEqualTo(TEST_USER_ID),
+                () -> assertThat(eventDetail.getTypeId()).isEqualTo(DATA_SERVICE.value),
+                () -> assertThat(eventDetail.getDescription()).isEqualTo(READ_SUCCESS),
+                () -> assertThat(eventDetail.getPurpose().getJustification()).isEqualTo(TEST_PURPOSE),
+                () -> assertThat(eventDetail.getAuthorise().getObjects().get(0).getId()).isEqualTo(TEST_LEAF_RESOURCE_ID),
+                () -> assertThat(eventDetail.getAuthorise().getOutcome().isSuccess()).isTrue(),
+                () -> assertThat(eventChain.getActivity().getId()).isEqualTo(TEST_TOKEN)
         );
     }
 
@@ -113,15 +113,15 @@ class StroomAuditServiceTest {
         var eventDetail = event.getEventDetail();
 
         assertAll(
-            () -> assertThat(eventSource.getDevice().getHostName()).isEqualTo(TEST_SERVER_NAME),
-            () -> assertThat(eventSource.getDevice().getIPAddress()).isEqualTo(TEST_SERVER_IP),
-            () -> assertThat(eventSource.getUser().getId()).isEqualTo(TEST_USER_ID),
-            () -> assertThat(eventDetail.getTypeId()).isEqualTo(FILTERED_RESOURCE_SERVICE.value),
-            () -> assertThat(eventDetail.getDescription()).isEqualTo(REQUEST_SUCCESS),
-            () -> assertThat(eventDetail.getPurpose().getJustification()).isEqualTo(TEST_PURPOSE),
-            () -> assertThat(eventDetail.getAuthorise().getObjects().get(0).getId()).isEqualTo(TEST_LEAF_RESOURCE_ID),
-            () -> assertThat(eventDetail.getAuthorise().getOutcome().isSuccess()).isTrue(),
-            () -> assertThat(eventChain.getActivity().getId()).isEqualTo(TEST_TOKEN)
+                () -> assertThat(eventSource.getDevice().getHostName()).isEqualTo(TEST_SERVER_NAME),
+                () -> assertThat(eventSource.getDevice().getIPAddress()).isEqualTo(TEST_SERVER_IP),
+                () -> assertThat(eventSource.getUser().getId()).isEqualTo(TEST_USER_ID),
+                () -> assertThat(eventDetail.getTypeId()).isEqualTo(FILTERED_RESOURCE_SERVICE.value),
+                () -> assertThat(eventDetail.getDescription()).isEqualTo(REQUEST_SUCCESS),
+                () -> assertThat(eventDetail.getPurpose().getJustification()).isEqualTo(TEST_PURPOSE),
+                () -> assertThat(eventDetail.getAuthorise().getObjects().get(0).getId()).isEqualTo(TEST_LEAF_RESOURCE_ID),
+                () -> assertThat(eventDetail.getAuthorise().getOutcome().isSuccess()).isTrue(),
+                () -> assertThat(eventChain.getActivity().getId()).isEqualTo(TEST_TOKEN)
         );
     }
 
@@ -154,18 +154,18 @@ class StroomAuditServiceTest {
         var eventDetail = event.getEventDetail();
 
         assertAll(
-            () -> assertThat(eventSource.getDevice().getHostName()).isEqualTo(TEST_SERVER_NAME),
-            () -> assertThat(eventSource.getDevice().getIPAddress()).isEqualTo(TEST_SERVER_IP),
-            () -> assertThat(eventSource.getUser().getId()).isEqualTo(TEST_USER_ID),
-            () -> assertThat(eventDetail.getTypeId()).isEqualTo(USER_SERVICE.value),
-            () -> assertThat(eventDetail.getDescription())
-                .isEqualTo(message.getErrorNode().get("stackTrace").get(0).get("className").textValue()),
-            () -> assertThat(eventDetail.getPurpose().getJustification()).isEqualTo(TEST_PURPOSE),
-            () -> assertThat(eventDetail.getAuthorise().getObjects().get(0).getId()).isEqualTo(TEST_RESOURCE_ID),
-            () -> assertThat(eventDetail.getAuthorise().getOutcome().isSuccess()).isFalse(),
-            () -> assertThat(eventDetail.getAuthorise().getOutcome().getDescription())
-                .isEqualTo(message.getErrorNode().get("message").textValue()),
-            () -> assertThat(eventChain.getActivity().getId()).isEqualTo(TEST_TOKEN)
+                () -> assertThat(eventSource.getDevice().getHostName()).isEqualTo(TEST_SERVER_NAME),
+                () -> assertThat(eventSource.getDevice().getIPAddress()).isEqualTo(TEST_SERVER_IP),
+                () -> assertThat(eventSource.getUser().getId()).isEqualTo(TEST_USER_ID),
+                () -> assertThat(eventDetail.getTypeId()).isEqualTo(USER_SERVICE.value),
+                () -> assertThat(eventDetail.getDescription())
+                        .isEqualTo(message.getErrorNode().get("stackTrace").get(0).get("className").textValue()),
+                () -> assertThat(eventDetail.getPurpose().getJustification()).isEqualTo(TEST_PURPOSE),
+                () -> assertThat(eventDetail.getAuthorise().getObjects().get(0).getId()).isEqualTo(TEST_RESOURCE_ID),
+                () -> assertThat(eventDetail.getAuthorise().getOutcome().isSuccess()).isFalse(),
+                () -> assertThat(eventDetail.getAuthorise().getOutcome().getDescription())
+                        .isEqualTo(message.getErrorNode().get("message").textValue()),
+                () -> assertThat(eventChain.getActivity().getId()).isEqualTo(TEST_TOKEN)
         );
     }
 
@@ -187,18 +187,18 @@ class StroomAuditServiceTest {
         var eventDetail = event.getEventDetail();
 
         assertAll(
-            () -> assertThat(eventSource.getDevice().getHostName()).isEqualTo(TEST_SERVER_NAME),
-            () -> assertThat(eventSource.getDevice().getIPAddress()).isEqualTo(TEST_SERVER_IP),
-            () -> assertThat(eventSource.getUser().getId()).isEqualTo(TEST_USER_ID),
-            () -> assertThat(eventDetail.getTypeId()).isEqualTo(RESOURCE_SERVICE.value),
-            () -> assertThat(eventDetail.getDescription())
-                .isEqualTo(message.getErrorNode().get("stackTrace").get(0).get("className").textValue()),
-            () -> assertThat(eventDetail.getPurpose().getJustification()).isEqualTo(TEST_PURPOSE),
-            () -> assertThat(eventDetail.getAuthorise().getObjects().get(0).getId()).isEqualTo(TEST_RESOURCE_ID),
-            () -> assertThat(eventDetail.getAuthorise().getOutcome().isSuccess()).isFalse(),
-            () -> assertThat(eventDetail.getAuthorise().getOutcome().getDescription())
-                .isEqualTo(message.getErrorNode().get("message").textValue()),
-            () -> assertThat(eventChain.getActivity().getId()).isEqualTo(TEST_TOKEN)
+                () -> assertThat(eventSource.getDevice().getHostName()).isEqualTo(TEST_SERVER_NAME),
+                () -> assertThat(eventSource.getDevice().getIPAddress()).isEqualTo(TEST_SERVER_IP),
+                () -> assertThat(eventSource.getUser().getId()).isEqualTo(TEST_USER_ID),
+                () -> assertThat(eventDetail.getTypeId()).isEqualTo(RESOURCE_SERVICE.value),
+                () -> assertThat(eventDetail.getDescription())
+                        .isEqualTo(message.getErrorNode().get("stackTrace").get(0).get("className").textValue()),
+                () -> assertThat(eventDetail.getPurpose().getJustification()).isEqualTo(TEST_PURPOSE),
+                () -> assertThat(eventDetail.getAuthorise().getObjects().get(0).getId()).isEqualTo(TEST_RESOURCE_ID),
+                () -> assertThat(eventDetail.getAuthorise().getOutcome().isSuccess()).isFalse(),
+                () -> assertThat(eventDetail.getAuthorise().getOutcome().getDescription())
+                        .isEqualTo(message.getErrorNode().get("message").textValue()),
+                () -> assertThat(eventChain.getActivity().getId()).isEqualTo(TEST_TOKEN)
         );
     }
 
@@ -220,18 +220,18 @@ class StroomAuditServiceTest {
         var eventDetail = event.getEventDetail();
 
         assertAll(
-            () -> assertThat(eventSource.getDevice().getHostName()).isEqualTo(TEST_SERVER_NAME),
-            () -> assertThat(eventSource.getDevice().getIPAddress()).isEqualTo(TEST_SERVER_IP),
-            () -> assertThat(eventSource.getUser().getId()).isEqualTo(TEST_USER_ID),
-            () -> assertThat(eventDetail.getTypeId()).isEqualTo(POLICY_SERVICE.value),
-            () -> assertThat(eventDetail.getDescription())
-                .isEqualTo(message.getErrorNode().get("stackTrace").get(0).get("className").textValue()),
-            () -> assertThat(eventDetail.getPurpose().getJustification()).isEqualTo(TEST_PURPOSE),
-            () -> assertThat(eventDetail.getAuthorise().getObjects().get(0).getId()).isEqualTo(TEST_RESOURCE_ID),
-            () -> assertThat(eventDetail.getAuthorise().getOutcome().isSuccess()).isFalse(),
-            () -> assertThat(eventDetail.getAuthorise().getOutcome().getDescription())
-                .isEqualTo(message.getErrorNode().get("message").textValue()),
-            () -> assertThat(eventChain.getActivity().getId()).isEqualTo(TEST_TOKEN)
+                () -> assertThat(eventSource.getDevice().getHostName()).isEqualTo(TEST_SERVER_NAME),
+                () -> assertThat(eventSource.getDevice().getIPAddress()).isEqualTo(TEST_SERVER_IP),
+                () -> assertThat(eventSource.getUser().getId()).isEqualTo(TEST_USER_ID),
+                () -> assertThat(eventDetail.getTypeId()).isEqualTo(POLICY_SERVICE.value),
+                () -> assertThat(eventDetail.getDescription())
+                        .isEqualTo(message.getErrorNode().get("stackTrace").get(0).get("className").textValue()),
+                () -> assertThat(eventDetail.getPurpose().getJustification()).isEqualTo(TEST_PURPOSE),
+                () -> assertThat(eventDetail.getAuthorise().getObjects().get(0).getId()).isEqualTo(TEST_RESOURCE_ID),
+                () -> assertThat(eventDetail.getAuthorise().getOutcome().isSuccess()).isFalse(),
+                () -> assertThat(eventDetail.getAuthorise().getOutcome().getDescription())
+                        .isEqualTo(message.getErrorNode().get("message").textValue()),
+                () -> assertThat(eventChain.getActivity().getId()).isEqualTo(TEST_TOKEN)
         );
     }
 }

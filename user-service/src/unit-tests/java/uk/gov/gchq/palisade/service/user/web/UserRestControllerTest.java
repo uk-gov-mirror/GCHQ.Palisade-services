@@ -29,8 +29,8 @@ import org.mockito.Mockito;
 import org.slf4j.LoggerFactory;
 
 import uk.gov.gchq.palisade.service.user.common.Context;
-import uk.gov.gchq.palisade.service.user.common.User;
-import uk.gov.gchq.palisade.service.user.common.service.UserService;
+import uk.gov.gchq.palisade.service.user.common.user.User;
+import uk.gov.gchq.palisade.service.user.common.user.UserService;
 import uk.gov.gchq.palisade.service.user.model.UserRequest;
 import uk.gov.gchq.palisade.service.user.service.UserServiceCachingProxy;
 

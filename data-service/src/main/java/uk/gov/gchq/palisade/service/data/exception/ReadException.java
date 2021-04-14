@@ -40,4 +40,5 @@ public class ReadException extends RuntimeException {
     public ReadException(final String message, final Throwable throwable) {
         super(message, throwable);
     }
+
 }

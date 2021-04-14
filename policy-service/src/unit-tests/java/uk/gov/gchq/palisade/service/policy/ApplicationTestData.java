@@ -21,7 +21,7 @@ import uk.gov.gchq.palisade.service.policy.common.resource.impl.FileResource;
 import uk.gov.gchq.palisade.service.policy.common.resource.impl.SystemResource;
 import uk.gov.gchq.palisade.service.policy.common.rule.Rule;
 import uk.gov.gchq.palisade.service.policy.common.rule.Rules;
-import uk.gov.gchq.palisade.service.policy.common.service.SimpleConnectionDetail;
+import uk.gov.gchq.palisade.service.policy.common.resource.impl.SimpleConnectionDetail;
 import uk.gov.gchq.palisade.service.policy.common.user.User;
 import uk.gov.gchq.palisade.service.policy.common.user.UserId;
 import uk.gov.gchq.palisade.service.policy.exception.NoSuchPolicyException;

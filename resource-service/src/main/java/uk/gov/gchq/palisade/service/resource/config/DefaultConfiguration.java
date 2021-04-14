@@ -18,6 +18,7 @@ package uk.gov.gchq.palisade.service.resource.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -70,6 +71,7 @@ public class DefaultConfiguration {
      */
     @Bean
     @ConditionalOnProperty(prefix = "population", name = "resourceProvider", havingValue = "std", matchIfMissing = true)
+    @ConfigurationProperties(prefix = "population")
     public StdResourceConfiguration resourceConfiguration() {
         return new StdResourceConfiguration();
     }

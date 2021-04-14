@@ -13,8 +13,8 @@
 # Copied from: https://github.com/helm/charts/blob/6c85be7b88748171afd17affe8b1b57c66bf66a2/incubator/zookeeper/templates/job-chroots.yaml
 
   {{- if .Values.jobs.chroots.enabled }}
-{{- $root := . }}
-{{- $job := .Values.jobs.chroots }}
+  {{- $root := . }}
+  {{- $job := .Values.jobs.chroots }}
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -45,36 +45,36 @@ spec:
         job: chroots
     spec:
       restartPolicy: {{ $job.restartPolicy }}
-{{- if .Values.priorityClassName }}
+      {{- if .Values.priorityClassName }}
       priorityClassName: "{{ .Values.priorityClassName }}"
-{{- end }}
+      {{- end }}
       containers:
-        - name: main
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
-          command:
-            - /bin/bash
-            - -o
-            - pipefail
-            - -euc
-  {{- $port := .Values.service.ports.client.port }}
-            - >
-              sleep 15;
-              export SERVER={{ template "zookeeper.fullname" $root }}:{{ $port }};
-  {{- range $job.config.create }}
-              echo '==> {{ . }}';
-              echo '====> Create chroot if does not exist.';
-              zkCli.sh -server {{ template "zookeeper.fullname" $root }}:{{ $port }} get {{ . }} 2>&1 >/dev/null | grep 'cZxid'
-              || zkCli.sh -server {{ template "zookeeper.fullname" $root }}:{{ $port }} create {{ . }} "";
-              echo '====> Confirm chroot exists.';
-              zkCli.sh -server {{ template "zookeeper.fullname" $root }}:{{ $port }} get {{ . }} 2>&1 >/dev/null | grep 'cZxid';
-              echo '====> Chroot exists.';
-  {{- end }}
-          env:
+      - name: main
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        command:
+        - /bin/bash
+        - -o
+        - pipefail
+        - -euc
+          {{- $port := .Values.service.ports.client.port }}
+        - >
+          sleep 15;
+          export SERVER={{ template "zookeeper.fullname" $root }}:{{ $port }};
+          {{- range $job.config.create }}
+          echo '==> {{ . }}';
+          echo '====> Create chroot if does not exist.';
+          zkCli.sh -server {{ template "zookeeper.fullname" $root }}:{{ $port }} get {{ . }} 2>&1 >/dev/null | grep 'cZxid'
+          || zkCli.sh -server {{ template "zookeeper.fullname" $root }}:{{ $port }} create {{ . }} "";
+          echo '====> Confirm chroot exists.';
+          zkCli.sh -server {{ template "zookeeper.fullname" $root }}:{{ $port }} get {{ . }} 2>&1 >/dev/null | grep 'cZxid';
+          echo '====> Chroot exists.';
+        {{- end }}
+        env:
           {{- range $key, $value := $job.env }}
-            - name: {{ $key | upper | replace "." "_" }}
-              value: {{ $value | quote }}
-          {{- end }}
-          resources:
-{{ toYaml $job.resources | indent 12 }}
-{{- end -}}
+        - name: {{ $key | upper | replace "." "_" }}
+          value: {{ $value | quote }}
+        {{- end }}
+        resources:
+  {{ toYaml $job.resources | indent 12 }}
+  {{- end -}}

@@ -46,7 +46,7 @@ import org.springframework.core.serializer.support.SerializationFailedException;
 import uk.gov.gchq.palisade.component.filteredresource.repository.MapTokenErrorMessagePersistenceLayer;
 import uk.gov.gchq.palisade.component.filteredresource.repository.MapTokenOffsetPersistenceLayer;
 import uk.gov.gchq.palisade.service.filteredresource.common.Context;
-import uk.gov.gchq.palisade.service.filteredresource.common.resource.SimpleConnectionDetail;
+import uk.gov.gchq.palisade.service.filteredresource.common.resource.impl.SimpleConnectionDetail;
 import uk.gov.gchq.palisade.service.filteredresource.common.resource.impl.FileResource;
 import uk.gov.gchq.palisade.service.filteredresource.common.resource.impl.SystemResource;
 import uk.gov.gchq.palisade.service.filteredresource.model.AuditableWebSocketMessage;

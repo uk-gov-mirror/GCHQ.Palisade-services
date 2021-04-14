@@ -18,7 +18,7 @@ package uk.gov.gchq.palisade.service.policy.common.resource.impl;
 
 import uk.gov.gchq.palisade.service.policy.common.resource.AbstractLeafResource;
 import uk.gov.gchq.palisade.service.policy.common.resource.ParentResource;
-import uk.gov.gchq.palisade.service.policy.common.service.ConnectionDetail;
+import uk.gov.gchq.palisade.service.policy.common.resource.ConnectionDetail;
 
 import java.io.Serializable;
 import java.util.Map;

@@ -12,7 +12,7 @@
 #
 # Copied from: https://github.com/bitnami/charts/tree/780db91641bf4e1f98c6e020e1fd971e4d2abc90/bitnami/redis
 
-{{ if .Values.podSecurityPolicy.create }}
+  {{ if .Values.podSecurityPolicy.create }}
 apiVersion: {{ template "podSecurityPolicy.apiVersion" . }}
 kind: PodSecurityPolicy
 metadata:
@@ -28,30 +28,30 @@ spec:
   fsGroup:
     rule: 'MustRunAs'
     ranges:
-      - min: {{ .Values.securityContext.fsGroup }}
-        max: {{ .Values.securityContext.fsGroup }}
+    - min: {{ .Values.securityContext.fsGroup }}
+      max: {{ .Values.securityContext.fsGroup }}
   hostIPC: false
   hostNetwork: false
   hostPID: false
   privileged: false
   readOnlyRootFilesystem: false
   requiredDropCapabilities:
-    - ALL
+  - ALL
   runAsUser:
     rule: 'MustRunAs'
     ranges:
-      - min: {{ .Values.securityContext.runAsUser }}
-        max: {{ .Values.securityContext.runAsUser }}
+    - min: {{ .Values.securityContext.runAsUser }}
+      max: {{ .Values.securityContext.runAsUser }}
   seLinux:
     rule: 'RunAsAny'
   supplementalGroups:
     rule: 'MustRunAs'
     ranges:
-      - min: {{ .Values.securityContext.runAsUser }}
-        max: {{ .Values.securityContext.runAsUser }}
+    - min: {{ .Values.securityContext.runAsUser }}
+      max: {{ .Values.securityContext.runAsUser }}
   volumes:
-    - 'configMap'
-    - 'secret'
-    - 'emptyDir'
-    - 'persistentVolumeClaim'
-{{- end }}
+  - 'configMap'
+  - 'secret'
+  - 'emptyDir'
+  - 'persistentVolumeClaim'
+  {{- end }}

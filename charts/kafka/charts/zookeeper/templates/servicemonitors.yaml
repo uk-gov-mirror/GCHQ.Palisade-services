@@ -19,15 +19,15 @@ metadata:
   name: {{ include "zookeeper.fullname" . }}
   namespace: {{ include "palisade.namespace" . }}
   labels:
-{{ toYaml .Values.prometheus.serviceMonitor.selector | indent 4 }}
+  {{ toYaml .Values.prometheus.serviceMonitor.selector | indent 4 }}
 spec:
   endpoints:
-  {{- range $key, $port := .Values.exporters.jmx.ports }}
-    - port: {{ $key }}
-      path: {{ $.Values.exporters.jmx.path }}
-      interval: {{ $.Values.exporters.jmx.serviceMonitor.interval }}
-      scrapeTimeout: {{ $.Values.exporters.jmx.serviceMonitor.scrapeTimeout }}
-      scheme: {{ $.Values.exporters.jmx.serviceMonitor.scheme }}
+    {{- range $key, $port := .Values.exporters.jmx.ports }}
+  - port: {{ $key }}
+    path: {{ $.Values.exporters.jmx.path }}
+    interval: {{ $.Values.exporters.jmx.serviceMonitor.interval }}
+    scrapeTimeout: {{ $.Values.exporters.jmx.serviceMonitor.scrapeTimeout }}
+    scheme: {{ $.Values.exporters.jmx.serviceMonitor.scheme }}
   {{- end }}
   selector:
     matchLabels:
@@ -35,11 +35,11 @@ spec:
       release: {{ .Release.Name }}
   namespaceSelector:
     matchNames:
-      - {{ .Release.Namespace }}
-{{- end }}
+    - {{ .Release.Namespace }}
+  {{- end }}
 ---
 
-{{- if and .Values.exporters.zookeeper.enabled .Values.prometheus.serviceMonitor.enabled }}
+  {{- if and .Values.exporters.zookeeper.enabled .Values.prometheus.serviceMonitor.enabled }}
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
@@ -48,15 +48,15 @@ metadata:
   namespace: {{ .Values.prometheus.serviceMonitor.namespace }}
   {{- end }}
   labels:
-{{ toYaml .Values.prometheus.serviceMonitor.selector | indent 4 }}
+  {{ toYaml .Values.prometheus.serviceMonitor.selector | indent 4 }}
 spec:
   endpoints:
-  {{- range $key, $port := .Values.exporters.zookeeper.ports }}
-    - port: {{ $key }}
-      path: {{ $.Values.exporters.zookeeper.path }}
-      interval: {{ $.Values.exporters.zookeeper.serviceMonitor.interval }}
-      scrapeTimeout: {{ $.Values.exporters.zookeeper.serviceMonitor.scrapeTimeout }}
-      scheme: {{ $.Values.exporters.zookeeper.serviceMonitor.scheme }}
+    {{- range $key, $port := .Values.exporters.zookeeper.ports }}
+  - port: {{ $key }}
+    path: {{ $.Values.exporters.zookeeper.path }}
+    interval: {{ $.Values.exporters.zookeeper.serviceMonitor.interval }}
+    scrapeTimeout: {{ $.Values.exporters.zookeeper.serviceMonitor.scrapeTimeout }}
+    scheme: {{ $.Values.exporters.zookeeper.serviceMonitor.scheme }}
   {{- end }}
   selector:
     matchLabels:
@@ -64,5 +64,5 @@ spec:
       release: {{ .Release.Name }}
   namespaceSelector:
     matchNames:
-      - {{ .Release.Namespace }}
-{{- end }}
+    - {{ .Release.Namespace }}
+  {{- end }}

@@ -25,7 +25,6 @@ import uk.gov.gchq.palisade.service.topicoffset.common.Context;
 import uk.gov.gchq.palisade.service.topicoffset.common.resource.LeafResource;
 import uk.gov.gchq.palisade.service.topicoffset.common.resource.impl.FileResource;
 import uk.gov.gchq.palisade.service.topicoffset.common.resource.impl.SystemResource;
-import uk.gov.gchq.palisade.service.topicoffset.common.service.SimpleConnectionDetail;
 import uk.gov.gchq.palisade.service.topicoffset.model.AuditErrorMessage;
 import uk.gov.gchq.palisade.service.topicoffset.model.TopicOffsetRequest;
 

@@ -116,10 +116,10 @@ class LoggerAuditServiceTest {
         // Then
         assertThat(infoCaptor.getAllValues()).isEmpty();
         assertThat(errorCaptor.getAllValues())
-            .as("Check the logged AuditErrorMessage is from the 'User Service'")
-            .hasSize(1)
-            .first()
-            .isEqualTo(auditErrorMessage(USER_SERVICE));
+                .as("Check the logged AuditErrorMessage is from the 'User Service'")
+                .hasSize(1)
+                .first()
+                .isEqualTo(auditErrorMessage(USER_SERVICE));
     }
 
     @Test
@@ -134,10 +134,10 @@ class LoggerAuditServiceTest {
         // Then
         assertThat(infoCaptor.getAllValues()).isEmpty();
         assertThat(errorCaptor.getAllValues())
-            .as("Check the logged AuditErrorMessage is from the 'Resource Service'")
-            .hasSize(1)
-            .first()
-            .isEqualTo(auditErrorMessage(RESOURCE_SERVICE));
+                .as("Check the logged AuditErrorMessage is from the 'Resource Service'")
+                .hasSize(1)
+                .first()
+                .isEqualTo(auditErrorMessage(RESOURCE_SERVICE));
     }
 
     @Test
@@ -151,9 +151,9 @@ class LoggerAuditServiceTest {
         // Then
         assertThat(infoCaptor.getAllValues()).isEmpty();
         assertThat(errorCaptor.getAllValues())
-            .as("Check the logged AuditErrorMessage is from the 'Policy Service'")
-            .hasSize(1)
-            .first()
-            .isEqualTo(auditErrorMessage(POLICY_SERVICE));
+                .as("Check the logged AuditErrorMessage is from the 'Policy Service'")
+                .hasSize(1)
+                .first()
+                .isEqualTo(auditErrorMessage(POLICY_SERVICE));
     }
 }

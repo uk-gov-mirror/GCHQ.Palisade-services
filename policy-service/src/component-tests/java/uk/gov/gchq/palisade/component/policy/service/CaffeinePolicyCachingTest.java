@@ -33,7 +33,7 @@ import uk.gov.gchq.palisade.service.policy.common.resource.StubResource;
 import uk.gov.gchq.palisade.service.policy.common.resource.impl.FileResource;
 import uk.gov.gchq.palisade.service.policy.common.rule.PassThroughRule;
 import uk.gov.gchq.palisade.service.policy.common.rule.Rules;
-import uk.gov.gchq.palisade.service.policy.common.service.SimpleConnectionDetail;
+import uk.gov.gchq.palisade.service.policy.common.resource.impl.SimpleConnectionDetail;
 import uk.gov.gchq.palisade.service.policy.config.ApplicationConfiguration;
 import uk.gov.gchq.palisade.service.policy.service.PolicyServiceCachingProxy;
 

@@ -53,7 +53,7 @@ public class ContractTestData {
     public static final String PURPOSE = "test-purpose";
     public static final Context CONTEXT = new Context().purpose(PURPOSE);
 
-    public static final String REQUEST_JSON = "{\"userId\":\"test-user-id\",\"resourceId\":\"/test/resourceId\",\"context\":{\"class\":\"uk.gov.gchq.palisade.service.topicoffset.common.Context\",\"contents\":{\"purpose\":\"test-purpose\"}},\"resource\":{\"class\":\"uk.gov.gchq.palisade.service.topicoffset.common.resource.impl.FileResource\",\"id\":\"/test/file.format\",\"attributes\":{},\"connectionDetail\":{\"class\":\"uk.gov.gchq.palisade.service.topicoffset.common.service.SimpleConnectionDetail\",\"serviceName\":\"test-service\"},\"parent\":{\"class\":\"uk.gov.gchq.palisade.service.topicoffset.common.resource.impl.SystemResource\",\"id\":\"/test/\"},\"serialisedFormat\":\"avro\",\"type\":\"uk.gov.gchq.palisade.test.TestType\"}}}";
+    public static final String REQUEST_JSON = "{\"userId\":\"test-user-id\",\"resourceId\":\"/test/resourceId\",\"context\":{\"class\":\"uk.gov.gchq.palisade.service.topicoffset.common.Context\",\"contents\":{\"purpose\":\"test-purpose\"}},\"resource\":{\"class\":\"uk.gov.gchq.palisade.service.topicoffset.common.resource.impl.FileResource\",\"id\":\"/test/file.format\",\"attributes\":{},\"connectionDetail\":{\"class\":\"uk.gov.gchq.palisade.service.topicoffset.common.resource.impl.SimpleConnectionDetail\",\"serviceName\":\"test-service\"},\"parent\":{\"class\":\"uk.gov.gchq.palisade.service.topicoffset.common.resource.impl.SystemResource\",\"id\":\"/test/\"},\"serialisedFormat\":\"avro\",\"type\":\"uk.gov.gchq.palisade.test.TestType\"}}}";
 
     public static final JsonNode REQUEST_NODE;
     public static final TopicOffsetRequest REQUEST_OBJ;

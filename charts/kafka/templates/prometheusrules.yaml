@@ -12,7 +12,7 @@
 #
 # Copied from: https://github.com/helm/charts/blob/6c85be7b88748171afd17affe8b1b57c66bf66a2/incubator/kafka/templates/prometheusrules.yaml
 
-{{ if and .Values.prometheus.operator.enabled .Values.prometheus.operator.prometheusRule.enabled .Values.prometheus.operator.prometheusRule.rules }}
+  {{ if and .Values.prometheus.operator.enabled .Values.prometheus.operator.prometheusRule.enabled .Values.prometheus.operator.prometheusRule.rules }}
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
@@ -25,6 +25,6 @@ spec:
   groups:
   - name: {{ include "kafka.fullname" . }}
     rules:
-    {{- toYaml .Values.prometheus.operator.prometheusRule.rules | nindent 6 }}
-{{- end }}
+  {{- toYaml .Values.prometheus.operator.prometheusRule.rules | nindent 6 }}
+  {{- end }}
 

@@ -62,18 +62,6 @@ public class User implements Serializable {
     }
 
     /**
-     * Copy constructor for a {@link User}.
-     *
-     * @param user the {@link User} that will be copied.
-     */
-    User(final User user) {
-        requireNonNull(user, "User to be cloned cannot be null");
-        this.setUserId(user.getUserId());
-        this.setRoles(user.getRoles());
-        this.setAuths(user.getAuths());
-    }
-
-    /**
      * Sets the userId.
      *
      * @param userId the userId

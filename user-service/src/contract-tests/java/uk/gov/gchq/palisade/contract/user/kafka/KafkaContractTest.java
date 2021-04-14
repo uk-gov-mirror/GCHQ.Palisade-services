@@ -55,8 +55,8 @@ import uk.gov.gchq.palisade.contract.user.kafka.KafkaInitializer.ResponseDeseria
 import uk.gov.gchq.palisade.service.user.UserApplication;
 import uk.gov.gchq.palisade.service.user.common.Context;
 import uk.gov.gchq.palisade.service.user.common.Token;
-import uk.gov.gchq.palisade.service.user.common.User;
-import uk.gov.gchq.palisade.service.user.common.UserId;
+import uk.gov.gchq.palisade.service.user.common.user.User;
+import uk.gov.gchq.palisade.service.user.common.user.UserId;
 import uk.gov.gchq.palisade.service.user.exception.NoSuchUserIdException;
 import uk.gov.gchq.palisade.service.user.model.UserRequest;
 import uk.gov.gchq.palisade.service.user.stream.ConsumerTopicConfiguration;

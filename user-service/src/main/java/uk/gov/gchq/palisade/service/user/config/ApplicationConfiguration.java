@@ -33,10 +33,10 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.scheduling.annotation.AsyncConfigurer;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
-import uk.gov.gchq.palisade.service.user.common.User;
-import uk.gov.gchq.palisade.service.user.common.service.UserConfiguration;
-import uk.gov.gchq.palisade.service.user.common.service.UserPrepopulationFactory;
-import uk.gov.gchq.palisade.service.user.common.service.UserService;
+import uk.gov.gchq.palisade.service.user.common.user.User;
+import uk.gov.gchq.palisade.service.user.common.user.UserConfiguration;
+import uk.gov.gchq.palisade.service.user.common.user.UserPrepopulationFactory;
+import uk.gov.gchq.palisade.service.user.common.user.UserService;
 import uk.gov.gchq.palisade.service.user.exception.ApplicationAsyncExceptionHandler;
 import uk.gov.gchq.palisade.service.user.service.NullUserService;
 import uk.gov.gchq.palisade.service.user.service.UserServiceAsyncProxy;

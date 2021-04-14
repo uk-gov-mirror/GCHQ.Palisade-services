@@ -40,9 +40,9 @@ spec:
         image: "{{ .Values.global.repository }}/{{ .Values.image.name }}:{{ .Values.image.base }}-{{ .Values.image.tag }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         ports:
-          - name: web
-            containerPort: 8082
-            protocol: TCP
+        - name: web
+          containerPort: 8082
+          protocol: TCP
         livenessProbe:
           httpGet:
             path: /actuator/health
@@ -60,14 +60,14 @@ spec:
           periodSeconds: 10
           timeoutSeconds: 5
         resources:
-          {{- toYaml .Values.resources | nindent 10 }}
+        {{- toYaml .Values.resources | nindent 10 }}
         env:
         - name: "LOADER_PATH"
           value: {{ include "data-service.deployment.path" . }}
         - name: "SPRING_CONFIG_ADDITIONAL_LOCATION"
           value: {{ include "data-service.config.path" . }}
-        {{- $envVars := pluck .Values.global.deployment .Values.global.env | first | default .Values.global.env._default }}
-        {{- range $item := $envVars }}
+          {{- $envVars := pluck .Values.global.deployment .Values.global.env | first | default .Values.global.env._default }}
+          {{- range $item := $envVars }}
         - name: {{ $item.name }}
           value: {{ $item.value }}
         {{- end }}
@@ -76,33 +76,33 @@ spec:
           mountPath: {{ include "data-service.deployment.path" . }}
         - name: config-volume
           mountPath: {{ include "data-service.config.path" . }}
-        {{- range $name, $value := .Values.global.persistence.dataStores }}
+          {{- range $name, $value := .Values.global.persistence.dataStores }}
         - name: {{ $name }}
           mountPath: {{ $value.mountPath }}
-        {{- end }}
+      {{- end }}
       volumes:
       - name: {{ include "data-service.deployment.fullname" . }}
         persistentVolumeClaim:
-          claimName: {{ include "data-service.deployment.fullname" . }}-{{ include "palisade.namespace" . }}
+          claimName: {{ include "data-service.deployment.fullname" . }}- {{ include "palisade.namespace" . }}
           readOnly: true
       - name: config-volume
         configMap:
           name: {{ include "data-service.name" . }}-configmap
-      {{- range $name, $_ := .Values.global.persistence.dataStores }}
+        {{- range $name, $_ := .Values.global.persistence.dataStores }}
       - name: {{ $name }}
         persistentVolumeClaim:
-          claimName: {{ $name }}-{{ include "palisade.namespace" $ }}
+          claimName: {{ $name }}- {{ include "palisade.namespace" $ }}
           readOnly: true
       {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
-        {{ toYaml . }}
+      {{ toYaml . }}
       {{- end }}
       {{- with .Values.affinity }}
       affinity:
-        {{ toYaml . }}
+      {{ toYaml . }}
       {{- end }}
       {{- with .Values.tolerations }}
       tolerations:
-        {{ toYaml . }}
-      {{- end }}
+      {{ toYaml . }}
+  {{- end }}

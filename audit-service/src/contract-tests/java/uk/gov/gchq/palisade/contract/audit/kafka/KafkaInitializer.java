@@ -89,8 +89,8 @@ public class KafkaInitializer implements ApplicationContextInitializer<Configura
         @Bean
         KafkaContainer kafkaContainer() throws ExecutionException, InterruptedException {
             var topics = List.of(
-                new NewTopic("success", 1, (short) 1),
-                new NewTopic("error", 1, (short) 1));
+                    new NewTopic("success", 1, (short) 1),
+                    new NewTopic("error", 1, (short) 1));
             createTopics(topics, KAFKA_CONTAINER);
             return KAFKA_CONTAINER;
         }
@@ -112,13 +112,13 @@ public class KafkaInitializer implements ApplicationContextInitializer<Configura
             // remove current port if found and then add back in with the port Kafka is
             // listening on
             var config = props.toHoconConfig(Stream
-                .concat(
-                    props.getAllActiveProperties()
-                        .entrySet()
-                        .stream()
-                        .filter(kafkaPort -> !kafkaPort.getKey().equals(portKey)),
-                    Stream.of(new AbstractMap.SimpleEntry<>(portKey, port)))
-                .collect(toMap(Map.Entry::getKey, Map.Entry::getValue)));
+                    .concat(
+                            props.getAllActiveProperties()
+                                    .entrySet()
+                                    .stream()
+                                    .filter(kafkaPort -> !kafkaPort.getKey().equals(portKey)),
+                            Stream.of(new AbstractMap.SimpleEntry<>(portKey, port)))
+                    .collect(toMap(Map.Entry::getKey, Map.Entry::getValue)));
 
             return ActorSystem.create("actor-with-overrides", config);
         }
@@ -146,7 +146,7 @@ public class KafkaInitializer implements ApplicationContextInitializer<Configura
         }
 
         private static void createTopics(final List<NewTopic> newTopics, final KafkaContainer kafka)
-            throws ExecutionException, InterruptedException {
+                throws ExecutionException, InterruptedException {
             var host = String.format("%s:%d", "localhost", kafka.getFirstMappedPort());
             var adminProperties = Map.<String, Object>of(BOOTSTRAP_SERVERS_CONFIG, host);
             try (var admin = AdminClient.create(adminProperties)) {

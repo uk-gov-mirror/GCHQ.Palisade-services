@@ -29,7 +29,7 @@ data:
     hostPort: 127.0.0.1:{{ .Values.env.JMXPORT }}
     lowercaseOutputName: {{ .Values.exporters.jmx.config.lowercaseOutputName }}
     rules:
-{{ .Values.exporters.jmx.config.rules | toYaml | indent 6 }}
+    {{ .Values.exporters.jmx.config.rules | toYaml | indent 6 }}
     ssl: false
     startDelaySeconds: {{ .Values.exporters.jmx.config.startDelaySeconds }}
-{{- end }}
+    {{- end }}

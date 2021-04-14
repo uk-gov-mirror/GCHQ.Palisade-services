@@ -19,16 +19,16 @@ package uk.gov.gchq.palisade.service.data.common;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import uk.gov.gchq.palisade.service.data.common.data.SerialisingResponseWriter;
-import uk.gov.gchq.palisade.service.data.common.request.DataReaderRequest;
+import uk.gov.gchq.palisade.service.data.common.data.reader.DataReaderRequest;
+import uk.gov.gchq.palisade.service.data.common.data.reader.SerialisingResponseWriter;
 import uk.gov.gchq.palisade.service.data.common.resource.LeafResource;
-import uk.gov.gchq.palisade.service.data.common.resource.SimpleConnectionDetail;
 import uk.gov.gchq.palisade.service.data.common.resource.impl.FileResource;
+import uk.gov.gchq.palisade.service.data.common.resource.impl.SimpleConnectionDetail;
 import uk.gov.gchq.palisade.service.data.common.resource.impl.SystemResource;
 import uk.gov.gchq.palisade.service.data.common.rule.Rule;
 import uk.gov.gchq.palisade.service.data.common.rule.Rules;
-import uk.gov.gchq.palisade.service.data.common.seralise.SimpleStringSerialiser;
 import uk.gov.gchq.palisade.service.data.common.user.User;
+import uk.gov.gchq.palisade.service.data.serialise.SimpleStringSerialiser;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

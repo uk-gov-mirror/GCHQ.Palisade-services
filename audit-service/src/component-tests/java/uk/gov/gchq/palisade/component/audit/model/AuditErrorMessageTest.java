@@ -42,15 +42,15 @@ class AuditErrorMessageTest extends AbstractSerialisationTest {
         // GIVEN the instance to check
 
         var expected = AuditErrorMessage.Builder.create()
-            .withUserId("originalUserID")
-            .withResourceId("testResourceId")
-            .withContext(new Context().purpose("testContext"))
-            .withServiceName("testServiceName")
-            .withTimestamp(ZonedDateTime.now(UTC).format(ISO_INSTANT))
-            .withServerIp("testServerIP")
-            .withServerHostname("testServerHostname")
-            .withAttributes(Map.of("messagesSent", "23"))
-            .withError(new InternalError("Something went wrong!"));
+                .withUserId("originalUserID")
+                .withResourceId("testResourceId")
+                .withContext(new Context().purpose("testContext"))
+                .withServiceName("testServiceName")
+                .withTimestamp(ZonedDateTime.now(UTC).format(ISO_INSTANT))
+                .withServerIp("testServerIP")
+                .withServerHostname("testServerHostname")
+                .withAttributes(Map.of("messagesSent", "23"))
+                .withError(new InternalError("Something went wrong!"));
 
         // THEN confirm that it can be serialised and then deserialised successfully.
 

@@ -69,7 +69,7 @@ import uk.gov.gchq.palisade.service.filteredresource.common.Context;
 import uk.gov.gchq.palisade.service.filteredresource.common.StreamMarker;
 import uk.gov.gchq.palisade.service.filteredresource.common.Token;
 import uk.gov.gchq.palisade.service.filteredresource.common.resource.LeafResource;
-import uk.gov.gchq.palisade.service.filteredresource.common.resource.SimpleConnectionDetail;
+import uk.gov.gchq.palisade.service.filteredresource.common.resource.impl.SimpleConnectionDetail;
 import uk.gov.gchq.palisade.service.filteredresource.common.resource.impl.FileResource;
 import uk.gov.gchq.palisade.service.filteredresource.common.resource.impl.SystemResource;
 import uk.gov.gchq.palisade.service.filteredresource.model.AuditErrorMessage;

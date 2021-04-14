@@ -20,8 +20,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 
 import uk.gov.gchq.palisade.service.attributemask.common.Context;
-import uk.gov.gchq.palisade.service.attributemask.common.resource.SimpleConnectionDetail;
 import uk.gov.gchq.palisade.service.attributemask.common.resource.impl.FileResource;
+import uk.gov.gchq.palisade.service.attributemask.common.resource.impl.SimpleConnectionDetail;
 import uk.gov.gchq.palisade.service.attributemask.common.resource.impl.SystemResource;
 import uk.gov.gchq.palisade.service.attributemask.common.rule.Rules;
 import uk.gov.gchq.palisade.service.attributemask.common.user.User;

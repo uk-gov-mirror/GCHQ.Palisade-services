@@ -17,7 +17,6 @@
 package uk.gov.gchq.palisade.service.policy.common.resource;
 
 import uk.gov.gchq.palisade.service.policy.common.resource.impl.SystemResource;
-import uk.gov.gchq.palisade.service.policy.common.service.ConnectionDetail;
 
 import java.util.Comparator;
 

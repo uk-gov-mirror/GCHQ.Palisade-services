@@ -34,7 +34,7 @@ spec:
       release: {{ .Release.Name }}
       component: server
   updateStrategy:
-    {{- toYaml .Values.updateStrategy | nindent 4 }}
+  {{- toYaml .Values.updateStrategy | nindent 4 }}
   template:
     metadata:
       labels:
@@ -82,7 +82,7 @@ spec:
         ports:
           {{- range $key, $port := .Values.ports }}
         - name: {{ $key }}
-          {{- toYaml $port | nindent 10 }}
+        {{- toYaml $port | nindent 10 }}
         {{- end }}
         livenessProbe:
           exec:
@@ -121,14 +121,14 @@ spec:
         {{- end }}
         {{- end }}
         resources:
-          {{- toYaml .Values.resources | indent 10 }}
+        {{- toYaml .Values.resources | indent 10 }}
         volumeMounts:
         - name: {{ .Values.global.persistence.zookeeper.name }}
           mountPath: /data
           {{- range $secret := .Values.secrets }}
           {{- if $secret.mountPath }}
           {{- range $key := $secret.keys }}
-        - name: {{ $.Release.Name }}-{{ $secret.name }}
+        - name: {{ $.Release.Name }}- {{ $secret.name }}
           mountPath: {{ $secret.mountPath }}/{{ $key }}
           subPath: {{ $key }}
           readOnly: true
@@ -144,12 +144,12 @@ spec:
         ports:
           {{- range $key, $port := .Values.exporters.jmx.ports }}
         - name: {{ $key }}
-          {{- toYaml $port | indent 10 }}
+        {{- toYaml $port | indent 10 }}
         {{- end }}
         livenessProbe:
-          {{- toYaml .Values.exporters.jmx.livenessProbe | indent 10 }}
+        {{- toYaml .Values.exporters.jmx.livenessProbe | indent 10 }}
         readinessProbe:
-          {{- toYaml .Values.exporters.jmx.readinessProbe | indent 10 }}
+        {{- toYaml .Values.exporters.jmx.readinessProbe | indent 10 }}
         env:
         - name: SERVICE_PORT
           value: {{ .Values.exporters.jmx.ports.jmxxp.containerPort | quote }}
@@ -160,7 +160,7 @@ spec:
         {{- end }}
         {{- end }}
         resources:
-          {{- toYaml .Values.exporters.jmx.resources | indent 10 }}
+        {{- toYaml .Values.exporters.jmx.resources | indent 10 }}
         volumeMounts:
         - name: config-jmx-exporter
           mountPath: /opt/jmx_exporter/config.yml
@@ -179,19 +179,19 @@ spec:
         ports:
           {{- range $key, $port := .Values.exporters.zookeeper.ports }}
         - name: {{ $key }}
-          {{- toYaml $port | indent 10 }}
+        {{- toYaml $port | indent 10 }}
         {{- end }}
         livenessProbe:
-          {{- toYaml .Values.exporters.zookeeper.livenessProbe | indent 10 }}
+        {{- toYaml .Values.exporters.zookeeper.livenessProbe | indent 10 }}
         readinessProbe:
-          {{- toYaml .Values.exporters.zookeeper.readinessProbe | indent 10 }}
+        {{- toYaml .Values.exporters.zookeeper.readinessProbe | indent 10 }}
         env:
           {{- range $key, $value := .Values.exporters.zookeeper.env }}
         - name: {{ $key | upper | replace "." "_" }}
           value: {{ $value | quote }}
         {{- end }}
         resources:
-          {{- toYaml .Values.exporters.zookeeper.resources | indent 10 }}
+      {{- toYaml .Values.exporters.zookeeper.resources | indent 10 }}
       {{- end }}
       {{- $needsVolumePermissions := and .Values.volumePermissions.enabled (and  .Values.persistence.enabled .Values.securityContext.enabled) }}
       {{- if $needsVolumePermissions }}
@@ -209,15 +209,15 @@ spec:
       {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
-        {{- toYaml . | indent 8 }}
+      {{- toYaml . | indent 8 }}
       {{- end }}
       {{- with .Values.affinity }}
       affinity:
-        {{- toYaml . | indent 8 }}
+      {{- toYaml . | indent 8 }}
       {{- end }}
       {{- with .Values.tolerations }}
       tolerations:
-        {{- toYaml . | indent 8 }}
+      {{- toYaml . | indent 8 }}
       {{- end }}
       volumes:
       - name: config
@@ -225,7 +225,7 @@ spec:
           name: {{ template "zookeeper.fullname" . }}
           defaultMode: 0555
         {{- range .Values.secrets }}
-      - name: {{ $.Release.Name }}-{{ .name }}
+      - name: {{ $.Release.Name }}- {{ .name }}
         secret:
           secretName: {{ .name }}
         {{- end }}
@@ -237,7 +237,7 @@ spec:
         {{- if not .Values.persistence.enabled }}
       - name: {{ .Values.global.persistence.zookeeper.name }}
         emptyDir: {}
-        {{- end }}
+  {{- end }}
   volumeClaimTemplates:
   - metadata:
       name: {{ .Values.global.persistence.zookeeper.name }}
@@ -254,5 +254,5 @@ spec:
       {{- if eq $provisioning "static" }}
       selector:
         matchLabels:
-          selectorFilter: {{ $config.name }}-{{ include "palisade.namespace" . }}
-      {{- end }}
+          selectorFilter: {{ $config.name }}- {{ include "palisade.namespace" . }}
+  {{- end }}

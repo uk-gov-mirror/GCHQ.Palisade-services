@@ -30,18 +30,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
-import uk.gov.gchq.palisade.reader.HadoopDataReader;
-import uk.gov.gchq.palisade.service.data.common.data.DataReader;
-import uk.gov.gchq.palisade.service.data.common.data.SerialisedDataReader;
+import uk.gov.gchq.palisade.service.data.common.data.DataService;
 import uk.gov.gchq.palisade.service.data.repository.AuthorisedRequestsRepository;
 import uk.gov.gchq.palisade.service.data.repository.JpaPersistenceLayer;
-import uk.gov.gchq.palisade.service.data.repository.PersistenceLayer;
 import uk.gov.gchq.palisade.service.data.service.AuditMessageService;
 import uk.gov.gchq.palisade.service.data.service.AuditableDataService;
-import uk.gov.gchq.palisade.service.data.service.DataService;
-import uk.gov.gchq.palisade.service.data.service.SimpleDataService;
 
-import java.io.IOException;
 import java.util.concurrent.Executor;
 
 /**
@@ -67,20 +61,6 @@ public class ApplicationConfiguration {
         return new JpaPersistenceLayer(requestsRepository, executor);
     }
 
-    /**
-     * Bean for a {@link SimpleDataService}, connecting a {@link DataReader} and {@link PersistenceLayer}.
-     * These are likely the {@code HadoopDataReader} and the {@link JpaPersistenceLayer}.
-     *
-     * @param persistenceLayer the persistence layer for reading authorised requests
-     * @param dataReader       the data reader to use for reading resource data from storage
-     * @return a new {@link SimpleDataService}
-     */
-    @Bean
-    DataService simpleDataService(final PersistenceLayer persistenceLayer,
-                                  final DataReader dataReader) {
-        return new SimpleDataService(persistenceLayer, dataReader);
-    }
-
     @Bean
     AuditableDataService auditableDataService(final DataService dataService) {
         return new AuditableDataService(dataService);
@@ -89,17 +69,6 @@ public class ApplicationConfiguration {
     @Bean
     AuditMessageService auditService(final Materializer materializer) {
         return new AuditMessageService(materializer);
-    }
-
-    /**
-     * Bean implementation for {@link HadoopDataReader} which extends {@link SerialisedDataReader} and is used for setting hadoopConfigurations and reading raw data.
-     *
-     * @return a new instance of {@link HadoopDataReader}
-     * @throws IOException ioException
-     */
-    @Bean
-    DataReader hadoopDataReader() throws IOException {
-        return new HadoopDataReader();
     }
 
     /**

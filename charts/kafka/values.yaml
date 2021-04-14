@@ -44,7 +44,7 @@ resources: {}
   #   memory: 1536Mi
   # requests:
   #   cpu: 100m
-  #   memory: 1024Mi
+#   memory: 1024Mi
 kafkaHeapOptions: "-Xmx1G -Xms1G"
 
 ## Kafka pod Security Context
@@ -190,7 +190,7 @@ podLabels:
   service: "palisade-kafka"
 
 podDisruptionBudget: {}
-  # maxUnavailable: 1  # Limits how many Kafka pods may be unavailable due to voluntary disruptions.
+# maxUnavailable: 1  # Limits how many Kafka pods may be unavailable due to voluntary disruptions.
 
 ## Configuration Overrides. Specify any Kafka settings you would like set on the StatefulSet
 ## here in map format, as defined in the official docs.
@@ -274,7 +274,7 @@ jmx:
       # lowercaseOutputLabelNames: true
       # ssl: false
       # rules:
-      # - pattern: ".*"
+    # - pattern: ".*"
 
     ## If you would like to supply your own ConfigMap for JMX metrics, supply the name of that
     ## ConfigMap as an `overrideName` here.
@@ -334,7 +334,7 @@ prometheus:
       #   memory: 1Gi
       # requests:
       #   cpu: 100m
-      #   memory: 100Mi
+    #   memory: 100Mi
 
   ## Prometheus Kafka Exporter: exposes complimentary metrics to JMX Exporter
   kafka:
@@ -357,12 +357,12 @@ prometheus:
 
     ## Resource limits
     resources: {}
-#      limits:
-#        cpu: 200m
-#        memory: 1Gi
-#      requests:
-#        cpu: 100m
-#        memory: 100Mi
+    #      limits:
+    #        cpu: 200m
+    #        memory: 1Gi
+    #      requests:
+    #        cpu: 100m
+    #        memory: 100Mi
 
     # Tolerations for nodes that have taints on them.
     # Useful if you want to dedicate nodes to just run kafka-exporter
@@ -491,7 +491,7 @@ topics: []
   #         - Read
   #         - Write
   #     - user: all
-  #       operations: [ All ]
+#       operations: [ All ]
 
 ## Enable/disable the chart's tests.  Useful if using this chart as a dependency of
 ## another chart and you don't want these tests running when trying to develop and

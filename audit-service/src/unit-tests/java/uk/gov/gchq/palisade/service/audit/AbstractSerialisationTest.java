@@ -90,7 +90,7 @@ public class AbstractSerialisationTest {
      * @throws Exception if an error occurs
      */
     protected <O, T extends O> T assertSerialisation(final Class<T> type, final O expectedInstance, final String expectedJson)
-        throws Exception {
+            throws Exception {
 
         var objectMapper = getObjectMapper();
         var typeName = type.getSimpleName();
@@ -104,13 +104,13 @@ public class AbstractSerialisationTest {
         // THEN
 
         assertThat(actualInstance)
-            .as("check %s using toString()", typeName)
-            .isEqualTo(expectedInstance);
+                .as("check %s using toString()", typeName)
+                .isEqualTo(expectedInstance);
 
         assertThat(actualInstance)
-            .as("check %s using recursive toString()", typeName)
-            .usingRecursiveComparison()
-            .isEqualTo(expectedInstance);
+                .as("check %s using recursive toString()", typeName)
+                .usingRecursiveComparison()
+                .isEqualTo(expectedInstance);
 
         // if an expected JSON string has been provided, then we will check it against
         // the actual JSON string.

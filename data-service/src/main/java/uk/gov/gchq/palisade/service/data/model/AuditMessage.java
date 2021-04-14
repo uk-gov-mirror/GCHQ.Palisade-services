@@ -23,7 +23,7 @@ import org.springframework.lang.Nullable;
 
 import uk.gov.gchq.palisade.service.data.common.Context;
 import uk.gov.gchq.palisade.service.data.common.Generated;
-import uk.gov.gchq.palisade.service.data.common.exception.PalisadeRuntimeException;
+import uk.gov.gchq.palisade.service.data.exception.PalisadeRuntimeException;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;

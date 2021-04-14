@@ -18,7 +18,6 @@ package uk.gov.gchq.palisade.service.topicoffset.common.resource;
 
 import uk.gov.gchq.palisade.service.topicoffset.common.Generated;
 import uk.gov.gchq.palisade.service.topicoffset.common.resource.impl.FileResource;
-import uk.gov.gchq.palisade.service.topicoffset.common.service.ConnectionDetail;
 
 import java.io.Serializable;
 import java.util.HashMap;

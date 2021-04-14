@@ -25,7 +25,7 @@ import uk.gov.gchq.palisade.service.policy.common.resource.Resource;
 import uk.gov.gchq.palisade.service.policy.common.resource.impl.DirectoryResource;
 import uk.gov.gchq.palisade.service.policy.common.resource.impl.FileResource;
 import uk.gov.gchq.palisade.service.policy.common.resource.impl.SystemResource;
-import uk.gov.gchq.palisade.service.policy.common.service.ConnectionDetail;
+import uk.gov.gchq.palisade.service.policy.common.resource.ConnectionDetail;
 
 import java.io.File;
 import java.io.IOException;

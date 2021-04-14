@@ -19,15 +19,15 @@ metadata:
   namespace: {{ .Values.service.namespace }}
 spec:
   entryPoints:
-    - tls
+  - tls
   routes:
-    - match: Host(`{{ .Values.global.hostname }}`) && PathPrefix(`/kubernetes`)
-      kind: Rule
-      services:
-        - name: kubernetes-dashboard
-          port: {{ .Values.service.port }}
-      middlewares:
-        - name: k8s-pathparam-regex
-          namespace: {{ .Values.service.namespace }}
+  - match: Host(`{{ .Values.global.hostname }}`) && PathPrefix(`/kubernetes`)
+    kind: Rule
+    services:
+    - name: kubernetes-dashboard
+      port: {{ .Values.service.port }}
+    middlewares:
+    - name: k8s-pathparam-regex
+      namespace: {{ .Values.service.namespace }}
   tls:
     {}

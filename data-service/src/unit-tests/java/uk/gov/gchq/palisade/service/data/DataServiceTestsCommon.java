@@ -17,16 +17,16 @@
 package uk.gov.gchq.palisade.service.data;
 
 import uk.gov.gchq.palisade.service.data.common.Context;
-import uk.gov.gchq.palisade.service.data.common.data.ResponseWriter;
-import uk.gov.gchq.palisade.service.data.common.resource.SimpleConnectionDetail;
-import uk.gov.gchq.palisade.service.data.common.user.User;
-import uk.gov.gchq.palisade.service.data.common.request.DataReaderRequest;
-import uk.gov.gchq.palisade.service.data.common.request.DataReaderResponse;
+import uk.gov.gchq.palisade.service.data.common.data.reader.DataReaderRequest;
+import uk.gov.gchq.palisade.service.data.common.data.reader.DataReaderResponse;
+import uk.gov.gchq.palisade.service.data.common.data.reader.ResponseWriter;
 import uk.gov.gchq.palisade.service.data.common.resource.LeafResource;
 import uk.gov.gchq.palisade.service.data.common.resource.impl.FileResource;
+import uk.gov.gchq.palisade.service.data.common.resource.impl.SimpleConnectionDetail;
 import uk.gov.gchq.palisade.service.data.common.resource.impl.SystemResource;
 import uk.gov.gchq.palisade.service.data.common.rule.Rule;
 import uk.gov.gchq.palisade.service.data.common.rule.Rules;
+import uk.gov.gchq.palisade.service.data.common.user.User;
 import uk.gov.gchq.palisade.service.data.domain.AuthorisedRequestEntity;
 import uk.gov.gchq.palisade.service.data.model.AuthorisedDataRequest;
 import uk.gov.gchq.palisade.service.data.model.DataRequest;
