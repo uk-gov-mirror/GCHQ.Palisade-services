@@ -16,7 +16,6 @@
 
 package uk.gov.gchq.palisade.service.attributemask.common.rule;
 
-
 import uk.gov.gchq.palisade.service.attributemask.common.Context;
 import uk.gov.gchq.palisade.service.attributemask.common.user.User;
 

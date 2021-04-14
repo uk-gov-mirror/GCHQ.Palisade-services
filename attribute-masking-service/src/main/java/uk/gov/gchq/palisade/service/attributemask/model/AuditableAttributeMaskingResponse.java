@@ -55,45 +55,46 @@ public final class AuditableAttributeMaskingResponse {
     }
 
     /**
-     * The static builder
+     * Builder class for the creation of instances of the {@link AttributeMaskingResponse}.
+     * This is a variant of the Fluent Builder which will use Java Objects or JsonNodes equivalents for the components in the build.
      */
     public static class Builder {
 
         /**
-         * Compose with {@code AttributeMaskingResponse}
-         */
-        public interface IAttributeMaskingResponse {
-            /**
-             * Compose value
-             *
-             * @param response value or null
-             * @return value object
-             */
-            AuditableAttributeMaskingResponse.Builder.IAuditErrorMessage withAttributeMaskingResponse(AttributeMaskingResponse response);
-        }
-
-        /**
-         * Compose with {@code AuditErrorMessage}
-         */
-        public interface IAuditErrorMessage {
-            /**
-             * Compose value
-             *
-             * @param audit value or null
-             * @return value object
-             */
-            AuditableAttributeMaskingResponse withAuditErrorMessage(AuditErrorMessage audit);
-        }
-
-        /**
-         * The creator function
+         * Starter method for the Builder class.
+         * This method is called to start the process of creating the AuditableAttributeMaskingResponse class.
          *
-         * @return the composed immutable object
+         * @return interface {@link IAttributeMaskingResponse} for the next step in the build.
          */
-        public static AuditableAttributeMaskingResponse.Builder.IAttributeMaskingResponse create() {
+        public static IAttributeMaskingResponse create() {
             return request -> audit -> new AuditableAttributeMaskingResponse(request, audit);
         }
 
+        /**
+         * Creates an AuditableAttributeMaskingResponse with the addition of a AttributeMaskingResponse
+         */
+        public interface IAttributeMaskingResponse {
+            /**
+             * Adds a AttributeMaskingResponse to the message
+             *
+             * @param response a AttributeMaskingResponse or a null value
+             * @return interface {@link IAuditErrorMessage} for the next step in the build.
+             */
+            IAuditErrorMessage withAttributeMaskingResponse(AttributeMaskingResponse response);
+        }
+
+        /**
+         * Adds a {@link AuditErrorMessage} to the message if an error was thrown in this service
+         */
+        public interface IAuditErrorMessage {
+            /**
+             * Adds a {@link AuditErrorMessage} to the message if an error was thrown in this service
+             *
+             * @param audit a AuditErrorMessage if one was thrown in the service or null if one was not thrown
+             * @return class {@link AuditableAttributeMaskingResponse} for the completed class from the builder.
+             */
+            AuditableAttributeMaskingResponse withAuditErrorMessage(AuditErrorMessage audit);
+        }
     }
 
     @Override

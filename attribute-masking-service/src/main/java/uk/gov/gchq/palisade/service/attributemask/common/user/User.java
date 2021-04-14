@@ -34,7 +34,7 @@ import static java.util.Objects.requireNonNull;
  * A User contains the details about a user of Palisade.
  * It contains their unique user ID {@link UserId}, their roles and their auths.
  * The user roles are based on the role or function of the user's job.
- * For example it could be used for deciding what actions users are allowed to perform, such as READ/WRITE.
+ * For example, it could be used for deciding what actions users are allowed to perform, such as READ/WRITE.
  * The user auths are used specifically to decide what visibilities users can see.
  */
 @JsonTypeInfo(
@@ -50,14 +50,14 @@ public class User implements Serializable {
     private Set<String> auths = new HashSet<>();
 
     /**
-     * Constructs an empty {@link User}.
+     * Constructs an empty User.
      */
     public User() {
         //no-args constructor needed for serialization only
     }
 
     /**
-     * Copy constructor for a {@link User}.
+     * Copy constructor for a User.
      *
      * @param user the {@link User} that will be copied.
      */
