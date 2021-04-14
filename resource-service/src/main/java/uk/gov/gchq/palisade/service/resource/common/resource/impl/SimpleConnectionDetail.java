@@ -25,7 +25,7 @@ import java.util.StringJoiner;
 import static java.util.Objects.requireNonNull;
 
 /**
- * A simple implementation of the {@link ConnectionDetail} that points to the correct data-service
+ * A simple implementation of the {@link ConnectionDetail} that points to the correct Data Service
  */
 public class SimpleConnectionDetail implements ConnectionDetail {
     private static final long serialVersionUID = 1L;
