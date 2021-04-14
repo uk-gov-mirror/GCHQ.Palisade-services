@@ -18,6 +18,7 @@ package uk.gov.gchq.palisade.service.policy.common;
 
 import uk.gov.gchq.palisade.service.policy.common.rule.Rule;
 import uk.gov.gchq.palisade.service.policy.common.rule.Rules;
+import uk.gov.gchq.palisade.service.policy.common.user.User;
 
 import java.io.Serializable;
 
