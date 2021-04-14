@@ -24,34 +24,34 @@ metadata:
     release: {{ .Release.Name }}
 data:
   redis.conf: |-
-    {{- if .Values.configmap }}
+{{- if .Values.configmap }}
     # User-supplied configuration:
-    {{- tpl .Values.configmap . | nindent 4 }}
-  {{- end }}
+{{- tpl .Values.configmap . | nindent 4 }}
+{{- end }}
   master.conf: |-
     dir {{ .Values.master.persistence.path }}
-    {{- if .Values.master.configmap }}
+{{- if .Values.master.configmap }}
     # User-supplied master configuration:
-    {{- tpl .Values.master.configmap . | nindent 4 }}
-    {{- end }}
-    {{- if .Values.master.disableCommands }}
-    {{- range .Values.master.disableCommands }}
+{{- tpl .Values.master.configmap . | nindent 4 }}
+{{- end }}
+{{- if .Values.master.disableCommands }}
+{{- range .Values.master.disableCommands }}
     rename-command {{ . }} ""
-    {{- end }}
-  {{- end }}
+{{- end }}
+{{- end }}
   replica.conf: |-
     dir {{ .Values.slave.persistence.path }}
     slave-read-only yes
-    {{- if .Values.slave.configmap }}
+{{- if .Values.slave.configmap }}
     # User-supplied slave configuration:
-    {{- tpl .Values.slave.configmap . | nindent 4 }}
-    {{- end }}
-    {{- if .Values.slave.disableCommands }}
-    {{- range .Values.slave.disableCommands }}
+{{- tpl .Values.slave.configmap . | nindent 4 }}
+{{- end }}
+{{- if .Values.slave.disableCommands }}
+{{- range .Values.slave.disableCommands }}
     rename-command {{ . }} ""
-    {{- end }}
-    {{- end }}
-  {{- if .Values.sentinel.enabled }}
+{{- end }}
+{{- end }}
+{{- if .Values.sentinel.enabled }}
   sentinel.conf: |-
     dir "/tmp"
     bind 0.0.0.0
@@ -60,8 +60,8 @@ data:
     sentinel down-after-milliseconds {{ .Values.sentinel.masterSet }} {{ .Values.sentinel.downAfterMilliseconds }}
     sentinel failover-timeout {{ .Values.sentinel.masterSet }} {{ .Values.sentinel.failoverTimeout }}
     sentinel parallel-syncs {{ .Values.sentinel.masterSet }} {{ .Values.sentinel.parallelSyncs }}
-    {{- if .Values.sentinel.configmap }}
+{{- if .Values.sentinel.configmap }}
     # User-supplied sentinel configuration:
-    {{- tpl .Values.sentinel.configmap . | nindent 4 }}
-    {{- end }}
-    {{- end }}
+{{- tpl .Values.sentinel.configmap . | nindent 4 }}
+{{- end }}
+{{- end }}

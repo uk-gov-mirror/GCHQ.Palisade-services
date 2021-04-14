@@ -22,19 +22,19 @@ metadata:
     chart: {{ template "zookeeper.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
-  {{- if .Values.headless.annotations }}
+{{- if .Values.headless.annotations }}
   annotations:
-  {{ .Values.headless.annotations | toYaml | trimSuffix "\n" | indent 4 }}
-  {{- end }}
+{{ .Values.headless.annotations | toYaml | trimSuffix "\n" | indent 4 }}
+{{- end }}
 spec:
   clusterIP: None
   ports:
-    {{- range $key, $port := .Values.ports }}
-  - name: {{ $key }}
-    port: {{ $port.containerPort }}
-    targetPort: {{ $key }}
-    protocol: {{ $port.protocol }}
-  {{- end }}
+{{- range $key, $port := .Values.ports }}
+    - name: {{ $key }}
+      port: {{ $port.containerPort }}
+      targetPort: {{ $key }}
+      protocol: {{ $port.protocol }}
+{{- end }}
   selector:
     app: {{ template "zookeeper.name" . }}
     release: {{ .Release.Name }}

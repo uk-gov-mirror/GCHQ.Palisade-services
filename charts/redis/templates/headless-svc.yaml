@@ -26,13 +26,13 @@ spec:
   type: ClusterIP
   clusterIP: None
   ports:
-  - name: redis
-    port: {{ .Values.redisPort }}
-    targetPort: redis
-    {{- if .Values.sentinel.enabled }}
-  - name: redis-sentinel
-    port: {{ .Values.sentinel.port }}
-    targetPort: redis-sentinel
+    - name: redis
+      port: {{ .Values.redisPort }}
+      targetPort: redis
+  {{- if .Values.sentinel.enabled }}
+    - name: redis-sentinel
+      port: {{ .Values.sentinel.port }}
+      targetPort: redis-sentinel
   {{- end }}
   selector:
     app: {{ template "redis.name" . }}

@@ -12,14 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-  {{- $namespace := include "palisade.namespace" . }}
-  {{- $redisname := include "redis.fullname" . }}
-  {{- if (index .Values.global.persistence "stateful-set").pv.enabled }}
-  {{- $config := (index $.Values.global.persistence "redis-master") }}
-  {{- $provisioning := pluck .Values.global.hosting $config.provisioning | first | default $config.provisioning._default }}
-  {{- if eq $provisioning "static" }}
-  {{- $sc := pluck .Values.global.hosting $config.storageClassName | first | default $config.storageClassName._default }}
-  {{ range $index := until (1 | int) }}
+{{- $namespace := include "palisade.namespace" . }}
+{{- $redisname := include "redis.fullname" . }}
+{{- if (index .Values.global.persistence "stateful-set").pv.enabled }}
+{{- $config := (index $.Values.global.persistence "redis-master") }}
+{{- $provisioning := pluck .Values.global.hosting $config.provisioning | first | default $config.provisioning._default }}
+{{- if eq $provisioning "static" }}
+{{- $sc := pluck .Values.global.hosting $config.storageClassName | first | default $config.storageClassName._default }}
+{{ range $index := until (1 | int) }}
 apiVersion: v1
 kind: PersistentVolume
 metadata:
@@ -32,7 +32,7 @@ metadata:
     type: amazonEFS
   {{- end }}
   labels:
-    selectorFilter: {{ $config.name }}- {{ $namespace }}
+    selectorFilter: {{ $config.name }}-{{ $namespace }}
   annotations:
     "helm.sh/hook": "pre-install"
 spec:
@@ -56,5 +56,5 @@ spec:
   {{- end }}
 ---
 {{- end }}
-  {{- end }}
-  {{- end }}
+{{- end }}
+{{- end }}

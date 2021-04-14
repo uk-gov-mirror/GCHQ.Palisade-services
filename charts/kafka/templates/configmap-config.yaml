@@ -12,8 +12,8 @@
 #
 # Copied from: https://github.com/helm/charts/blob/6c85be7b88748171afd17affe8b1b57c66bf66a2/incubator/kafka/templates/configmap-config.yaml
 
-  {{- if .Values.topics -}}
-  {{- $zk := include "zookeeper.url" . -}}
+{{- if .Values.topics -}}
+{{- $zk := include "zookeeper.url" . -}}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -37,15 +37,15 @@ data:
       sleep 20
     done
     echo "Applying runtime configuration using {{ .Values.image }}:{{ .Values.imageTag }}"
-    {{- range $n, $topic := .Values.topics }}
+  {{- range $n, $topic := .Values.topics }}
     {{- if and $topic.partitions $topic.replicationFactor $topic.reassignPartitions }}
     cat << EOF > {{ $topic.name }}-increase-replication-factor.json
       {"version":1, "partitions":[
-    {{- $partitions := (int $topic.partitions) }}
-    {{- $replicas := (int $topic.replicationFactor) }}
-    {{- range $i := until $partitions }}
+        {{- $partitions := (int $topic.partitions) }}
+        {{- $replicas := (int $topic.replicationFactor) }}
+        {{- range $i := until $partitions }}
           {"topic":"{{ $topic.name }}","partition":{{ $i }},"replicas":[{{- range $j := until $replicas }}{{ $j }}{{- if ne $j (sub $replicas 1) }},{{- end }}{{- end }}]}{{- if ne $i (sub $partitions 1) }},{{- end }}
-    {{- end }}
+        {{- end }}
       ]}
     EOF
     kafka-reassign-partitions --zookeeper {{ $zk }} --reassignment-json-file {{ $topic.name }}-increase-replication-factor.json --execute
@@ -63,11 +63,11 @@ data:
     {{- end }}
     kafka-configs --zookeeper {{ $zk }} --entity-type topics --entity-name {{ $topic.name }} --describe
     {{- if $topic.acls }}
-    {{- range $a, $acl := $topic.acls }}
-    {{ if and $acl.user $acl.operations }}
+      {{- range $a, $acl := $topic.acls }}
+        {{ if and $acl.user $acl.operations }}
     kafka-acls --authorizer-properties zookeeper.connect={{ $zk }} --force --add --allow-principal User:{{ $acl.user }}{{- range $operation := $acl.operations }} --operation {{ $operation }} {{- end }} --topic {{ $topic.name }} {{ $topic.extraParams }}
+        {{- end }}
+      {{- end }}
     {{- end }}
-    {{- end }}
-    {{- end }}
-    {{- end }}
-    {{- end -}}
+  {{- end }}
+{{- end -}}

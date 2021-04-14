@@ -12,7 +12,7 @@
 #
 # Copied from: https://github.com/bitnami/charts/tree/780db91641bf4e1f98c6e020e1fd971e4d2abc90/bitnami/redis
 
-  {{ if .Values.rbac.create }}
+{{ if .Values.rbac.create }}
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
@@ -30,4 +30,4 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: {{ template "redis.serviceAccountName" . }}
-  {{- end -}}
+{{- end -}}

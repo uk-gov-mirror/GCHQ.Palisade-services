@@ -12,7 +12,7 @@
 #
 # Copied from: https://github.com/helm/charts/blob/6c85be7b88748171afd17affe8b1b57c66bf66a2/incubator/kafka/templates/servicemonitors.yaml
 
-  {{ if and .Values.prometheus.jmx.enabled .Values.prometheus.operator.enabled }}
+{{ if and .Values.prometheus.jmx.enabled .Values.prometheus.operator.enabled }}
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
@@ -24,19 +24,19 @@ metadata:
 spec:
   selector:
     matchLabels:
-  {{- include "kafka.broker.matchLabels" . | nindent 6 }}
+    {{- include "kafka.broker.matchLabels" . | nindent 6 }}
   endpoints:
   - port: jmx-exporter
     interval: {{ .Values.prometheus.jmx.interval }}
-    {{- if .Values.prometheus.jmx.scrapeTimeout }}
+  {{- if .Values.prometheus.jmx.scrapeTimeout }}
     scrapeTimeout: {{ .Values.prometheus.jmx.scrapeTimeout }}
   {{- end }}
   namespaceSelector:
     matchNames:
-    - {{ .Release.Namespace }}
-  {{ end }}
+      - {{ .Release.Namespace }}
+{{ end }}
 ---
-  {{ if and .Values.prometheus.kafka.enabled .Values.prometheus.operator.enabled }}
+{{ if and .Values.prometheus.kafka.enabled .Values.prometheus.operator.enabled }}
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
@@ -48,14 +48,14 @@ metadata:
 spec:
   selector:
     matchLabels:
-  {{- include "kafka.monitor.matchLabels" . | nindent 6 }}
+    {{- include "kafka.monitor.matchLabels" . | nindent 6 }}
   endpoints:
   - port: kafka-exporter
     interval: {{ .Values.prometheus.kafka.interval }}
-    {{- if .Values.prometheus.kafka.scrapeTimeout }}
+  {{- if .Values.prometheus.kafka.scrapeTimeout }}
     scrapeTimeout: {{ .Values.prometheus.kafka.scrapeTimeout }}
   {{- end }}
   namespaceSelector:
     matchNames:
-    - {{ .Release.Namespace }}
-  {{ end }}
+      - {{ .Release.Namespace }}
+{{ end }}
