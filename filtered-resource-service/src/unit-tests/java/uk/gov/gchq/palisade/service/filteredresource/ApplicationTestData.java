@@ -18,8 +18,8 @@ package uk.gov.gchq.palisade.service.filteredresource;
 
 import uk.gov.gchq.palisade.service.filteredresource.common.Context;
 import uk.gov.gchq.palisade.service.filteredresource.common.resource.LeafResource;
-import uk.gov.gchq.palisade.service.filteredresource.common.resource.impl.SimpleConnectionDetail;
 import uk.gov.gchq.palisade.service.filteredresource.common.resource.impl.FileResource;
+import uk.gov.gchq.palisade.service.filteredresource.common.resource.impl.SimpleConnectionDetail;
 import uk.gov.gchq.palisade.service.filteredresource.common.resource.impl.SystemResource;
 import uk.gov.gchq.palisade.service.filteredresource.model.FilteredResourceRequest;
 import uk.gov.gchq.palisade.service.filteredresource.model.MessageType;

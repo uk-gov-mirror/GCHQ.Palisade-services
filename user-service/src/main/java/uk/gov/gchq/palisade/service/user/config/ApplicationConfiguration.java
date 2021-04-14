@@ -85,7 +85,7 @@ public class ApplicationConfiguration implements AsyncConfigurer {
      */
     @Bean
     public UserServiceCachingProxy cacheableUserServiceProxy(final UserService userService) {
-        LOGGER.info("Instantiated UserServiceCachingProxy with {}", userService.getClassName());
+        LOGGER.info("Instantiated UserServiceCachingProxy with {}", userService.getClass().getName());
         return new UserServiceCachingProxy(userService);
     }
 

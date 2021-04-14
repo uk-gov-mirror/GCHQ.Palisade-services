@@ -102,6 +102,7 @@ class DataControllerTest {
                 .characterEncoding(StandardCharsets.UTF_8.name())
                 .content(mapper.writeValueAsBytes(DATA_REQUEST)))
                 .andExpect(status().is2xxSuccessful())
+                .andDo(result -> result.getResponse().getContentAsString())
                 .andReturn();
 
         // Read the response body
