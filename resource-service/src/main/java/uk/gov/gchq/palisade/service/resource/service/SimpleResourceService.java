@@ -38,7 +38,7 @@ import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 /**
- * The Simple implementation of type {@link ResourceService} which extends {@link Service}
+ * The Simple implementation of type {@link ResourceService}
  */
 public class SimpleResourceService implements ResourceService {
     private static final Logger LOGGER = LoggerFactory.getLogger(SimpleResourceService.class);

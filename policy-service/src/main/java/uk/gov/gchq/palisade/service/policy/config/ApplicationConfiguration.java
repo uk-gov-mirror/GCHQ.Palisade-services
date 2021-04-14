@@ -33,15 +33,15 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.scheduling.annotation.AsyncConfigurer;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
+import uk.gov.gchq.palisade.service.policy.common.policy.PolicyConfiguration;
+import uk.gov.gchq.palisade.service.policy.common.policy.PolicyPrepopulationFactory;
+import uk.gov.gchq.palisade.service.policy.common.policy.PolicyService;
 import uk.gov.gchq.palisade.service.policy.common.resource.LeafResource;
 import uk.gov.gchq.palisade.service.policy.common.resource.Resource;
 import uk.gov.gchq.palisade.service.policy.common.rule.Rule;
 import uk.gov.gchq.palisade.service.policy.common.rule.Rules;
-import uk.gov.gchq.palisade.service.policy.common.policy.PolicyConfiguration;
-import uk.gov.gchq.palisade.service.policy.common.policy.PolicyPrepopulationFactory;
 import uk.gov.gchq.palisade.service.policy.exception.ApplicationAsyncExceptionHandler;
 import uk.gov.gchq.palisade.service.policy.service.NullPolicyService;
-import uk.gov.gchq.palisade.service.policy.common.policy.PolicyService;
 import uk.gov.gchq.palisade.service.policy.service.PolicyServiceAsyncProxy;
 import uk.gov.gchq.palisade.service.policy.service.PolicyServiceCachingProxy;
 import uk.gov.gchq.palisade.service.policy.service.PolicyServiceHierarchyProxy;

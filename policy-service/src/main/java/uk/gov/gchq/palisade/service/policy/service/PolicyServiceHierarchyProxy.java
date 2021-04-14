@@ -19,14 +19,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import uk.gov.gchq.palisade.service.policy.common.Context;
-import uk.gov.gchq.palisade.service.policy.common.util.RulesUtil;
+import uk.gov.gchq.palisade.service.policy.common.policy.PolicyService;
 import uk.gov.gchq.palisade.service.policy.common.resource.ChildResource;
 import uk.gov.gchq.palisade.service.policy.common.resource.LeafResource;
 import uk.gov.gchq.palisade.service.policy.common.resource.Resource;
-import uk.gov.gchq.palisade.service.policy.common.policy.PolicyService;
 import uk.gov.gchq.palisade.service.policy.common.rule.Rule;
 import uk.gov.gchq.palisade.service.policy.common.rule.Rules;
 import uk.gov.gchq.palisade.service.policy.common.user.User;
+import uk.gov.gchq.palisade.service.policy.common.util.RulesUtil;
 import uk.gov.gchq.palisade.service.policy.exception.NoSuchPolicyException;
 
 import java.io.Serializable;

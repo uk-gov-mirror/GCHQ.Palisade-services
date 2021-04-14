@@ -41,8 +41,8 @@ import org.testcontainers.containers.KafkaContainer;
 
 import uk.gov.gchq.palisade.contract.audit.ContractTestData;
 import uk.gov.gchq.palisade.service.audit.AuditApplication;
-import uk.gov.gchq.palisade.service.audit.config.AuditServiceConfigProperties;
 import uk.gov.gchq.palisade.service.audit.common.audit.AuditService;
+import uk.gov.gchq.palisade.service.audit.config.AuditServiceConfigProperties;
 
 import java.io.File;
 import java.util.Arrays;
