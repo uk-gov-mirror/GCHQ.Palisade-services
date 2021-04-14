@@ -19,7 +19,7 @@ package uk.gov.gchq.palisade.service.policy.common.jsonserialisation;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.KeyDeserializer;
 
-import uk.gov.gchq.palisade.service.policy.common.UserId;
+import uk.gov.gchq.palisade.service.policy.common.user.UserId;
 
 /**
  * A deseraliser class used for deseralising UserIds

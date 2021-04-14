@@ -19,9 +19,9 @@ package uk.gov.gchq.palisade.contract.policy.common;
 import org.apache.commons.io.FilenameUtils;
 
 import uk.gov.gchq.palisade.service.policy.common.Context;
-import uk.gov.gchq.palisade.service.policy.common.User;
 import uk.gov.gchq.palisade.service.policy.common.resource.Resource;
 import uk.gov.gchq.palisade.service.policy.common.rule.Rule;
+import uk.gov.gchq.palisade.service.policy.common.user.User;
 
 import java.util.Objects;
 
