@@ -14,13 +14,13 @@
 #
 container:
   args:
-  - --api.insecure
-  - --accesslog
-  - --entrypoints.web.Address=:80
-  - --entrypoints.tls.Address=:443
-  - --serverstransport.insecureskipverify
-  - --providers.kubernetescrd
-  - --ping=true
+    - --api.insecure
+    - --accesslog
+    - --entrypoints.web.Address=:80
+    - --entrypoints.tls.Address=:443
+    - --serverstransport.insecureskipverify
+    - --providers.kubernetescrd
+    - --ping=true
 
 admin:
   port:  8080

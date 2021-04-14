@@ -12,8 +12,8 @@
 #
 # Copied from: https://github.com/helm/charts/blob/6c85be7b88748171afd17affe8b1b57c66bf66a2/incubator/kafka/templates/job-config.yaml
 
-  {{- if .Values.topics -}}
-  {{- $scriptHash := include (print $.Template.BasePath "/configmap-config.yaml") . | sha256sum | trunc 8 -}}
+{{- if .Values.topics -}}
+{{- $scriptHash := include (print $.Template.BasePath "/configmap-config.yaml") . | sha256sum | trunc 8 -}}
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -26,19 +26,19 @@ spec:
   template:
     metadata:
       labels:
-    {{- include "kafka.config.matchLabels" . | nindent 8 }}
+      {{- include "kafka.config.matchLabels" . | nindent 8 }}
     spec:
       restartPolicy: OnFailure
       volumes:
-      - name: config-volume
-        configMap:
-          name: {{ template "kafka.fullname" . }}-config
-          defaultMode: 0744
-      containers:
-      - name: {{ template "kafka.fullname" . }}-config
-        image: "{{ .Values.image }}:{{ .Values.imageTag }}"
-        command: ["/usr/local/script/runtimeConfig.sh"]
-        volumeMounts:
         - name: config-volume
-          mountPath: "/usr/local/script"
-  {{- end -}}
+          configMap:
+            name: {{ template "kafka.fullname" . }}-config
+            defaultMode: 0744
+      containers:
+        - name: {{ template "kafka.fullname" . }}-config
+          image: "{{ .Values.image }}:{{ .Values.imageTag }}"
+          command: ["/usr/local/script/runtimeConfig.sh"]
+          volumeMounts:
+            - name: config-volume
+              mountPath: "/usr/local/script"
+{{- end -}}

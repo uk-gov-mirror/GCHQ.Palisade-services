@@ -12,7 +12,7 @@
 #
 # Copied from: https://github.com/helm/charts/blob/6c85be7b88748171afd17affe8b1b57c66bf66a2/incubator/kafka/templates/configmap-jmx.yaml
 
-  {{- if and .Values.prometheus.jmx.enabled .Values.jmx.configMap.enabled }}
+{{- if and .Values.prometheus.jmx.enabled .Values.jmx.configMap.enabled }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -22,9 +22,9 @@ metadata:
   {{- include "kafka.monitor.labels" . | nindent 4 }}
 data:
   jmx-kafka-prometheus.yml: |+
-    {{- if .Values.jmx.configMap.overrideConfig }}
-    {{ toYaml .Values.jmx.configMap.overrideConfig | indent 4 }}
-    {{- else }}
+{{- if .Values.jmx.configMap.overrideConfig }}
+{{ toYaml .Values.jmx.configMap.overrideConfig | indent 4 }}
+{{- else }}
     jmxUrl: service:jmx:rmi:///jndi/rmi://127.0.0.1:{{ .Values.jmx.port }}/jmxrmi
     lowercaseOutputName: true
     lowercaseOutputLabelNames: true
@@ -75,5 +75,5 @@ data:
       labels:
         topic: $3
         partition: $4
-    {{- end }}
-    {{- end }}
+{{- end }}
+{{- end }}

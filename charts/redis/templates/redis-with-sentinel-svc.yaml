@@ -12,7 +12,7 @@
 #
 # Copied from: https://github.com/bitnami/charts/tree/780db91641bf4e1f98c6e020e1fd971e4d2abc90/bitnami/redis
 
-  {{ if .Values.sentinel.enabled }}
+{{ if .Values.sentinel.enabled }}
 apiVersion: v1
 kind: Service
 metadata:
@@ -25,10 +25,10 @@ metadata:
     heritage: {{ .Release.Service }}
     {{- if .Values.sentinel.service.labels }}
     {{- toYaml .Values.sentinel.service.labels | nindent 4 }}
-  {{- end }}
-  {{- if .Values.sentinel.service.annotations }}
+    {{- end }}
+{{- if .Values.sentinel.service.annotations }}
   annotations: {{- toYaml .Values.sentinel.service.annotations | nindent 4 }}
-  {{- end }}
+{{- end }}
 spec:
   type: {{ .Values.sentinel.service.type }}
   {{ if eq .Values.sentinel.service.type "LoadBalancer" -}} {{ if .Values.sentinel.service.loadBalancerIP }}
@@ -36,19 +36,19 @@ spec:
   {{ end -}}
   {{- end -}}
   ports:
-  - name: redis
-    port: {{ .Values.sentinel.service.redisPort }}
-    targetPort: redis
-    {{- if .Values.sentinel.service.redisNodePort }}
-    nodePort: {{ .Values.sentinel.service.redisNodePort }}
-    {{- end }}
-  - name: redis-sentinel
-    port: {{ .Values.sentinel.service.sentinelPort }}
-    targetPort: redis-sentinel
-    {{- if .Values.sentinel.service.sentinelNodePort }}
-    nodePort: {{ .Values.sentinel.service.sentinelNodePort }}
-  {{- end }}
+    - name: redis
+      port: {{ .Values.sentinel.service.redisPort }}
+      targetPort: redis
+      {{- if .Values.sentinel.service.redisNodePort }}
+      nodePort: {{ .Values.sentinel.service.redisNodePort }}
+      {{- end }}
+    - name: redis-sentinel
+      port: {{ .Values.sentinel.service.sentinelPort }}
+      targetPort: redis-sentinel
+      {{- if .Values.sentinel.service.sentinelNodePort }}
+      nodePort: {{ .Values.sentinel.service.sentinelNodePort }}
+      {{- end }}
   selector:
     app: {{ template "redis.name" . }}
     release: {{ .Release.Name }}
-  {{- end }}
+{{- end }}

@@ -12,7 +12,7 @@
 #
 # Copied from: https://github.com/bitnami/charts/tree/780db91641bf4e1f98c6e020e1fd971e4d2abc90/bitnami/redis
 
-  {{ if and (.Values.metrics.enabled) (.Values.metrics.serviceMonitor.enabled) }}
+{{ if and (.Values.metrics.enabled) (.Values.metrics.serviceMonitor.enabled) }}
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
@@ -29,13 +29,13 @@ metadata:
     heritage: {{ .Release.Service }}
     {{- range $key, $value := .Values.metrics.serviceMonitor.selector }}
     {{ $key }}: {{ $value | quote }}
-  {{- end }}
+    {{- end }}
 spec:
   endpoints:
   - port: metrics
     {{- if .Values.metrics.serviceMonitor.interval }}
     interval: {{ .Values.metrics.serviceMonitor.interval }}
-  {{- end }}
+    {{- end }}
   selector:
     matchLabels:
       app: {{ template "redis.name" . }}
@@ -44,4 +44,4 @@ spec:
   namespaceSelector:
     matchNames:
     - {{ .Release.Namespace }}
-  {{- end -}}
+{{- end -}}

@@ -22,7 +22,7 @@ replicaCount: 1  # Desired quantity of ZooKeeper pods. This should always be (1,
 
 exports: {}
   # nameOverride: zookeeper
-# fullnameOverride: zookeeper
+  # fullnameOverride: zookeeper
 
 podDisruptionBudget:
   maxUnavailable: 1  # Limits how many Zookeeper pods may be unavailable due to voluntary disruptions.
@@ -46,7 +46,7 @@ service:
     ## AWS example for use with LoadBalancer service type.
     # external-dns.alpha.kubernetes.io/hostname: zookeeper.cluster.local
     # service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
-  # service.beta.kubernetes.io/aws-load-balancer-internal: "true"
+    # service.beta.kubernetes.io/aws-load-balancer-internal: "true"
   ports:
     client:
       port: 2181  # Service port number for client port.
@@ -79,7 +79,7 @@ resources: {}  # Optionally specify how much CPU and memory (RAM) each zookeeper
   #  memory: 128Mi
   # requests:
   #  cpu: 100m
-#  memory: 128Mi
+  #  memory: 128Mi
 
 priorityClassName: ""
 
@@ -93,12 +93,12 @@ affinity: {}  # Criteria by which pod label-values influence scheduling for zook
   #     - topologyKey: "kubernetes.io/hostname"
   #       labelSelector:
   #         matchLabels:
-#           release: zookeeper
+  #           release: zookeeper
 
 podAnnotations: {}  # Arbitrary non-identifying metadata for zookeeper pods.
   # prometheus.io/scrape: "true"
   # prometheus.io/path: "/metrics"
-# prometheus.io/port: "9141"
+  # prometheus.io/port: "9141"
 
 podLabels:  # Key/value pairs that are attached to zookeeper pods.
   # team: "developers"
@@ -112,9 +112,9 @@ securityContext:
 
 ## Useful, if you want to use an alternate image.
 command:
-- /bin/bash
-- -xec
-- /config-scripts/run
+  - /bin/bash
+  - -xec
+  - /config-scripts/run
 
 ## Useful if using any custom authorizer.
 ## Pass any secrets to the kafka pods. Each secret will be passed as an
@@ -160,22 +160,22 @@ exporters:
       lowercaseOutputName: false
       ## ref: https://github.com/prometheus/jmx_exporter/blob/master/example_configs/zookeeper.yaml
       rules:
-      - pattern: "org.apache.ZooKeeperService<name0=ReplicatedServer_id(\\d+)><>(\\w+)"
-        name: "zookeeper_$2"
-      - pattern: "org.apache.ZooKeeperService<name0=ReplicatedServer_id(\\d+), name1=replica.(\\d+)><>(\\w+)"
-        name: "zookeeper_$3"
-        labels:
-          replicaId: "$2"
-      - pattern: "org.apache.ZooKeeperService<name0=ReplicatedServer_id(\\d+), name1=replica.(\\d+), name2=(\\w+)><>(\\w+)"
-        name: "zookeeper_$4"
-        labels:
-          replicaId: "$2"
-          memberType: "$3"
-      - pattern: "org.apache.ZooKeeperService<name0=ReplicatedServer_id(\\d+), name1=replica.(\\d+), name2=(\\w+), name3=(\\w+)><>(\\w+)"
-        name: "zookeeper_$4_$5"
-        labels:
-          replicaId: "$2"
-          memberType: "$3"
+        - pattern: "org.apache.ZooKeeperService<name0=ReplicatedServer_id(\\d+)><>(\\w+)"
+          name: "zookeeper_$2"
+        - pattern: "org.apache.ZooKeeperService<name0=ReplicatedServer_id(\\d+), name1=replica.(\\d+)><>(\\w+)"
+          name: "zookeeper_$3"
+          labels:
+            replicaId: "$2"
+        - pattern: "org.apache.ZooKeeperService<name0=ReplicatedServer_id(\\d+), name1=replica.(\\d+), name2=(\\w+)><>(\\w+)"
+          name: "zookeeper_$4"
+          labels:
+            replicaId: "$2"
+            memberType: "$3"
+        - pattern: "org.apache.ZooKeeperService<name0=ReplicatedServer_id(\\d+), name1=replica.(\\d+), name2=(\\w+), name3=(\\w+)><>(\\w+)"
+          name: "zookeeper_$4_$5"
+          labels:
+            replicaId: "$2"
+            memberType: "$3"
       startDelaySeconds: 30
     env: {}
     resources: {}
@@ -208,10 +208,10 @@ exporters:
       scheme: http
 
   zookeeper:
-    ## refs:
-    ## - https://github.com/carlpett/zookeeper_exporter
-    ## - https://hub.docker.com/r/josdotso/zookeeper-exporter/
-    ## - https://www.datadoghq.com/blog/monitoring-kafka-performance-metrics/#zookeeper-metrics
+  ## refs:
+  ## - https://github.com/carlpett/zookeeper_exporter
+  ## - https://hub.docker.com/r/josdotso/zookeeper-exporter/
+  ## - https://www.datadoghq.com/blog/monitoring-kafka-performance-metrics/#zookeeper-metrics
     enabled: false
     image:
       repository: josdotso/zookeeper-exporter
@@ -322,7 +322,7 @@ jobs:
     config:
       create: []
         # - /kafka
-      # - /ureplicator
+        # - /ureplicator
     env: []
     parallelism: 1
     resources: {}

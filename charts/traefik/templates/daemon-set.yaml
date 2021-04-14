@@ -36,7 +36,7 @@ spec:
       - name: traefik
         image: traefik:v2.0
         args:
-          {{- range .Values.container.args }}
+        {{- range .Values.container.args }}
         - {{ . }}
         {{- end }}
         ports:
@@ -61,6 +61,6 @@ spec:
         securityContext:
           capabilities:
             add:
-            - NET_BIND_SERVICE
+              - NET_BIND_SERVICE
             drop:
-            - ALL
+              - ALL
