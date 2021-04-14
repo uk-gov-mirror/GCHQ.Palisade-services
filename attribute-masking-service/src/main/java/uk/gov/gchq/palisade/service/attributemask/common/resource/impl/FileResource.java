@@ -16,7 +16,6 @@
 
 package uk.gov.gchq.palisade.service.attributemask.common.resource.impl;
 
-
 import uk.gov.gchq.palisade.service.attributemask.common.resource.AbstractLeafResource;
 import uk.gov.gchq.palisade.service.attributemask.common.resource.ConnectionDetail;
 import uk.gov.gchq.palisade.service.attributemask.common.resource.ParentResource;

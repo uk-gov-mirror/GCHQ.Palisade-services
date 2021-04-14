@@ -90,5 +90,4 @@ public class ApplicationConfiguration {
                 .registerModule(new Jdk8Module())
                 .registerModule(new JavaTimeModule());
     }
-
 }

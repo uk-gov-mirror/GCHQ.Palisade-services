@@ -38,8 +38,8 @@ import java.util.StringJoiner;
  * AttributeMaskingResponse is the output for this service which will have the redacted data schema that is to be
  * provided to the client.
  * Note there are two classes that effectively represent the same data but represent a different stage of the process.
- * uk.gov.gchq.palisade.service.policy.response.PolicyResponse is the output from the policy-service.
- * uk.gov.gchq.palisade.service.attributemasking.message.AttributeMaskingRequest is the input for the attribute-masking-service.
+ * The uk.gov.gchq.palisade.service.policy.model.PolicyResponse is the output from the Policy Service.
+ * The AttributeMaskingRequest is the input for the Attribute-Masking Service.
  */
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public final class AttributeMaskingRequest {

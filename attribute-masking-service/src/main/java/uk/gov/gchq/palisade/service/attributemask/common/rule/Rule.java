@@ -29,7 +29,7 @@ import java.io.Serializable;
 /**
  * <p>
  * A {@code Rule} is the fundamental interface for applying policy criteria.
- * It allows a record to redacted or modified based on a {@link User} and their
+ * It allows a record to be redacted or modified based on a {@link User} and their
  * query {@link Context}.
  * </p>
  * <p>

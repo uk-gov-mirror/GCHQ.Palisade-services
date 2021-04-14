@@ -45,7 +45,6 @@ import static java.util.Objects.requireNonNull;
 public class WrappedRule<T extends Serializable> implements Rule<T> {
 
     public static final String WRAPPED_RULE_WAS_INITIALISED_WITH_NULL = "WrappedRule was initialised with null.";
-    public static final String RULE_STRING = "rule";
     public static final String FUNCTION_STRING = "function";
     public static final String PREDICATE_STRING = "predicate";
     private static final long serialVersionUID = 1L;
@@ -76,7 +75,7 @@ public class WrappedRule<T extends Serializable> implements Rule<T> {
     }
 
     /**
-     * A Seralisiable WrappedRule constuctor, taking the rule, function and predicate
+     * A seralisiable WrappedRule constructor, taking the rule, function and predicate
      *
      * @param rule      the rule to be applied to the resource
      * @param function  the simple {@link UnaryOperator} rule to wrap.
