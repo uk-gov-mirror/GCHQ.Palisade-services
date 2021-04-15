@@ -265,6 +265,8 @@ class KafkaContractTest {
             configurableApplicationContext.getEnvironment().setActiveProfiles("akka-test");
             KAFKA.addEnv("KAFKA_AUTO_CREATE_TOPICS_ENABLE", "false");
             KAFKA.addEnv("KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR", "1");
+            KAFKA.addEnv("KAFKA_ADVERTISED_HOST_NAME", "zookeeper");
+            KAFKA.addEnv("KAFKA_ZOOKEEPER_CONNECT", "zookeeper:2181");
             KAFKA.start();
 
             // test kafka config
