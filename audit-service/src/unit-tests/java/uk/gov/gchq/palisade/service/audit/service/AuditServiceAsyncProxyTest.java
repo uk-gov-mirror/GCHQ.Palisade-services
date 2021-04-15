@@ -61,8 +61,7 @@ class AuditServiceAsyncProxyTest {
                 arguments("good success", USER_SERVICE, auditErrorMessage(USER_SERVICE), TRUE_RESULT),
                 arguments("good success", DATA_SERVICE, auditSuccessMessage(DATA_SERVICE), TRUE_RESULT),
                 arguments("bad success", RESOURCE_SERVICE, auditSuccessMessage(RESOURCE_SERVICE), FALSE_RESULT),
-                arguments("error message", FILTERED_RESOURCE_SERVICE, auditSuccessMessage(FILTERED_RESOURCE_SERVICE),
-                        TRUE_RESULT));
+                arguments("error message", FILTERED_RESOURCE_SERVICE, auditSuccessMessage(FILTERED_RESOURCE_SERVICE), TRUE_RESULT));
     }
 
     @DisplayName("Test proxy result")
@@ -75,7 +74,9 @@ class AuditServiceAsyncProxyTest {
             final List<Boolean> expectedResult) {
 
         var actualResult = proxy.audit(TOKEN, message).join();
-        assertThat(actualResult).isEqualTo(expectedResult);
+        assertThat(actualResult)
+                .as("Check that the messages have been audited successfully")
+                .isEqualTo(expectedResult);
 
     }
 

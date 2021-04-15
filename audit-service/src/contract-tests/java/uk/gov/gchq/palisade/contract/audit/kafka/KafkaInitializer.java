@@ -79,7 +79,7 @@ public class KafkaInitializer implements ApplicationContextInitializer<Configura
 
 
     /**
-     * Configuration providing the test beans to be inject into test classes that
+     * Configuration providing the test beans to be injected into test classes that
      * require access to various objects to support access to Kafka/Akka
      */
     @Configuration

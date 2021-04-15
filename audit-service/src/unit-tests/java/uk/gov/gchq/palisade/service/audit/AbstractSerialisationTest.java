@@ -48,10 +48,8 @@ public class AbstractSerialisationTest {
      * <p>
      * The tests asserted by this method:
      * <ul>
-     * <li><em>Equals</em> - Test equality using the each instances equals
-     * method</li>
-     * <li><em>Recursive Equals</em> - Tests equality by testing field by field in
-     * the instance</li>
+     * <li><em>Equals</em> - Test equality using each instances equals method</li>
+     * <li><em>Recursive Equals</em> - Tests equality by testing field by field in the instance</li>
      * </ul>
      *
      * @param type             The type class
@@ -71,8 +69,7 @@ public class AbstractSerialisationTest {
      * <p>
      * The tests asserted by this method:
      * <ul>
-     * <li><em>Equals</em> - Test equality using the each instances equals
-     * method</li>
+     * <li><em>Equals</em> - Test equality using each instances equals method</li>
      * <li><em>Recursive Equals</em> - Tests equality by testing field by field in
      * the instance</li>
      * <li><em>JSON Attributes</em> - uses JSONAssert to test whether the serialise
@@ -121,7 +118,7 @@ public class AbstractSerialisationTest {
             assertEquals(expectedJson, actualJson, JSONCompareMode.STRICT);
         }
 
-        // return the actual instance in case the sub class requires it, e.g. logging.
+        // return the actual instance in case the sub-class requires it, e.g. logging.
         return actualInstance;
 
     }

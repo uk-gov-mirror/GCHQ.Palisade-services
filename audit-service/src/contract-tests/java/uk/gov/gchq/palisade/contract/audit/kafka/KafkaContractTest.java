@@ -46,6 +46,7 @@ import uk.gov.gchq.palisade.service.audit.config.AuditServiceConfigProperties;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -106,7 +107,7 @@ class KafkaContractTest {
     @BeforeEach
     void setup() {
         fileCount = (final String prefix) -> Arrays
-                .stream(new File(auditServiceConfigProperties.getErrorDirectory()).listFiles())
+                .stream(Objects.requireNonNull(new File(auditServiceConfigProperties.getErrorDirectory()).listFiles()))
                 .filter(file -> file.getName().startsWith(prefix))
                 .collect(Collectors.toSet())
                 .size();
@@ -117,7 +118,7 @@ class KafkaContractTest {
 
     @AfterEach
     void tearDown() {
-        Arrays.stream(new File(auditServiceConfigProperties.getErrorDirectory()).listFiles())
+        Arrays.stream(Objects.requireNonNull(new File(auditServiceConfigProperties.getErrorDirectory()).listFiles()))
                 .filter(file -> (file.getName().startsWith("Success") || file.getName().startsWith("Error")))
                 .peek(file -> LOGGER.info("Deleting file {}", file.getName()))
                 .forEach(File::deleteOnExit);
@@ -231,12 +232,6 @@ class KafkaContractTest {
                 .runWith(Producer.plainSink(producerSettings), akkaMaterialiser)
                 .toCompletableFuture().join();
 
-        waitForService();
-
-    }
-
-    private void waitForService() throws InterruptedException {
         TimeUnit.SECONDS.sleep(2);
     }
-
 }

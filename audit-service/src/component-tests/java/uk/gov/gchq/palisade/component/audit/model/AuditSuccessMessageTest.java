@@ -33,7 +33,7 @@ class AuditSuccessMessageTest extends AbstractSerialisationTest {
      * Create the object with the builder and then convert to the Json equivalent.
      * Takes the JSON Object, deserialises and tests against the original Object
      *
-     * @throws Exception if any error occurs during (de)serialisation
+     * @throws Exception if any error occurs during deserialisation
      * @see AbstractSerialisationTest#assertSerialisation(Class, Object)
      */
     @Test
@@ -53,7 +53,6 @@ class AuditSuccessMessageTest extends AbstractSerialisationTest {
 
         // THEN confirm that it can be serialised and then deserialised successfully.
         assertSerialisation(expected.getClass(), expected);
-
     }
 
 }
