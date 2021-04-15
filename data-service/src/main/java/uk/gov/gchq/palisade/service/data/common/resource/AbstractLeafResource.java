@@ -87,6 +87,12 @@ public abstract class AbstractLeafResource extends AbstractResource implements L
         return this;
     }
 
+    /**
+     * Sets the parent for the resource
+     *
+     * @param parent the parent of this ChildResource
+     * @return the resource object
+     */
     @Generated
     public AbstractLeafResource parent(final ParentResource parent) {
         this.setParent(parent);
