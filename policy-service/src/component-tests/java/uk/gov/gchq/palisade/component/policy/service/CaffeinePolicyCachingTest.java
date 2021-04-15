@@ -165,7 +165,19 @@ class CaffeinePolicyCachingTest extends PolicyTestCommon {
     @Test
     void testCacheTtl() throws InterruptedException {
         // Given - the requested resource has policies available
-        assertThat(policyService.getResourceRules(ACCESSIBLE_JSON_TXT_FILE.getId())).isPresent();
+        var resourceRules = policyService.getResourceRules(ACCESSIBLE_JSON_TXT_FILE.getId());
+
+        assertThat(resourceRules)
+                .as("Check that a rule has been returned")
+                .isPresent();
+
+        assertThat(resourceRules.get().getRules())
+                .as("Check that the rules map contains the correct rule")
+                .containsKeys("Does nothing")
+                .as("Check that the rule in the map is a PassThroughRule")
+                .extractingByKey("Does nothing")
+                .isInstanceOf(PassThroughRule.class);
+
         // Given - a sufficient amount of time has passed
 
         TimeUnit.SECONDS.sleep(1);

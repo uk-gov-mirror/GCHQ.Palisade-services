@@ -40,7 +40,7 @@ import java.util.StringJoiner;
 
 /**
  * This is the parent class for Audit information.  It represents the common component of the data that is to be
- * sent to audit service.
+ * sent to Audit Service.
  */
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class AuditMessage {
@@ -84,7 +84,6 @@ public class AuditMessage {
         this.resourceId = Optional.ofNullable(resourceId).orElseThrow(() -> new IllegalArgumentException("Resource ID  cannot be null"));
         this.context = Optional.ofNullable(context).orElseThrow(() -> new IllegalArgumentException("Context cannot be null"));
         this.attributes = Optional.ofNullable(attributes).orElseGet(HashMap::new);
-
         this.timestamp = ZonedDateTime.now(ZoneOffset.UTC).format(DateTimeFormatter.ISO_INSTANT);
 
         try {
@@ -94,7 +93,6 @@ public class AuditMessage {
         } catch (UnknownHostException e) {
             throw new PalisadeRuntimeException("Failed to get server host and IP address", e);
         }
-
     }
 
     @Generated
@@ -128,7 +126,7 @@ public class AuditMessage {
     }
 
     @Generated
-    public String getServerHostName() {
+    public String getServerHostname() {
         return serverHostname;
     }
 

@@ -15,6 +15,9 @@
  */
 package uk.gov.gchq.palisade.service.policy.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import uk.gov.gchq.palisade.service.policy.common.Generated;
 
 import java.util.Objects;
@@ -30,9 +33,10 @@ public final class AuditablePolicyRecordResponse {
     private final PolicyResponse policyResponse;
     private final AuditErrorMessage auditErrorMessage;
 
+    @JsonCreator
     private AuditablePolicyRecordResponse(
-            final PolicyResponse policyResponse,
-            final AuditErrorMessage auditErrorMessage) {
+            final @JsonProperty("policyResponse") PolicyResponse policyResponse,
+            final @JsonProperty("auditErrorMessage") AuditErrorMessage auditErrorMessage) {
         this.policyResponse = policyResponse;
         this.auditErrorMessage = auditErrorMessage;
     }

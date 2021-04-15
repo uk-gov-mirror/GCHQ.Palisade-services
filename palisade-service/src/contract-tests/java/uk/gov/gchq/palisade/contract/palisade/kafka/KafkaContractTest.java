@@ -121,27 +121,29 @@ class KafkaContractTest {
         Mockito.doReturn(ContractTestData.REQUEST_TOKEN).when(service).createToken(any());
 
         // Given - we are already listening to the service input
-        ConsumerSettings<String, PalisadeSystemResponse> consumerSettings = ConsumerSettings
+        var consumerSettings = ConsumerSettings
                 .create(akkaActorSystem, TestSerDesConfig.requestKeyDeserialiser(), TestSerDesConfig.requestValueDeserialiser())
                 .withGroupId("test-group")
                 .withBootstrapServers(KafkaInitialiser.KAFKA.getBootstrapServers())
                 .withProperty(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
         final long recordCount = 3;
 
-        Probe<ConsumerRecord<String, PalisadeSystemResponse>> probe = Consumer
+        var probe = Consumer
                 .atMostOnceSource(consumerSettings, Subscriptions.topics(producerTopicConfiguration.getTopics().get("output-topic").getName()))
                 .runWith(TestSink.probe(akkaActorSystem), akkaMaterialiser);
 
         // When - we POST to the rest endpoint
-        Map<String, List<String>> headers = Collections.singletonMap(Token.HEADER, Collections.singletonList(ContractTestData.REQUEST_TOKEN));
-        HttpEntity<PalisadeClientRequest> entity = new HttpEntity<>(ContractTestData.REQUEST_OBJ, new LinkedMultiValueMap<>(headers));
-        ResponseEntity<Void> response = restTemplate.postForEntity(REGISTER_DATA_REQUEST, entity, Void.class);
+        var headers = Collections.singletonMap(Token.HEADER, Collections.singletonList(ContractTestData.REQUEST_TOKEN));
+        var entity = new HttpEntity<>(ContractTestData.REQUEST_OBJ, new LinkedMultiValueMap<>(headers));
+        var response = restTemplate.postForEntity(REGISTER_DATA_REQUEST, entity, Void.class);
 
         // Then - the REST request was accepted
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.ACCEPTED);
+        assertThat(response.getStatusCode())
+                .as("Check that the REST call has been accepted")
+                .isEqualTo(HttpStatus.ACCEPTED);
         // When - results are pulled from the output stream
-        Probe<ConsumerRecord<String, PalisadeSystemResponse>> resultSeq = probe.request(recordCount);
-        LinkedList<ConsumerRecord<String, PalisadeSystemResponse>> results = LongStream.range(0, recordCount)
+        var resultSeq = probe.request(recordCount);
+        var results = LongStream.range(0, recordCount)
                 .mapToObj(i -> resultSeq.expectNext(new FiniteDuration(20 + recordCount, TimeUnit.SECONDS)))
                 .collect(Collectors.toCollection(LinkedList::new));
 
@@ -194,27 +196,29 @@ class KafkaContractTest {
         Mockito.when(service.registerDataRequest(any())).thenThrow(RuntimeException.class);
 
         // Given - we are already listening to the service input
-        ConsumerSettings<String, AuditErrorMessage> consumerSettings = ConsumerSettings
+        var consumerSettings = ConsumerSettings
                 .create(akkaActorSystem, TestSerDesConfig.errorKeyDeserialiser(), TestSerDesConfig.errorValueDeserialiser())
                 .withGroupId("test-group")
                 .withBootstrapServers(KafkaInitialiser.KAFKA.getBootstrapServers())
                 .withProperty(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
         final long recordCount = 1;
 
-        Probe<ConsumerRecord<String, AuditErrorMessage>> probe = Consumer
+        var probe = Consumer
                 .atMostOnceSource(consumerSettings, Subscriptions.topics(producerTopicConfiguration.getTopics().get("error-topic").getName()))
                 .runWith(TestSink.probe(akkaActorSystem), akkaMaterialiser);
 
         // When - we POST to the rest endpoint
-        Map<String, List<String>> headers = Collections.singletonMap(Token.HEADER, Collections.singletonList(ContractTestData.ERROR_TOKEN));
-        HttpEntity<PalisadeClientRequest> entity = new HttpEntity<>(ContractTestData.REQUEST_OBJ, new LinkedMultiValueMap<>(headers));
-        ResponseEntity<Void> response = restTemplate.postForEntity(REGISTER_DATA_REQUEST, entity, Void.class);
+        var headers = Collections.singletonMap(Token.HEADER, Collections.singletonList(ContractTestData.ERROR_TOKEN));
+        var entity = new HttpEntity<>(ContractTestData.REQUEST_OBJ, new LinkedMultiValueMap<>(headers));
+        var response = restTemplate.postForEntity(REGISTER_DATA_REQUEST, entity, Void.class);
 
         // Then - the REST request encountered an error
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
+        assertThat(response.getStatusCode())
+                .as("Check that the REST call has returned a server error")
+                .isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
         // When - results are pulled from the error stream
-        Probe<ConsumerRecord<String, AuditErrorMessage>> resultSeq = probe.request(recordCount);
-        LinkedList<ConsumerRecord<String, AuditErrorMessage>> results = LongStream.range(0, recordCount)
+        var resultSeq = probe.request(recordCount);
+        var results = LongStream.range(0, recordCount)
                 .mapToObj(i -> resultSeq.expectNext(new FiniteDuration(20 + recordCount, TimeUnit.SECONDS)))
                 .collect(Collectors.toCollection(LinkedList::new));
 
@@ -224,13 +228,19 @@ class KafkaContractTest {
                 .as("Check there is only 1 result from the error probe")
                 .hasSize(1)
                 .allSatisfy(result -> {
-                    assertThat(result.value()).usingRecursiveComparison()
-                            .ignoringFieldsOfTypes(Throwable.class).ignoringFields("timestamp")
+                    assertThat(result)
                             .as("Recursively compare the AuditErrorMessage object, ignoring the Throwable and TimeStamp values")
+                            .extracting(ConsumerRecord::value)
+                            .usingRecursiveComparison()
+                            .ignoringFields("timestamp", "error")
                             .isEqualTo(ContractTestData.ERROR_OBJ);
-                    assertThat(result.value().getError())
+
+                    assertThat(result)
                             .as("Check the error class within the AuditErrorMessage")
+                            .extracting(ConsumerRecord::value)
+                            .extracting(AuditErrorMessage::getError)
                             .isInstanceOf(Throwable.class);
+
                     assertThat(result.headers().lastHeader(Token.HEADER).value())
                             .as("Check the byte value of the request-token header")
                             .isEqualTo(ContractTestData.ERROR_TOKEN.getBytes());
