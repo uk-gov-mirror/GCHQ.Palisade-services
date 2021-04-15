@@ -21,7 +21,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-/**
+/*
  * Used by JaCoCo and SonarQube, any method annotated with an annotation with
  * a simple name of "Generated' is ignored from code coverage reports. For best
  * results, this should be integrated into one's IDE. In IntelliJ, this is done
