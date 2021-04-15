@@ -25,23 +25,21 @@ import org.junit.jupiter.params.provider.ArgumentsSource;
 
 import uk.gov.gchq.palisade.service.attributemask.ApplicationTestData;
 
-import java.util.Collections;
+import java.util.Map;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class MessageSerialisationTest {
-    private static final ObjectMapper MAPPER = new ObjectMapper();
 
     static class MessageTypeSource implements ArgumentsProvider {
         @Override
-        public Stream<? extends Arguments> provideArguments(final ExtensionContext extensionContext) throws Exception {
+        public Stream<? extends Arguments> provideArguments(final ExtensionContext extensionContext) {
             return Stream.of(
                     Arguments.of(ApplicationTestData.REQUEST),
                     Arguments.of(ApplicationTestData.RESPONSE),
                     Arguments.of(AuditErrorMessage.Builder.create(
-                            ApplicationTestData.REQUEST,
-                            Collections.emptyMap())
+                            ApplicationTestData.REQUEST, Map.of("messagesSent", "23"))
                             .withError(new Throwable("test exception")))
             );
         }
@@ -50,13 +48,34 @@ class MessageSerialisationTest {
     @ParameterizedTest
     @ArgumentsSource(MessageTypeSource.class)
     <T> void testSerialiseDeserialiseIsConsistent(final T message) throws JsonProcessingException {
+        var mapper = new ObjectMapper();
         // Given some test data
 
         // When a Request is serialised and deserialised
-        String serialisedRequest = MAPPER.writeValueAsString(message);
-        Object deserialisedRequest = MAPPER.readValue(serialisedRequest, message.getClass());
+        var actualJson = mapper.writeValueAsString(message);
+        var actualInstance = mapper.readValue(actualJson, message.getClass());
 
         // Then the deserialised object is unchanged (equal)
-        assertThat(deserialisedRequest).isEqualTo(message);
+        assertThat(actualInstance)
+                .as("Check that whilst using the objects toString method, the objects are the same")
+                .isEqualTo(message);
+
+        assertThat(actualInstance)
+                .as("Ignoring the error message, check %s using recursion", message.getClass().getSimpleName())
+                .usingRecursiveComparison()
+                .ignoringFieldsOfTypes(Throwable.class)
+                .isEqualTo(message);
+
+        // Test the exception of the AuditErrorMessage Test data
+        if (actualInstance instanceof AuditErrorMessage) {
+            if (((AuditErrorMessage) actualInstance).getError() != null) {
+                assertThat((AuditErrorMessage) actualInstance)
+                        .as("Extracting the exception, check it has been deserialised successfully")
+                        .extracting(AuditErrorMessage::getError)
+                        .isExactlyInstanceOf(Throwable.class)
+                        .extracting("Message")
+                        .isEqualTo("test exception");
+            }
+        }
     }
 }

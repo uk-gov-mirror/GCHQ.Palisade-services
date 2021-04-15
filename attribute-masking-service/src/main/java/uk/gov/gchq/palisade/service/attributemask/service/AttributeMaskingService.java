@@ -38,11 +38,11 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 /**
- * The attribute-masking-service is the final transformation the palisade system applies
+ * The Attribute-Masking Service is the final transformation the Palisade system applies
  * to resources before they are returned.
  * The service performs two functions:
  * - Store the full details of the authorised request in a persistence store, to be later
- * retrieved by the data-service
+ * retrieved by the Data Service
  * - Mask the leafResource, removing any sensitive information - this may later include
  * applying a separate set of attributeRules, distinct from resourceRules and recordRules
  */
@@ -67,11 +67,11 @@ public class AttributeMaskingService {
      * Store the full details of the authorised request in a persistence store, to be later
      * retrieved by the data-service.
      *
-     * @param token    the token {@link String} for the client request as a whole, created by the palisade-service
-     * @param user     the {@link User} as authorised and returned by the user-service
-     * @param resource one of many {@link LeafResource} as discovered and returned by the resource-service
+     * @param token    the token {@link String} for the client request as a whole, created by the Palisade Service
+     * @param user     the {@link User} as authorised and returned by the User Service
+     * @param resource one of many {@link LeafResource} as discovered and returned by the Resource Service
      * @param context  the {@link Context} as originally supplied by the client
-     * @param rules    the {@link Rules} that will be applied to the resource and its records as returned by the policy-service
+     * @param rules    the {@link Rules} that will be applied to the resource and its records as returned by the Policy Service
      * @return a completable future representing the asynchronous completion of the storage operation
      */
     private CompletableFuture<AttributeMaskingRequest> storeAuthorisedRequest(final String token, final User user, final LeafResource resource, final Context context, final Rules<?> rules) {

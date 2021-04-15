@@ -67,7 +67,7 @@ class AuditErrorMessageTest {
                 .isEqualTo(auditErrorMessage);
 
         assertThat(actualInstance)
-                .as("Ignoring the error, check %s using recursion)", auditErrorMessage.getClass().getSimpleName())
+                .as("Ignoring the error, check %s using recursion", auditErrorMessage.getClass().getSimpleName())
                 .usingRecursiveComparison()
                 .ignoringFieldsOfTypes(Throwable.class)
                 .isEqualTo(auditErrorMessage);

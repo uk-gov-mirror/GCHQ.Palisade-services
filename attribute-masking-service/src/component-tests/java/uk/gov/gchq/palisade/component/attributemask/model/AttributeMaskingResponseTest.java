@@ -60,7 +60,7 @@ class AttributeMaskingResponseTest {
                 .isEqualTo(attributeMaskingResponse);
 
         assertThat(actualInstance)
-                .as("Check %s using recursion)", attributeMaskingResponse.getClass().getSimpleName())
+                .as("Check %s using recursion", attributeMaskingResponse.getClass().getSimpleName())
                 .usingRecursiveComparison()
                 .isEqualTo(attributeMaskingResponse);
     }

@@ -63,8 +63,13 @@ class RestControllerWebMvcTest {
 
     @Test
     void testContextLoads() {
-        assertThat(controller).isNotNull();
-        assertThat(mockMvc).isNotNull();
+        assertThat(controller)
+                .as("Check that the controller has been autowired successfully")
+                .isNotNull();
+
+        assertThat(mockMvc)
+                .as("Check that the mockMvc has been autowired successfully")
+                .isNotNull();
     }
 
     @Test

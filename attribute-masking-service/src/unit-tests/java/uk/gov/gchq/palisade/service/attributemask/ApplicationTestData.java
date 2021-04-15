@@ -30,7 +30,6 @@ import uk.gov.gchq.palisade.service.attributemask.common.user.User;
 import uk.gov.gchq.palisade.service.attributemask.common.user.UserId;
 import uk.gov.gchq.palisade.service.attributemask.model.AttributeMaskingRequest;
 import uk.gov.gchq.palisade.service.attributemask.model.AttributeMaskingResponse;
-import uk.gov.gchq.palisade.service.attributemask.model.StreamMarker;
 
 import java.io.Serializable;
 
