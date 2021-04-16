@@ -56,7 +56,7 @@ import java.util.concurrent.Executor;
  * Bean configuration and dependency injection graph
  */
 @Configuration
-// Suppress dynamic class loading smell as its needed for json serialisation
+// Suppress dynamic class loading smell as it's needed for json serialisation
 @SuppressWarnings("java:S2658")
 public class ApplicationConfiguration implements AsyncConfigurer {
     private static final int THREAD_POOL = 6;
@@ -80,7 +80,7 @@ public class ApplicationConfiguration implements AsyncConfigurer {
                 .forEach((BeanDefinition beanDef) -> {
                     try {
                         Class<?> type = Class.forName(beanDef.getBeanClassName());
-                        Class<?> supertype = ((RegisterJsonSubType) type.getAnnotation(RegisterJsonSubType.class)).value();
+                        Class<?> supertype = type.getAnnotation(RegisterJsonSubType.class).value();
                         LOGGER.debug("Registered {} as json subtype of {}", type, supertype);
                         MAPPER.registerSubtypes(type);
                     } catch (ClassNotFoundException ex) {

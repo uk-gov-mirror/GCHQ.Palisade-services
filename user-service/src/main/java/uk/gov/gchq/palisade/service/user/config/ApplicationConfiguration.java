@@ -52,7 +52,7 @@ import java.util.concurrent.Executor;
  * Bean configuration and dependency injection graph
  */
 @Configuration
-// Suppress dynamic class loading smell as its needed for json serialisation
+// Suppress dynamic class loading smell as it's needed for json serialisation
 @SuppressWarnings("java:S2658")
 public class ApplicationConfiguration implements AsyncConfigurer {
     private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationConfiguration.class);

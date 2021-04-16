@@ -58,7 +58,7 @@ import java.util.concurrent.Executor;
  */
 @Configuration
 @EnableConfigurationProperties(ServerProperties.class)
-// Suppress dynamic class loading smell as its needed for json serialisation
+// Suppress dynamic class loading smell as it's needed for json serialisation
 @SuppressWarnings("java:S2658")
 public class ApplicationConfiguration {
     private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationConfiguration.class);
@@ -81,7 +81,7 @@ public class ApplicationConfiguration {
                 .forEach((BeanDefinition beanDef) -> {
                     try {
                         Class<?> type = Class.forName(beanDef.getBeanClassName());
-                        Class<?> supertype = ((RegisterJsonSubType) type.getAnnotation(RegisterJsonSubType.class)).value();
+                        Class<?> supertype = type.getAnnotation(RegisterJsonSubType.class).value();
                         LOGGER.debug("Registered {} as json subtype of {}", type, supertype);
                         MAPPER.registerSubtypes(type);
                     } catch (ClassNotFoundException ex) {
