@@ -25,6 +25,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
@@ -64,6 +65,8 @@ import java.util.stream.Collectors;
 @Configuration
 @EnableR2dbcRepositories(basePackages = {"uk.gov.gchq.palisade.service.resource.reactive"})
 @EnableConfigurationProperties({ResourceServiceConfigProperties.class})
+// Suppress dynamic class loading smell as its needed for json serialisation
+@SuppressWarnings("java:S2658")
 public class ApplicationConfiguration implements AsyncConfigurer {
     private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationConfiguration.class);
     private static final int THREAD_POOL = 6;
@@ -83,7 +86,7 @@ public class ApplicationConfiguration implements AsyncConfigurer {
         ClassPathScanningCandidateComponentProvider scanner = new ClassPathScanningCandidateComponentProvider(false);
         scanner.addIncludeFilter(new AnnotationTypeFilter(RegisterJsonSubType.class));
         scanner.findCandidateComponents("uk.gov.gchq.palisade")
-                .forEach(beanDef -> {
+                .forEach((BeanDefinition beanDef) -> {
                     try {
                         Class<?> type = Class.forName(beanDef.getBeanClassName());
                         Class<?> supertype = ((RegisterJsonSubType) type.getAnnotation(RegisterJsonSubType.class)).value();

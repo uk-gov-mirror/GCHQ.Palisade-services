@@ -24,6 +24,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import event.logging.impl.DefaultEventLoggingService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
@@ -44,6 +45,8 @@ import java.util.Map;
  * Bean configuration and dependency injection graph
  */
 @Configuration
+// Suppress dynamic class loading smell as its needed for json serialisation
+@SuppressWarnings("java:S2658")
 public class ApplicationConfiguration {
     private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationConfiguration.class);
     private static final ObjectMapper MAPPER;
@@ -62,7 +65,7 @@ public class ApplicationConfiguration {
         ClassPathScanningCandidateComponentProvider scanner = new ClassPathScanningCandidateComponentProvider(false);
         scanner.addIncludeFilter(new AnnotationTypeFilter(RegisterJsonSubType.class));
         scanner.findCandidateComponents("uk.gov.gchq.palisade")
-                .forEach(beanDef -> {
+                .forEach((BeanDefinition beanDef) -> {
                     try {
                         Class<?> type = Class.forName(beanDef.getBeanClassName());
                         Class<?> supertype = ((RegisterJsonSubType) type.getAnnotation(RegisterJsonSubType.class)).value();
