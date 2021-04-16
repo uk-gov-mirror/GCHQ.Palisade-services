@@ -66,23 +66,4 @@ public interface DataReader {
      */
     void addSerialiser(final DataFlavour flavour, final Serialiser<?> serialiser);
 
-    /**
-     * Gets the class name
-     *
-     * @return the {@link String} value of the class
-     */
-    @SuppressWarnings("java:S100") // ignore regex on these default classes
-    default String _getClass() {
-        return getClass().getName();
-    }
-
-    /**
-     * Sets the class name
-     *
-     * @param className the {@link String} value of the class
-     */
-    @SuppressWarnings("java:S100") // ignore regex on these default classes
-    default void _setClass(final String className) {
-        // do nothing.
-    }
 }

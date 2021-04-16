@@ -18,6 +18,8 @@ package uk.gov.gchq.palisade.service.data.model;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 
 import uk.gov.gchq.palisade.service.data.common.Context;
 import uk.gov.gchq.palisade.service.data.common.Generated;
@@ -36,6 +38,7 @@ import java.util.StringJoiner;
  * two resource counters: records processed; and records returned; which are included in the attributes map.
  */
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+@JsonTypeInfo(use = Id.NONE)
 public final class AuditSuccessMessage extends AuditMessage {
 
     public static final String RECORDS_PROCESSED = "RECORDS_PROCESSED";

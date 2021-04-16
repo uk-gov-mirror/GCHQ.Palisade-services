@@ -18,6 +18,8 @@ package uk.gov.gchq.palisade.service.palisade.model;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 
 import uk.gov.gchq.palisade.service.palisade.common.Generated;
 
@@ -30,6 +32,7 @@ import java.util.StringJoiner;
  * This message contains a unique token to link the request from the client to the data, and is used at the Filtered Resource Service to retrieve data via the Data Service.
  */
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+@JsonTypeInfo(use = Id.NONE)
 public final class PalisadeClientResponse {
 
     private final String token;  //unique identifier for the request.

@@ -18,6 +18,8 @@ package uk.gov.gchq.palisade.service.data.model;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 
 import uk.gov.gchq.palisade.service.data.common.Generated;
 
@@ -31,6 +33,7 @@ import java.util.StringJoiner;
  * routed via the resource's connectionDetail to the appropriate instance of a Data Service.
  * This message is used to retrieve the {@link AuthorisedDataRequest} which contains the references to the requested resource.
  */
+@JsonTypeInfo(use = Id.NONE)
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public final class DataRequest {
 

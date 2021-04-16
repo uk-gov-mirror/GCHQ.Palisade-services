@@ -16,8 +16,11 @@
 
 package uk.gov.gchq.palisade.service.data.model;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 
 import uk.gov.gchq.palisade.service.data.common.Context;
 import uk.gov.gchq.palisade.service.data.common.Generated;
@@ -31,6 +34,8 @@ import java.util.StringJoiner;
  * Represents information for an error that has occurred during the processing of a request. This information is
  * forwarded to the audit-service.
  */
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+@JsonTypeInfo(use = Id.NONE)
 public final class AuditErrorMessage extends AuditMessage {
 
     private final Throwable error;  //Error that occurred

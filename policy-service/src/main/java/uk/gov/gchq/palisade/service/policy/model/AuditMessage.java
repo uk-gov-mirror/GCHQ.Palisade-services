@@ -16,7 +16,6 @@
 
 package uk.gov.gchq.palisade.service.policy.model;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -25,6 +24,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import uk.gov.gchq.palisade.service.policy.common.Context;
 import uk.gov.gchq.palisade.service.policy.common.Generated;
+import uk.gov.gchq.palisade.service.policy.config.ApplicationConfiguration;
 import uk.gov.gchq.palisade.service.policy.exception.PalisadeRuntimeException;
 
 import java.net.InetAddress;
@@ -42,12 +42,11 @@ import java.util.StringJoiner;
  * This is the parent class for Audit information.  It represents the common component of the data that is to be
  * sent to audit service.
  */
-@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class AuditMessage {
 
     public static final String SERVICE_NAME = "policy-service";
 
-    protected static final ObjectMapper MAPPER = new ObjectMapper();
+    protected static final ObjectMapper MAPPER = new ApplicationConfiguration().objectMapper();
 
     @JsonProperty("userId")
     protected final String userId; //Unique identifier for the user.
@@ -128,7 +127,7 @@ public class AuditMessage {
     }
 
     @Generated
-    public String getServerHostName() {
+    public String getServerHostname() {
         return serverHostname;
     }
 

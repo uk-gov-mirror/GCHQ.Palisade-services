@@ -16,8 +16,13 @@
 
 package uk.gov.gchq.palisade.service.data.common.resource.impl;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
+
 import uk.gov.gchq.palisade.service.data.common.Generated;
+import uk.gov.gchq.palisade.service.data.common.RegisterJsonSubType;
 import uk.gov.gchq.palisade.service.data.common.resource.ConnectionDetail;
+import uk.gov.gchq.palisade.service.data.common.resource.Resource;
 
 import java.util.Objects;
 import java.util.StringJoiner;
@@ -27,6 +32,7 @@ import static java.util.Objects.requireNonNull;
 /**
  * A simple implementation of the {@link ConnectionDetail} that points to the correct Data Service
  */
+@RegisterJsonSubType(ConnectionDetail.class)
 public class SimpleConnectionDetail implements ConnectionDetail {
     private static final long serialVersionUID = 1L;
 

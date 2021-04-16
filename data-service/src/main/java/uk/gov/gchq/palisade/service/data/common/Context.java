@@ -17,11 +17,10 @@
 package uk.gov.gchq.palisade.service.data.common;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -37,12 +36,7 @@ import static java.util.Objects.requireNonNull;
  * additional information that can be stored and recovered in this structure and passed along with the request/operation.
  * i.e. A users purpose for requesting the contents of a file.
  */
-@JsonPropertyOrder(value = {"class", "contents"}, alphabetic = true)
-@JsonTypeInfo(
-        use = JsonTypeInfo.Id.CLASS,
-        include = JsonTypeInfo.As.EXISTING_PROPERTY,
-        property = "class"
-)
+@JsonTypeInfo(use = Id.NAME)
 public class Context {
 
     private static final String PURPOSE = "purpose";
@@ -125,12 +119,6 @@ public class Context {
         requireNonNull(value, "The value cannot be null.");
         contents.putIfAbsent(key, value);
         return this;
-    }
-
-    @JsonGetter("class")
-    @Generated
-    public String getClassName() {
-        return getClass().getName();
     }
 
     @Override

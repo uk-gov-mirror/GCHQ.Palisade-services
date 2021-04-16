@@ -41,7 +41,6 @@ import static java.util.Objects.requireNonNull;
  * @param <T> The type of the record. In normal cases the raw data will be deserialised
  *            by the record reader before being passed to the {@link Rule#apply(Serializable, User, Context)}.
  */
-@JsonPropertyOrder(value = {"class", "rule", "function", "predicate"}, alphabetic = true)
 public class WrappedRule<T extends Serializable> implements Rule<T> {
 
     public static final String WRAPPED_RULE_WAS_INITIALISED_WITH_NULL = "WrappedRule was initialised with null.";

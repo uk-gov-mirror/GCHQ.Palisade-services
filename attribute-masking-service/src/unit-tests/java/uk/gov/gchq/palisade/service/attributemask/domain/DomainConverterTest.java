@@ -22,8 +22,10 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.ArgumentsProvider;
 import org.junit.jupiter.params.provider.ArgumentsSource;
+import org.springframework.boot.actuate.autoconfigure.condition.ConditionsReportEndpoint.ApplicationConditionEvaluation;
 
 import uk.gov.gchq.palisade.service.attributemask.ApplicationTestData;
+import uk.gov.gchq.palisade.service.attributemask.config.ApplicationConfiguration;
 
 import javax.persistence.AttributeConverter;
 
@@ -32,11 +34,11 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class DomainConverterTest {
-    private static final ObjectMapper MAPPER = new ObjectMapper();
+    private static final ObjectMapper MAPPER = new ApplicationConfiguration().objectMapper();
 
     static class DomainConvertersSource implements ArgumentsProvider {
         @Override
-        public Stream<? extends Arguments> provideArguments(final ExtensionContext extensionContext) throws Exception {
+        public Stream<? extends Arguments> provideArguments(final ExtensionContext extensionContext) {
             return Stream.of(
                     Arguments.of(new ContextConverter(MAPPER), ApplicationTestData.CONTEXT),
                     Arguments.of(new LeafResourceConverter(MAPPER), ApplicationTestData.LEAF_RESOURCE),

@@ -24,7 +24,6 @@ import uk.gov.gchq.palisade.service.data.common.resource.LeafResource;
 import uk.gov.gchq.palisade.service.data.common.resource.impl.FileResource;
 import uk.gov.gchq.palisade.service.data.common.resource.impl.SimpleConnectionDetail;
 import uk.gov.gchq.palisade.service.data.common.resource.impl.SystemResource;
-import uk.gov.gchq.palisade.service.data.common.rule.Rule;
 import uk.gov.gchq.palisade.service.data.common.rule.Rules;
 import uk.gov.gchq.palisade.service.data.common.user.User;
 import uk.gov.gchq.palisade.service.data.domain.AuthorisedRequestEntity;
@@ -105,15 +104,4 @@ public class DataServiceTestsCommon {
             .message("test message")
             .writer(RESPONSE_WRITER);
 
-    public static class PassThroughRule<T extends Serializable> implements Rule<T> {
-        @Override
-        public T apply(final T record, final User user, final Context context) {
-            return record;
-        }
-
-        @Override
-        public boolean isApplicable(final User user, final Context context) {
-            return false; // rules are not applicable
-        }
-    }
 }

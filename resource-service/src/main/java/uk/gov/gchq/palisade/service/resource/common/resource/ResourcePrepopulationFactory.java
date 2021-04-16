@@ -16,14 +16,6 @@
 
 package uk.gov.gchq.palisade.service.resource.common.resource;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonSetter;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
 import java.util.Map.Entry;
 import java.util.function.Function;
 
@@ -32,13 +24,6 @@ import java.util.function.Function;
  * <p>
  * The only requirement is that there is a build method to construct a LeafResource
  */
-@JsonPropertyOrder(value = {"class"}, alphabetic = true)
-@JsonTypeInfo(
-        use = JsonTypeInfo.Id.CLASS,
-        include = As.EXISTING_PROPERTY,
-        property = "class"
-)
-@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
 public interface ResourcePrepopulationFactory {
 
     /**
@@ -49,13 +34,4 @@ public interface ResourcePrepopulationFactory {
      */
     Entry<Resource, LeafResource> build(Function<String, ConnectionDetail> connectionDetailMapper);
 
-    @JsonGetter("class")
-    default String getClassName() {
-        return getClass().getName();
-    }
-
-    @JsonSetter("class")
-    default void setClassName(final String className) {
-        // do nothing.
-    }
 }

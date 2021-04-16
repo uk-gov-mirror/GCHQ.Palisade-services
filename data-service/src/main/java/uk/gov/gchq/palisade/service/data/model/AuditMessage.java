@@ -15,7 +15,6 @@
  */
 package uk.gov.gchq.palisade.service.data.model;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -23,6 +22,7 @@ import org.springframework.lang.Nullable;
 
 import uk.gov.gchq.palisade.service.data.common.Context;
 import uk.gov.gchq.palisade.service.data.common.Generated;
+import uk.gov.gchq.palisade.service.data.config.ApplicationConfiguration;
 import uk.gov.gchq.palisade.service.data.exception.PalisadeRuntimeException;
 
 import java.net.InetAddress;
@@ -43,12 +43,11 @@ import java.util.StringJoiner;
  * {@code resourceID} and {@code context} can be null.  This can occur when this message represents an error for a
  * request that is not authorised to access the data.
  */
-@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class AuditMessage {
 
     public static final String SERVICE_NAME = "data-service";
 
-    protected static final ObjectMapper MAPPER = new ObjectMapper();
+    protected static final ObjectMapper MAPPER = new ApplicationConfiguration().objectMapper();
 
     @JsonProperty("userId")
     @Nullable

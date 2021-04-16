@@ -18,6 +18,8 @@ package uk.gov.gchq.palisade.service.palisade.model;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 
 import uk.gov.gchq.palisade.service.palisade.common.Context;
 import uk.gov.gchq.palisade.service.palisade.common.Generated;
@@ -39,6 +41,7 @@ import java.util.stream.Collectors;
  * uk.gov.gchq.palisade.service.user.request.UserRequest is the object received by the User Service.
  */
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+@JsonTypeInfo(use = Id.NONE)
 public final class PalisadeSystemResponse {
 
     private final String userId;  // Unique identifier for the user.

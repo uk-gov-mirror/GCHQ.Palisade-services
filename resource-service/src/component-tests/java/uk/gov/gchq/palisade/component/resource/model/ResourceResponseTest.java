@@ -24,6 +24,7 @@ import uk.gov.gchq.palisade.service.resource.common.resource.impl.FileResource;
 import uk.gov.gchq.palisade.service.resource.common.resource.impl.SimpleConnectionDetail;
 import uk.gov.gchq.palisade.service.resource.common.resource.impl.SystemResource;
 import uk.gov.gchq.palisade.service.resource.common.user.User;
+import uk.gov.gchq.palisade.service.resource.config.ApplicationConfiguration;
 import uk.gov.gchq.palisade.service.resource.model.ResourceResponse;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -32,7 +33,7 @@ class ResourceResponseTest {
 
     @Test
     void testSerialiseResourceResponseToJson() throws JsonProcessingException {
-        var mapper = new ObjectMapper();
+        var mapper = new ApplicationConfiguration().objectMapper();
 
         var resource = new FileResource().id("/test/file.format")
                 .type("java.lang.String")

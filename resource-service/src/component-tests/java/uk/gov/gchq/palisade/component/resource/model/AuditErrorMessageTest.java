@@ -20,6 +20,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 
 import uk.gov.gchq.palisade.service.resource.common.Context;
+import uk.gov.gchq.palisade.service.resource.config.ApplicationConfiguration;
 import uk.gov.gchq.palisade.service.resource.model.AuditErrorMessage;
 
 import java.util.Map;
@@ -37,7 +38,7 @@ class AuditErrorMessageTest {
      */
     @Test
     void testAuditErrorMessageSerialisingAndDeserialising() throws JsonProcessingException {
-        var mapper = new ObjectMapper();
+        var mapper = new ApplicationConfiguration().objectMapper();
 
         var auditErrorMessage = AuditErrorMessage.Builder.create()
                 .withUserId("originalUserID")

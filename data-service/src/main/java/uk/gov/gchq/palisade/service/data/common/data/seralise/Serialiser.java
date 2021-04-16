@@ -15,11 +15,6 @@
  */
 package uk.gov.gchq.palisade.service.data.common.data.seralise;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonSetter;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -36,7 +31,6 @@ import java.util.stream.Stream;
  *
  * @param <I> the type of seraliser, in the most common case, a String
  */
-@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = As.EXISTING_PROPERTY, property = "class")
 public interface Serialiser<I> extends Serializable {
 
     /**
@@ -58,13 +52,4 @@ public interface Serialiser<I> extends Serializable {
      */
     Stream<I> deserialise(final InputStream stream) throws IOException;
 
-    @JsonGetter("class")
-    default String getClassName() {
-        return getClass().getName();
-    }
-
-    @JsonSetter("class")
-    default void setClassName(final String className) {
-        // do nothing.
-    }
 }

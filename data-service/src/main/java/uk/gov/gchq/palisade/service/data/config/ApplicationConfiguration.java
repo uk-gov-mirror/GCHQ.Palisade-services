@@ -26,10 +26,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.core.type.filter.AnnotationTypeFilter;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
+import uk.gov.gchq.palisade.service.data.common.RegisterJsonSubType;
 import uk.gov.gchq.palisade.service.data.common.data.DataService;
 import uk.gov.gchq.palisade.service.data.repository.AuthorisedRequestsRepository;
 import uk.gov.gchq.palisade.service.data.repository.JpaPersistenceLayer;
@@ -44,8 +48,33 @@ import java.util.concurrent.Executor;
 @Configuration
 public class ApplicationConfiguration {
     private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationConfiguration.class);
+    private static final ObjectMapper MAPPER;
 
-    private static final int CORE_POOL_SIZE = 6;
+    static {
+        MAPPER = new ObjectMapper()
+                .setSerializationInclusion(JsonInclude.Include.NON_NULL)
+                .configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false)
+                .configure(SerializationFeature.CLOSE_CLOSEABLE, true)
+                .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, true)
+                .configure(DeserializationFeature.FAIL_ON_INVALID_SUBTYPE, false)
+                .disable(DeserializationFeature.ADJUST_DATES_TO_CONTEXT_TIME_ZONE)
+                .registerModule(new Jdk8Module())
+                .registerModule(new JavaTimeModule());
+        // Reflect and add annotated classes as subtypes
+        ClassPathScanningCandidateComponentProvider scanner = new ClassPathScanningCandidateComponentProvider(false);
+        scanner.addIncludeFilter(new AnnotationTypeFilter(RegisterJsonSubType.class));
+        scanner.findCandidateComponents("uk.gov.gchq.palisade")
+                .forEach(beanDef -> {
+                    try {
+                        Class<?> type = Class.forName(beanDef.getBeanClassName());
+                        Class<?> supertype = ((RegisterJsonSubType) type.getAnnotation(RegisterJsonSubType.class)).value();
+                        LOGGER.debug("Registered {} as json subtype of {}", type, supertype);
+                        MAPPER.registerSubtypes(type);
+                    } catch (ClassNotFoundException ex) {
+                        throw new IllegalArgumentException(ex);
+                    }
+                });
+    }
 
     /**
      * Bean for the {@link JpaPersistenceLayer}.
@@ -79,23 +108,7 @@ public class ApplicationConfiguration {
     @Bean
     @Primary
     public ObjectMapper objectMapper() {
-        return new ObjectMapper()
-                .setSerializationInclusion(JsonInclude.Include.NON_NULL)
-                .configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false)
-                .configure(SerializationFeature.CLOSE_CLOSEABLE, true)
-                .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, true)
-                .configure(DeserializationFeature.FAIL_ON_INVALID_SUBTYPE, false)
-                .disable(DeserializationFeature.ADJUST_DATES_TO_CONTEXT_TIME_ZONE)
-                .registerModule(new Jdk8Module())
-                .registerModule(new JavaTimeModule());
+        return MAPPER;
     }
 
-    @Bean("threadPoolTaskExecutor")
-    public Executor getAsyncExecutor() {
-        ThreadPoolTaskExecutor ex = new ThreadPoolTaskExecutor();
-        ex.setThreadNamePrefix("AppThreadPool-");
-        ex.setCorePoolSize(CORE_POOL_SIZE);
-        LOGGER.info("Starting ThreadPoolTaskExecutor with core = [{}] max = [{}]", ex.getCorePoolSize(), ex.getMaxPoolSize());
-        return ex;
-    }
 }

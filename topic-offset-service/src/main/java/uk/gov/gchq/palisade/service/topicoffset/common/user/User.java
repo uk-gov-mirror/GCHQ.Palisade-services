@@ -14,10 +14,12 @@
  * limitations under the License.
  */
 
-package uk.gov.gchq.palisade.service.topicoffset.common;
+package uk.gov.gchq.palisade.service.topicoffset.common.user;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
+
+import uk.gov.gchq.palisade.service.topicoffset.common.Generated;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -35,11 +37,7 @@ import static java.util.Objects.requireNonNull;
  * For example it could be used for deciding what actions users are allowed to perform, such as READ/WRITE.
  * The user auths are used specifically to decide what visibilities users can see.
  */
-@JsonTypeInfo(
-        use = JsonTypeInfo.Id.CLASS,
-        include = JsonTypeInfo.As.EXISTING_PROPERTY,
-        property = "class"
-)
+@JsonTypeInfo(use = Id.NAME)
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -184,12 +182,6 @@ public class User implements Serializable {
     public final void setAuths(final Set<String> auths) {
         requireNonNull(auths);
         this.auths = new HashSet<>(auths);
-    }
-
-    @JsonGetter("class")
-    @Generated
-    public String getClassName() {
-        return getClass().getName();
     }
 
     @Override

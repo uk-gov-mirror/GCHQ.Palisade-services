@@ -39,6 +39,7 @@ import org.springframework.core.serializer.support.SerializationFailedException;
 import org.springframework.test.context.support.TestPropertySourceUtils;
 import org.testcontainers.containers.KafkaContainer;
 
+import uk.gov.gchq.palisade.service.resource.config.ApplicationConfiguration;
 import uk.gov.gchq.palisade.service.resource.stream.PropertiesConfigurer;
 
 import java.io.IOException;
@@ -53,7 +54,7 @@ import static org.apache.kafka.clients.admin.AdminClientConfig.BOOTSTRAP_SERVERS
 
 class KafkaInitializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
     private static final Logger LOGGER = LoggerFactory.getLogger(KafkaInitializer.class);
-    private static final ObjectMapper MAPPER = new ObjectMapper();
+    private static final ObjectMapper MAPPER = new ApplicationConfiguration().objectMapper();
 
 
     static final KafkaContainer KAFKA_CONTAINER = new KafkaContainer("5.5.1")

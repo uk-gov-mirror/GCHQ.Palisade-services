@@ -41,6 +41,7 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
@@ -67,6 +68,8 @@ import scala.concurrent.duration.FiniteDuration;
 
 import uk.gov.gchq.palisade.contract.policy.common.ContractTestData;
 import uk.gov.gchq.palisade.contract.policy.common.StreamMarker;
+import uk.gov.gchq.palisade.contract.policy.kafka.KafkaContractTest.KafkaInitializer;
+import uk.gov.gchq.palisade.contract.policy.kafka.KafkaContractTest.KafkaInitializer.Config;
 import uk.gov.gchq.palisade.service.policy.PolicyApplication;
 import uk.gov.gchq.palisade.service.policy.common.Token;
 import uk.gov.gchq.palisade.service.policy.exception.NoSuchPolicyException;
@@ -78,10 +81,12 @@ import uk.gov.gchq.palisade.service.policy.stream.SerDesConfig;
 
 import java.io.IOException;
 import java.util.AbstractMap;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
@@ -105,13 +110,12 @@ import static org.junit.jupiter.api.Assertions.assertAll;
         webEnvironment = WebEnvironment.RANDOM_PORT,
         properties = {"akka.discovery.config.services.kafka.from-config=false", "spring.cache.caffeine.spec=expireAfterWrite=2m, maximumSize=100"}
 )
-@Import({KafkaContractTest.KafkaInitializer.Config.class})
-@ContextConfiguration(initializers = {KafkaContractTest.KafkaInitializer.class})
+@Import({Config.class})
+@ContextConfiguration(initializers = {KafkaInitializer.class})
 @ActiveProfiles({"caffeine", "akka-test", "pre-population"})
 class KafkaContractTest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(KafkaContractTest.class);
-    private static final ObjectMapper MAPPER = new ObjectMapper();
     @Autowired
     private TestRestTemplate restTemplate;
     @Autowired
@@ -122,6 +126,9 @@ class KafkaContractTest {
     private ConsumerTopicConfiguration consumerTopicConfiguration;
     @Autowired
     private ProducerTopicConfiguration producerTopicConfiguration;
+    @Qualifier("objectMapper")
+    @Autowired
+    private ObjectMapper mapper;
 
     /**
      * Creates a number of requests, including a start and end record, and the body, JSON, on the right topic
@@ -157,7 +164,7 @@ class KafkaContractTest {
                 .withBootstrapServers(KafkaInitializer.KAFKA.getBootstrapServers());
 
         Source.fromJavaStream(() -> requests)
-                .runWith(Producer.plainSink(producerSettings), akkaMaterializer)
+                .runWith(Producer.<String, JsonNode>plainSink(producerSettings), akkaMaterializer)
                 .toCompletableFuture()
                 .join();
 
@@ -232,9 +239,9 @@ class KafkaContractTest {
                                     .as("The message inside the rules object should be %s", "no rules set")
                                     .isEqualTo("no rules set");
 
-                            assertThat(result.value().get("rules").get("rules").get("1-PassThroughRule").get("class").asText())
+                            assertThat(result.value().get("rules").get("rules").get("1-PassThroughRule").get("@type").asText())
                                     .as("The class of the rules object inside the message should be %s", "PassThroughRule")
-                                    .isEqualTo("uk.gov.gchq.palisade.service.policy.common.rule.PassThroughRule");
+                                    .isEqualTo("PassThroughRule");
                         })
         );
     }
@@ -276,7 +283,7 @@ class KafkaContractTest {
                 .withBootstrapServers(KafkaInitializer.KAFKA.getBootstrapServers());
 
         Source.fromJavaStream(() -> requests)
-                .runWith(Producer.plainSink(producerSettings), akkaMaterializer)
+                .runWith(Producer.<String, JsonNode>plainSink(producerSettings), akkaMaterializer)
                 .toCompletableFuture()
                 .join();
 
@@ -416,8 +423,8 @@ class KafkaContractTest {
 
         // Given - we are already listening to the output
         ConsumerSettings<String, JsonNode> consumerSettings = ConsumerSettings
-                .create(akkaActorSystem, new StringDeserializer(), new KafkaContractTest.ResponseDeserializer())
-                .withBootstrapServers(KafkaContractTest.KafkaInitializer.KAFKA.getBootstrapServers())
+                .create(akkaActorSystem, new StringDeserializer(), new ResponseDeserializer())
+                .withBootstrapServers(KafkaInitializer.KAFKA.getBootstrapServers())
                 .withProperty(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
 
         Probe<ConsumerRecord<String, JsonNode>> probe = Consumer
@@ -426,11 +433,11 @@ class KafkaContractTest {
 
         // When - we write to the input
         ProducerSettings<String, JsonNode> producerSettings = ProducerSettings
-                .create(akkaActorSystem, new StringSerializer(), new KafkaContractTest.RequestSerializer())
-                .withBootstrapServers(KafkaContractTest.KafkaInitializer.KAFKA.getBootstrapServers());
+                .create(akkaActorSystem, new StringSerializer(), new RequestSerializer())
+                .withBootstrapServers(KafkaInitializer.KAFKA.getBootstrapServers());
 
         Source.fromJavaStream(() -> requests)
-                .runWith(Producer.plainSink(producerSettings), akkaMaterializer)
+                .runWith(Producer.<String, JsonNode>plainSink(producerSettings), akkaMaterializer)
                 .toCompletableFuture()
                 .join();
 
@@ -476,11 +483,11 @@ class KafkaContractTest {
     }
 
     // Serializer for upstream test input
-    static class RequestSerializer implements Serializer<JsonNode> {
+    class RequestSerializer implements Serializer<JsonNode> {
         @Override
         public byte[] serialize(final String s, final JsonNode policyRequest) {
             try {
-                return MAPPER.writeValueAsBytes(policyRequest);
+                return mapper.writeValueAsBytes(policyRequest);
             } catch (JsonProcessingException e) {
                 throw new SerializationFailedException("Failed to serialize " + policyRequest.toString(), e);
             }
@@ -488,11 +495,11 @@ class KafkaContractTest {
     }
 
     // Deserializer for downstream test output
-    static class ResponseDeserializer implements Deserializer<JsonNode> {
+    class ResponseDeserializer implements Deserializer<JsonNode> {
         @Override
         public JsonNode deserialize(final String s, final byte[] policyResponse) {
             try {
-                return MAPPER.readTree(policyResponse);
+                return mapper.readTree(policyResponse);
             } catch (IOException e) {
                 throw new SerializationFailedException("Failed to deserialize " + new String(policyResponse), e);
             }
@@ -550,9 +557,9 @@ class KafkaContractTest {
                 return ActorSystem.create("actor-with-overrides", props.toHoconConfig(Stream.concat(
                         props.getAllActiveProperties().entrySet().stream()
                                 .filter(kafkaPort -> !kafkaPort.getKey().equals("akka.discovery.config.services.kafka.endpoints[0].port")),
-                        Stream.of(new AbstractMap.SimpleEntry<>("akka.discovery.config.services.kafka.endpoints[0].port", Integer.toString(kafka.getFirstMappedPort()))))
+                        Stream.of(new SimpleEntry<>("akka.discovery.config.services.kafka.endpoints[0].port", Integer.toString(kafka.getFirstMappedPort()))))
                         .peek(entry -> LOGGER.info("Config key {} = {}", entry.getKey(), entry.getValue()))
-                        .collect(toMap(Map.Entry::getKey, Map.Entry::getValue))));
+                        .collect(toMap(Entry::getKey, Entry::getValue))));
             }
 
             @Bean

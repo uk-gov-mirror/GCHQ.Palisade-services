@@ -20,11 +20,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 
 import uk.gov.gchq.palisade.service.data.common.rule.Rules;
+import uk.gov.gchq.palisade.service.data.config.ApplicationConfiguration;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class RulesTest {
-    private final ObjectMapper mapper = new ObjectMapper();
+    private static final ObjectMapper MAPPER = new ApplicationConfiguration().objectMapper();
 
 
     @Test
@@ -62,10 +63,10 @@ class RulesTest {
                 .addRule("ageOffRule", new TestRule()
                 );
 
-        final String testRule = "{\"message\":\"Age off and visibility filtering\",\"rules\":{\"ageOffRule\":{\"class\":\"uk.gov.gchq.palisade.service.data.common.TestRule\"}}}";
+        final String testRule = "{\"message\":\"Age off and visibility filtering\",\"rules\":{\"ageOffRule\":{\"@type\":\"TestRule\"}}}";
 
         assertThat(testRule)
                 .as("The string testRule should match the serialised json rule object")
-                .isEqualTo(mapper.writeValueAsString(rules));
+                .isEqualTo(MAPPER.writeValueAsString(rules));
     }
 }

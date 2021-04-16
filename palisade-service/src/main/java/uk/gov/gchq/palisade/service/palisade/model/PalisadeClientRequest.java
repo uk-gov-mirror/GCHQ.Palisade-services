@@ -20,8 +20,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 
-import uk.gov.gchq.palisade.service.palisade.common.Context;
 import uk.gov.gchq.palisade.service.palisade.common.Generated;
 
 import java.util.Map;
@@ -40,6 +40,7 @@ import java.util.StringJoiner;
  * uk.gov.gchq.palisade.service.user.request.UserRequest is the object received by the User Service.
  */
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+@JsonTypeInfo(use = Id.NONE)
 public final class PalisadeClientRequest {
 
     private final String userId;  //Unique identifier for the user.
@@ -47,7 +48,6 @@ public final class PalisadeClientRequest {
 
     // Ignore class type on context object
     @JsonIgnoreProperties(ignoreUnknown = true)
-    @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, defaultImpl = Context.class)
     private final Map<String, String> context;
 
     @JsonCreator

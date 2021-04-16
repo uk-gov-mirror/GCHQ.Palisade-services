@@ -23,6 +23,8 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.ArgumentsProvider;
 import org.junit.jupiter.params.provider.ArgumentsSource;
 
+import uk.gov.gchq.palisade.service.data.config.ApplicationConfiguration;
+
 import javax.persistence.AttributeConverter;
 
 import java.util.stream.Stream;
@@ -30,7 +32,7 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class DomainObjectConverterTest {
-    private static final ObjectMapper MAPPER = new ObjectMapper();
+    private static final ObjectMapper MAPPER = new ApplicationConfiguration().objectMapper();
 
     static class DomainConvertersSource implements ArgumentsProvider {
         @Override

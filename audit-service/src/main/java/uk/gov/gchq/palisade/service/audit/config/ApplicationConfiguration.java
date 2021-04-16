@@ -26,9 +26,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.core.type.filter.AnnotationTypeFilter;
 
+import uk.gov.gchq.palisade.service.audit.common.RegisterJsonSubType;
 import uk.gov.gchq.palisade.service.audit.common.audit.AuditService;
 import uk.gov.gchq.palisade.service.audit.service.AuditServiceAsyncProxy;
 import uk.gov.gchq.palisade.service.audit.service.LoggerAuditService;
@@ -43,6 +46,33 @@ import java.util.Map;
 @Configuration
 public class ApplicationConfiguration {
     private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationConfiguration.class);
+    private static final ObjectMapper MAPPER;
+
+    static {
+        MAPPER = new ObjectMapper()
+                .setSerializationInclusion(JsonInclude.Include.NON_NULL)
+                .configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false)
+                .configure(SerializationFeature.CLOSE_CLOSEABLE, true)
+                .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, true)
+                .configure(DeserializationFeature.FAIL_ON_INVALID_SUBTYPE, false)
+                .disable(DeserializationFeature.ADJUST_DATES_TO_CONTEXT_TIME_ZONE)
+                .registerModule(new Jdk8Module())
+                .registerModule(new JavaTimeModule());
+        // Reflect and add annotated classes as subtypes
+        ClassPathScanningCandidateComponentProvider scanner = new ClassPathScanningCandidateComponentProvider(false);
+        scanner.addIncludeFilter(new AnnotationTypeFilter(RegisterJsonSubType.class));
+        scanner.findCandidateComponents("uk.gov.gchq.palisade")
+                .forEach(beanDef -> {
+                    try {
+                        Class<?> type = Class.forName(beanDef.getBeanClassName());
+                        Class<?> supertype = ((RegisterJsonSubType) type.getAnnotation(RegisterJsonSubType.class)).value();
+                        LOGGER.debug("Registered {} as json subtype of {}", type, supertype);
+                        MAPPER.registerSubtypes(type);
+                    } catch (ClassNotFoundException ex) {
+                        throw new IllegalArgumentException(ex);
+                    }
+                });
+    }
 
     @Primary
     @Bean(name = "simple")
@@ -72,6 +102,7 @@ public class ApplicationConfiguration {
         return new AuditServiceAsyncProxy(services);
     }
 
+
     /**
      * Used so that you can create custom mapper by starting with the default and then modifying if needed
      *
@@ -80,14 +111,7 @@ public class ApplicationConfiguration {
     @Bean
     @Primary
     public ObjectMapper objectMapper() {
-        return new ObjectMapper()
-                .setSerializationInclusion(JsonInclude.Include.NON_NULL)
-                .configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false)
-                .configure(SerializationFeature.CLOSE_CLOSEABLE, true)
-                .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, true)
-                .configure(DeserializationFeature.FAIL_ON_INVALID_SUBTYPE, false)
-                .disable(DeserializationFeature.ADJUST_DATES_TO_CONTEXT_TIME_ZONE)
-                .registerModule(new Jdk8Module())
-                .registerModule(new JavaTimeModule());
+        return MAPPER;
     }
+
 }

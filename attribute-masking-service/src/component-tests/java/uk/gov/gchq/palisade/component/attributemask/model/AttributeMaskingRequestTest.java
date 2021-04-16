@@ -25,11 +25,13 @@ import uk.gov.gchq.palisade.service.attributemask.common.resource.impl.SimpleCon
 import uk.gov.gchq.palisade.service.attributemask.common.resource.impl.SystemResource;
 import uk.gov.gchq.palisade.service.attributemask.common.rule.Rules;
 import uk.gov.gchq.palisade.service.attributemask.common.user.User;
+import uk.gov.gchq.palisade.service.attributemask.config.ApplicationConfiguration;
 import uk.gov.gchq.palisade.service.attributemask.model.AttributeMaskingRequest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class AttributeMaskingRequestTest {
+    private static final ObjectMapper MAPPER = new ApplicationConfiguration().objectMapper();
 
     /**
      * Create the object with the builder and then convert to the Json equivalent.
@@ -40,8 +42,6 @@ class AttributeMaskingRequestTest {
      */
     @Test
     void testGroupedDependantAttributeMaskingRequestSerialisingAndDeserialising() throws JsonProcessingException {
-        var mapper = new ObjectMapper();
-
         var resource = new FileResource().id("/test/file.format")
                 .type("java.lang.String")
                 .serialisedFormat("format")
@@ -56,8 +56,8 @@ class AttributeMaskingRequestTest {
                 .withResource(resource)
                 .withRules(new Rules<>());
 
-        var actualJson = mapper.writeValueAsString(attributeMaskingRequest);
-        var actualInstance = mapper.readValue(actualJson, attributeMaskingRequest.getClass());
+        var actualJson = MAPPER.writeValueAsString(attributeMaskingRequest);
+        var actualInstance = MAPPER.readValue(actualJson, attributeMaskingRequest.getClass());
 
         assertThat(actualInstance)
                 .as("Check that whilst using the objects toString method, the objects are the same")

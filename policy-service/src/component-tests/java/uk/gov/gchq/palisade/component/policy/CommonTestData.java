@@ -16,7 +16,7 @@
 
 package uk.gov.gchq.palisade.component.policy;
 
-import uk.gov.gchq.palisade.service.policy.ApplicationTestData.PassThroughRule;
+import uk.gov.gchq.palisade.service.policy.PassThroughRule;
 import uk.gov.gchq.palisade.service.policy.common.Context;
 import uk.gov.gchq.palisade.service.policy.common.resource.LeafResource;
 import uk.gov.gchq.palisade.service.policy.common.resource.impl.FileResource;

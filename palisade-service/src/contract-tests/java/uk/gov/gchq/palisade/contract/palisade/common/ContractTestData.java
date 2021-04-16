@@ -21,6 +21,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.core.serializer.support.SerializationFailedException;
 
+import uk.gov.gchq.palisade.service.palisade.config.ApplicationConfiguration;
 import uk.gov.gchq.palisade.service.palisade.model.AuditErrorMessage;
 import uk.gov.gchq.palisade.service.palisade.model.PalisadeClientRequest;
 
@@ -40,7 +41,7 @@ public class ContractTestData {
     public static final String ERROR_JSON;
     public static final String REQUEST_TOKEN = "test-request-token";
     public static final String ERROR_TOKEN = "";
-    private static final ObjectMapper MAPPER = new ObjectMapper();
+    private static final ObjectMapper MAPPER = new ApplicationConfiguration().objectMapper();
 
     static {
         try {

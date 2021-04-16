@@ -28,11 +28,14 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.core.type.filter.AnnotationTypeFilter;
 import org.springframework.scheduling.annotation.AsyncConfigurer;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
+import uk.gov.gchq.palisade.service.policy.common.RegisterJsonSubType;
 import uk.gov.gchq.palisade.service.policy.common.policy.PolicyConfiguration;
 import uk.gov.gchq.palisade.service.policy.common.policy.PolicyPrepopulationFactory;
 import uk.gov.gchq.palisade.service.policy.common.policy.PolicyService;
@@ -53,8 +56,35 @@ import java.util.concurrent.Executor;
  */
 @Configuration
 public class ApplicationConfiguration implements AsyncConfigurer {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationConfiguration.class);
     private static final int THREAD_POOL = 6;
+    private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationConfiguration.class);
+    private static final ObjectMapper MAPPER;
+
+    static {
+        MAPPER = new ObjectMapper()
+                .setSerializationInclusion(JsonInclude.Include.NON_NULL)
+                .configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false)
+                .configure(SerializationFeature.CLOSE_CLOSEABLE, true)
+                .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, true)
+                .configure(DeserializationFeature.FAIL_ON_INVALID_SUBTYPE, false)
+                .disable(DeserializationFeature.ADJUST_DATES_TO_CONTEXT_TIME_ZONE)
+                .registerModule(new Jdk8Module())
+                .registerModule(new JavaTimeModule());
+        // Reflect and add annotated classes as subtypes
+        ClassPathScanningCandidateComponentProvider scanner = new ClassPathScanningCandidateComponentProvider(false);
+        scanner.addIncludeFilter(new AnnotationTypeFilter(RegisterJsonSubType.class));
+        scanner.findCandidateComponents("uk.gov.gchq.palisade")
+                .forEach(beanDef -> {
+                    try {
+                        Class<?> type = Class.forName(beanDef.getBeanClassName());
+                        Class<?> supertype = ((RegisterJsonSubType) type.getAnnotation(RegisterJsonSubType.class)).value();
+                        LOGGER.debug("Registered {} as json subtype of {}", type, supertype);
+                        MAPPER.registerSubtypes(type);
+                    } catch (ClassNotFoundException ex) {
+                        throw new IllegalArgumentException(ex);
+                    }
+                });
+    }
 
     /**
      * A container for a number of {@link StdPolicyPrepopulationFactory} builders used for creating Policies
@@ -138,22 +168,14 @@ public class ApplicationConfiguration implements AsyncConfigurer {
     }
 
     /**
-     * ObjectMapper used in serializing and deserializing
+     * Used so that you can create custom mapper by starting with the default and then modifying if needed
      *
-     * @return a new instance of the ObjectMapper
+     * @return a configured object mapper
      */
     @Bean
     @Primary
-    ObjectMapper objectMapper() {
-        return new ObjectMapper()
-                .setSerializationInclusion(JsonInclude.Include.NON_NULL)
-                .configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false)
-                .configure(SerializationFeature.CLOSE_CLOSEABLE, true)
-                .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, true)
-                .configure(DeserializationFeature.FAIL_ON_INVALID_SUBTYPE, false)
-                .disable(DeserializationFeature.ADJUST_DATES_TO_CONTEXT_TIME_ZONE)
-                .registerModule(new Jdk8Module())
-                .registerModule(new JavaTimeModule());
+    public ObjectMapper objectMapper() {
+        return MAPPER;
     }
 
     @Override

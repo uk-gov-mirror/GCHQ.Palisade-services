@@ -23,6 +23,7 @@ import uk.gov.gchq.palisade.service.attributemask.common.Generated;
 import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.StringJoiner;
@@ -182,12 +183,12 @@ public class Rules<T extends Serializable> implements Serializable {
             return false;
         }
         Rules<?> other = (Rules<?>) o;
-        LinkedList<Class<? extends Rule>> thisRuleClasses = this.rulesMap.values().stream()
+        List<Class<? extends Rule>> thisRuleClasses = this.rulesMap.values().stream()
                 .map(Rule::getClass)
-                .collect(Collectors.toCollection(LinkedList::new));
-        LinkedList<Class<? extends Rule>> otherRuleClasses = other.rulesMap.values().stream()
+                .collect(Collectors.toList());
+        List<Class<? extends Rule>> otherRuleClasses = other.rulesMap.values().stream()
                 .map(Rule::getClass)
-                .collect(Collectors.toCollection(LinkedList::new));
+                .collect(Collectors.toList());
         return thisRuleClasses.equals(otherRuleClasses);
     }
 

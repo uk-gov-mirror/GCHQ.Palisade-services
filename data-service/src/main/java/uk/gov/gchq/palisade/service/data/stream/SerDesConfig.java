@@ -22,6 +22,7 @@ import org.apache.kafka.common.serialization.Serializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.core.serializer.support.SerializationFailedException;
 
+import uk.gov.gchq.palisade.service.data.config.ApplicationConfiguration;
 import uk.gov.gchq.palisade.service.data.model.AuditErrorMessage;
 import uk.gov.gchq.palisade.service.data.model.AuditSuccessMessage;
 
@@ -31,7 +32,7 @@ import uk.gov.gchq.palisade.service.data.model.AuditSuccessMessage;
  * In general, the keys are not used so the choice of serialiser is not important
  */
 public final class SerDesConfig {
-    private static final ObjectMapper MAPPER = new ObjectMapper();
+    private static final ObjectMapper MAPPER = new ApplicationConfiguration().objectMapper();
     private static final String SERIALIZATION_FAILED_MESSAGE = "Failed to serialize ";
 
     private SerDesConfig() {

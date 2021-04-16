@@ -27,6 +27,7 @@ import uk.gov.gchq.palisade.service.data.common.resource.impl.SimpleConnectionDe
 import uk.gov.gchq.palisade.service.data.common.resource.impl.SystemResource;
 import uk.gov.gchq.palisade.service.data.common.rule.Rules;
 import uk.gov.gchq.palisade.service.data.common.user.User;
+import uk.gov.gchq.palisade.service.data.config.ApplicationConfiguration;
 import uk.gov.gchq.palisade.service.data.exception.ForbiddenException;
 import uk.gov.gchq.palisade.service.data.model.AuditErrorMessage;
 import uk.gov.gchq.palisade.service.data.model.AuditSuccessMessage;
@@ -42,7 +43,7 @@ import java.util.Map;
  * Set of constants that are used in the testing
  */
 public class ContractTestData {
-    private static final ObjectMapper MAPPER = new ObjectMapper();
+    private static final ObjectMapper MAPPER = new ApplicationConfiguration().objectMapper();
 
 
     private ContractTestData() {

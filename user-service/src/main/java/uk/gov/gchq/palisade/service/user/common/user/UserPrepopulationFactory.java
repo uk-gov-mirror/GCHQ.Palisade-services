@@ -16,26 +16,11 @@
 
 package uk.gov.gchq.palisade.service.user.common.user;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonSetter;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
 /**
  * This class defines the top level of the cache prepopulation.
  * <p>
  * The only requirement is that there is a warm method, used to create the object
  */
-@JsonPropertyOrder(value = {"class"}, alphabetic = true)
-@JsonTypeInfo(
-        use = JsonTypeInfo.Id.CLASS,
-        include = As.EXISTING_PROPERTY,
-        property = "class"
-)
-@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
 public interface UserPrepopulationFactory {
 
     /**
@@ -45,13 +30,4 @@ public interface UserPrepopulationFactory {
      */
     User build();
 
-    @JsonGetter("class")
-    default String getClassName() {
-        return getClass().getName();
-    }
-
-    @JsonSetter("class")
-    default void setClassName(final String className) {
-        // do nothing.
-    }
 }

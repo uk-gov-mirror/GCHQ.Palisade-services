@@ -17,13 +17,15 @@
 package uk.gov.gchq.palisade.service.attributemask.common.resource;
 
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
+
 /**
  * A leaf resource is the interface for any resource that can be read for data
  * and is not just part of the hierarchical resource structure.
  * A LeafResource is expected to have a type and a serialised format. The type is a way of grouping
  * data of the same structure. The serialised format is the format of the file, e.g. CSV, Parquet.
  */
-
 public interface LeafResource extends ChildResource {
 
     /**

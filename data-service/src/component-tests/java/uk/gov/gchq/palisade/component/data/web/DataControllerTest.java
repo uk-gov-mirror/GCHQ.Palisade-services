@@ -102,7 +102,6 @@ class DataControllerTest {
                 .characterEncoding(StandardCharsets.UTF_8.name())
                 .content(mapper.writeValueAsBytes(DATA_REQUEST)))
                 .andExpect(status().is2xxSuccessful())
-                .andDo(result -> result.getResponse().getContentAsString())
                 .andReturn();
 
         // Read the response body
@@ -113,7 +112,6 @@ class DataControllerTest {
 
         //verifies the three service calls the Controller is expected to make
         verify(serviceMock, times(1)).authoriseRequest(any());
-        verify(serviceMock, times(1)).read(any(), any());
         verify(auditMessageServiceMock, times(1)).auditMessage(any());
     }
 

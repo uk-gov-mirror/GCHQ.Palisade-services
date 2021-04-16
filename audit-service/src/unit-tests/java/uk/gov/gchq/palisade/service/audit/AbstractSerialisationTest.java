@@ -21,6 +21,8 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 
+import uk.gov.gchq.palisade.service.audit.config.ApplicationConfiguration;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.skyscreamer.jsonassert.JSONAssert.assertEquals;
 
@@ -34,7 +36,7 @@ public class AbstractSerialisationTest {
 
     @BeforeAll
     static void setupAll() {
-        mapper = new ObjectMapper().registerModules(new Jdk8Module());
+        mapper = new ApplicationConfiguration().objectMapper();
     }
 
     @AfterAll
