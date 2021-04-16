@@ -25,6 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -55,6 +56,8 @@ import java.util.concurrent.Executor;
  * Bean configuration and dependency injection graph
  */
 @Configuration
+// Suppress dynamic class loading smell as it's needed for json serialisation
+@SuppressWarnings("java:S2658")
 public class ApplicationConfiguration implements AsyncConfigurer {
     private static final int THREAD_POOL = 6;
     private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationConfiguration.class);
@@ -74,10 +77,10 @@ public class ApplicationConfiguration implements AsyncConfigurer {
         ClassPathScanningCandidateComponentProvider scanner = new ClassPathScanningCandidateComponentProvider(false);
         scanner.addIncludeFilter(new AnnotationTypeFilter(RegisterJsonSubType.class));
         scanner.findCandidateComponents("uk.gov.gchq.palisade")
-                .forEach(beanDef -> {
+                .forEach((BeanDefinition beanDef) -> {
                     try {
                         Class<?> type = Class.forName(beanDef.getBeanClassName());
-                        Class<?> supertype = ((RegisterJsonSubType) type.getAnnotation(RegisterJsonSubType.class)).value();
+                        Class<?> supertype = type.getAnnotation(RegisterJsonSubType.class).value();
                         LOGGER.debug("Registered {} as json subtype of {}", type, supertype);
                         MAPPER.registerSubtypes(type);
                     } catch (ClassNotFoundException ex) {

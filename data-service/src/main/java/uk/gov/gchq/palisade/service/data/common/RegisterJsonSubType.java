@@ -23,11 +23,20 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * Annotating a class @RegisterJsonSubType will pass it to {@code ObjectMapper#registerSubType(Class<?> subtype)} at runtime
+ * This allows e.g. a '{"@type":"FileResource"}' to be deserialised as a LeafResource
+ */
 @Target({ElementType.ANNOTATION_TYPE, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @JacksonAnnotation
 public @interface RegisterJsonSubType {
 
+    /**
+     * Gets the name of the class that has a JsonSubType
+     *
+     * @return the class
+     */
     Class<?> value();
 
 }
