@@ -16,7 +16,6 @@
 package uk.gov.gchq.palisade.service.audit;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.skyscreamer.jsonassert.JSONCompareMode;
