@@ -126,7 +126,7 @@ class KafkaContractTest {
                 .withBootstrapServers(KafkaInitializer.KAFKA_CONTAINER.getBootstrapServers());
 
         Source.fromJavaStream(() -> requests)
-                .runWith(Producer.plainSink(producerSettings), akkaMaterializer);
+                .runWith(Producer.<String, JsonNode>plainSink(producerSettings), akkaMaterializer);
 
         // When - results are pulled from the output stream
         var resultSeq = probe.request(recordCount);
@@ -202,9 +202,9 @@ class KafkaContractTest {
                                     .as("The resource format should be avro")
                                     .isEqualTo("avro");
 
-                            assertThat(result.value().get("resource").get("class").asText())
+                            assertThat(result.value().get("resource").get("@type").asText())
                                     .as("The resource format should be a FileResource")
-                                    .isEqualTo(FileResource.class.getName());
+                                    .isEqualTo(FileResource.class.getSimpleName());
                         })
         );
     }

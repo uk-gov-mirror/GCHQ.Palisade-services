@@ -17,6 +17,7 @@
 package uk.gov.gchq.palisade.service.attributemask.common.resource.impl;
 
 import uk.gov.gchq.palisade.service.attributemask.common.Generated;
+import uk.gov.gchq.palisade.service.attributemask.common.RegisterJsonSubType;
 import uk.gov.gchq.palisade.service.attributemask.common.resource.ConnectionDetail;
 
 import java.util.Objects;
@@ -27,6 +28,7 @@ import static java.util.Objects.requireNonNull;
 /**
  * A simple implementation of the {@link ConnectionDetail} that points to the correct Data Service
  */
+@RegisterJsonSubType(ConnectionDetail.class)
 public class SimpleConnectionDetail implements ConnectionDetail {
     private static final long serialVersionUID = 1L;
 

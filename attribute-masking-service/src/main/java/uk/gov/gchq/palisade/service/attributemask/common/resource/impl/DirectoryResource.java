@@ -17,9 +17,11 @@
 package uk.gov.gchq.palisade.service.attributemask.common.resource.impl;
 
 import uk.gov.gchq.palisade.service.attributemask.common.Generated;
+import uk.gov.gchq.palisade.service.attributemask.common.RegisterJsonSubType;
 import uk.gov.gchq.palisade.service.attributemask.common.resource.AbstractResource;
 import uk.gov.gchq.palisade.service.attributemask.common.resource.ChildResource;
 import uk.gov.gchq.palisade.service.attributemask.common.resource.ParentResource;
+import uk.gov.gchq.palisade.service.attributemask.common.resource.Resource;
 
 import java.util.Objects;
 import java.util.StringJoiner;
@@ -30,6 +32,7 @@ import static java.util.Objects.requireNonNull;
  * A DirectoryResource is a Palisade representation of a directory and can have Children and Parent resources
  * {@code eg. "file:/dev/Palisade/pom.xml" = System "/" -> Directory "/dev/" -> Directory "/dev/Palisade/" -> File "/dev/Palisade/pom.xml" }
  */
+@RegisterJsonSubType(Resource.class)
 public class DirectoryResource extends AbstractResource implements ChildResource, ParentResource {
     private static final long serialVersionUID = 1L;
 

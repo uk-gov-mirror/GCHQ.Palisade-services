@@ -56,20 +56,12 @@ public class ContractTestData {
 
     private static final ObjectMapper MAPPER = new ApplicationConfiguration().objectMapper();
 
-    @RegisterJsonSubType(Rule.class)
-    public static class PassThroughRule<T extends Serializable> implements Rule<T> {
-        @Override
-        public T apply(final T record, final User user, final Context context) {
-            return record;
-        }
-    }
-
     public static final UserId USER_ID = new UserId().id("test-user-id");
     public static final String RESOURCE_ID = "/test/resourceId";
     public static final String PURPOSE = "test-purpose";
     public static final Context CONTEXT = new Context().purpose(PURPOSE);
 
-    public static final String REQUEST_JSON = "{\"userId\":\"test-user-id\",\"resourceId\":\"/test/resourceId\",\"context\":{\"@type\":\"Context\",\"contents\":{\"purpose\":\"test-purpose\"}},\"user\":{\"userId\":{\"id\":\"test-user-id\"},\"roles\":[],\"auths\":[],\"@type\":\"User\"},\"resource\":{\"@type\":\"FileResource\",\"id\":\"/test/resourceId\",\"attributes\":{},\"connectionDetail\":{\"@type\":\"SimpleConnectionDetail\",\"serviceName\":\"test-data-service\"},\"parent\":{\"@type\":\"SystemResource\",\"id\":\"/test/\"},\"serialisedFormat\":\"avro\",\"type\":\"uk.gov.gchq.palisade.test.TestType\"},\"rules\":{\"message\":\"no rules set\",\"rules\":{\"test-rule\":{\"@type\":\"ContractTestData$PassThroughRule\"}}}}";
+    public static final String REQUEST_JSON = "{\"userId\":\"test-user-id\",\"resourceId\":\"/test/resourceId\",\"context\":{\"@type\":\"Context\",\"contents\":{\"purpose\":\"test-purpose\"}},\"user\":{\"userId\":{\"id\":\"test-user-id\"},\"roles\":[],\"auths\":[],\"@type\":\"User\"},\"resource\":{\"@type\":\"FileResource\",\"id\":\"/test/resourceId\",\"attributes\":{},\"connectionDetail\":{\"@type\":\"SimpleConnectionDetail\",\"serviceName\":\"test-data-service\"},\"parent\":{\"@type\":\"SystemResource\",\"id\":\"/test/\"},\"serialisedFormat\":\"avro\",\"type\":\"uk.gov.gchq.palisade.test.TestType\"},\"rules\":{\"message\":\"no rules set\",\"rules\":{\"test-rule\":{\"@type\":\"PassThroughRule\"}}}}";
     public static final JsonNode REQUEST_NODE;
     public static final AuditErrorMessage AUDIT_ERROR_MESSAGE = AuditErrorMessage.Builder.create()
             .withUserId(USER_ID.getId())
@@ -92,7 +84,7 @@ public class ContractTestData {
         }
     }
 
-    public static final Function<Integer, String> REQUEST_FACTORY_JSON = i -> String.format("{\"userId\":\"test-user-id\",\"resourceId\":\"/test/resourceId\",\"context\":{\"@type\":\"Context\",\"contents\":{\"purpose\":\"test-purpose\"}},\"user\":{\"userId\":{\"id\":\"test-user-id\"},\"roles\":[],\"auths\":[],\"@type\":\"User\"},\"resource\":{\"@type\":\"FileResource\",\"id\":\"/test/resourceId\",\"attributes\":{},\"connectionDetail\":{\"@type\":\"SimpleConnectionDetail\",\"serviceName\":\"test-data-service\"},\"parent\":{\"@type\":\"SystemResource\",\"id\":\"/test/\"},\"serialisedFormat\":\"avro\",\"type\":\"%d\"},\"rules\":{\"message\":\"no rules set\",\"rules\":{\"test-rule\":{\"@type\":\"ContractTestData$PassThroughRule\"}}}}", i);
+    public static final Function<Integer, String> REQUEST_FACTORY_JSON = i -> String.format("{\"userId\":\"test-user-id\",\"resourceId\":\"/test/resourceId\",\"context\":{\"@type\":\"Context\",\"contents\":{\"purpose\":\"test-purpose\"}},\"user\":{\"userId\":{\"id\":\"test-user-id\"},\"roles\":[],\"auths\":[],\"@type\":\"User\"},\"resource\":{\"@type\":\"FileResource\",\"id\":\"/test/resourceId\",\"attributes\":{},\"connectionDetail\":{\"@type\":\"SimpleConnectionDetail\",\"serviceName\":\"test-data-service\"},\"parent\":{\"@type\":\"SystemResource\",\"id\":\"/test/\"},\"serialisedFormat\":\"avro\",\"type\":\"%d\"},\"rules\":{\"message\":\"no rules set\",\"rules\":{\"test-rule\":{\"@type\":\"PassThroughRule\"}}}}", i);
     public static final Function<Integer, JsonNode> REQUEST_FACTORY_NODE = i -> {
         try {
             return MAPPER.readTree(REQUEST_FACTORY_JSON.apply(i));

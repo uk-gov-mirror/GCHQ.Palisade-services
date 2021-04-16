@@ -53,7 +53,7 @@ class AttributeMaskingResponseTest {
                 .withResource(resource);
 
         var actualJson = MAPPER.writeValueAsString(attributeMaskingResponse);
-        var actualInstance = MAPPER.readValue(actualJson, attributeMaskingResponse.getClass());
+        var actualInstance = MAPPER.readValue(actualJson, AttributeMaskingResponse.class);
 
         assertThat(actualInstance)
                 .as("Check that whilst using the objects toString method, the objects are the same")

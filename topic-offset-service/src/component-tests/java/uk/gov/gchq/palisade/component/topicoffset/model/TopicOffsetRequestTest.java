@@ -15,6 +15,8 @@
  */
 package uk.gov.gchq.palisade.component.topicoffset.model;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.NullNode;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.JsonTest;
@@ -22,10 +24,6 @@ import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.test.context.ContextConfiguration;
 
 import uk.gov.gchq.palisade.service.topicoffset.common.Context;
-import uk.gov.gchq.palisade.service.topicoffset.common.resource.LeafResource;
-import uk.gov.gchq.palisade.service.topicoffset.common.resource.impl.FileResource;
-import uk.gov.gchq.palisade.service.topicoffset.common.resource.impl.SimpleConnectionDetail;
-import uk.gov.gchq.palisade.service.topicoffset.common.resource.impl.SystemResource;
 import uk.gov.gchq.palisade.service.topicoffset.model.AuditErrorMessage;
 import uk.gov.gchq.palisade.service.topicoffset.model.TopicOffsetRequest;
 
@@ -61,17 +59,11 @@ class TopicOffsetRequestTest {
      */
     @Test
     void testTopicOffsetRequestSerialisingAndDeserialising() throws IOException {
-        LeafResource resource = new FileResource().id("/test/file.format")
-                .type("java.lang.String")
-                .serialisedFormat("format")
-                .connectionDetail(new SimpleConnectionDetail().serviceName("test-service"))
-                .parent(new SystemResource().id("/test"));
-
         var topicOffsetRequest = TopicOffsetRequest.Builder.create()
                 .withUserId("originalUserID")
                 .withResourceId("originalResourceID")
                 .withContext(new Context().purpose("testContext"))
-                .withResource(resource);
+                .withResourceNode(NullNode.getInstance());
 
         var topicOffsetRequestJsonContent = jsonTester.write(topicOffsetRequest);
         var topicOffsetRequestObjectContent = jsonTester.parse(topicOffsetRequestJsonContent.getJson());

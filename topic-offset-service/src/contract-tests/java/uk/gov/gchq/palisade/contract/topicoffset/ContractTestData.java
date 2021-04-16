@@ -28,7 +28,7 @@ import org.springframework.core.serializer.support.SerializationFailedException;
 
 import uk.gov.gchq.palisade.service.topicoffset.common.Context;
 import uk.gov.gchq.palisade.service.topicoffset.common.Token;
-import uk.gov.gchq.palisade.service.topicoffset.common.user.UserId;
+import uk.gov.gchq.palisade.service.topicoffset.config.ApplicationConfiguration;
 import uk.gov.gchq.palisade.service.topicoffset.model.StreamMarker;
 import uk.gov.gchq.palisade.service.topicoffset.model.TopicOffsetRequest;
 
@@ -46,10 +46,8 @@ public class ContractTestData {
         // hide the constructor, this is just a collection of static objects
     }
 
-    private static final ObjectMapper MAPPER = new ObjectMapper();
+    private static final ObjectMapper MAPPER = new ApplicationConfiguration().objectMapper();
 
-    public static final UserId USER_ID = new UserId().id("test-user-id");
-    public static final String RESOURCE_ID = "/test/resourceId";
     public static final String PURPOSE = "test-purpose";
     public static final Context CONTEXT = new Context().purpose(PURPOSE);
 

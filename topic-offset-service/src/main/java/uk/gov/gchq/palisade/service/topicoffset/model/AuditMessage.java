@@ -23,6 +23,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import uk.gov.gchq.palisade.service.topicoffset.common.Context;
 import uk.gov.gchq.palisade.service.topicoffset.common.Generated;
+import uk.gov.gchq.palisade.service.topicoffset.config.ApplicationConfiguration;
 import uk.gov.gchq.palisade.service.topicoffset.exception.PalisadeRuntimeException;
 
 import java.net.InetAddress;
@@ -44,7 +45,7 @@ public class AuditMessage {
 
     public static final String SERVICE_NAME = "topic-offset-service";
 
-    protected static final ObjectMapper MAPPER = new ObjectMapper();
+    protected static final ObjectMapper MAPPER = new ApplicationConfiguration().objectMapper();
     protected final String userId; //Unique identifier for the user.
     protected final String resourceId;  //Resource Id that is being asked to access.
     protected final JsonNode context;   //Relevant context information about the request.
