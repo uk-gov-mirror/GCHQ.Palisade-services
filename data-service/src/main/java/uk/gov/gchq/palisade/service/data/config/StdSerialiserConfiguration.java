@@ -29,10 +29,9 @@ import java.util.StringJoiner;
 import static java.util.Objects.requireNonNull;
 
 /**
- * A {@link StdSerialiserConfiguration} object that uses Spring to configure a list of policies from a yaml file
+ * A {@link StdSerialiserConfiguration} object that uses Spring to configure a list of serialisers from a yaml file.
  * A container for a number of {@link StdSerialiserPrepopulationFactory} builders used for creating
- * {@link Serialiser}.  These serialisers will be used for pre-populating the
- * {@link DataService}
+ * {@link Serialiser}.  These serialisers will be used for pre-populating the {@link DataService}.
  */
 public class StdSerialiserConfiguration {
 
@@ -45,7 +44,7 @@ public class StdSerialiserConfiguration {
     }
 
     /**
-     * Constructor with 1 arguments for a StdSerialiserConfiguration object
+     * Constructor with 1 arguments for a StdSerialiserConfiguration object.
      *
      * @param serialisers a {@link List} of objects of the {@link StdSerialiserPrepopulationFactory} class
      */
