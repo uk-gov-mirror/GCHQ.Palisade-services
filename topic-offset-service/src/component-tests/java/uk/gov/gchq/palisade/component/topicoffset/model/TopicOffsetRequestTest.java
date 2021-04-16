@@ -15,7 +15,6 @@
  */
 package uk.gov.gchq.palisade.component.topicoffset.model;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.NullNode;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -19,7 +19,6 @@ package uk.gov.gchq.palisade.service.policy.common.resource.impl;
 import uk.gov.gchq.palisade.service.policy.common.Generated;
 import uk.gov.gchq.palisade.service.policy.common.RegisterJsonSubType;
 import uk.gov.gchq.palisade.service.policy.common.resource.ConnectionDetail;
-import uk.gov.gchq.palisade.service.policy.common.resource.Resource;
 
 import java.util.Objects;
 import java.util.StringJoiner;

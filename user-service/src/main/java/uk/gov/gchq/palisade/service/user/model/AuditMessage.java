@@ -23,6 +23,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import uk.gov.gchq.palisade.service.user.common.Context;
 import uk.gov.gchq.palisade.service.user.common.Generated;
+import uk.gov.gchq.palisade.service.user.config.ApplicationConfiguration;
 import uk.gov.gchq.palisade.service.user.exception.PalisadeRuntimeException;
 
 import java.net.InetAddress;
@@ -44,7 +45,7 @@ public class AuditMessage {
 
     public static final String SERVICE_NAME = "user-service";
 
-    protected static final ObjectMapper MAPPER = new ObjectMapper();
+    protected static final ObjectMapper MAPPER = new ApplicationConfiguration().objectMapper();
 
     @JsonProperty("userId")
     protected final String userId; // Unique identifier for the user.

@@ -24,10 +24,8 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import org.springframework.core.type.filter.AnnotationTypeFilter;
 
 import uk.gov.gchq.palisade.service.topicoffset.common.topicoffset.TopicOffsetService;
 import uk.gov.gchq.palisade.service.topicoffset.model.TopicOffsetRequest;

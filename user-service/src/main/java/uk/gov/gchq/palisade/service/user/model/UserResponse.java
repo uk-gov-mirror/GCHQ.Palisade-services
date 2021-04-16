@@ -27,6 +27,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import uk.gov.gchq.palisade.service.user.common.Context;
 import uk.gov.gchq.palisade.service.user.common.Generated;
 import uk.gov.gchq.palisade.service.user.common.user.User;
+import uk.gov.gchq.palisade.service.user.config.ApplicationConfiguration;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -43,7 +44,7 @@ import java.util.StringJoiner;
 @JsonTypeInfo(use = Id.NONE)
 public final class UserResponse {
 
-    private static final ObjectMapper MAPPER = new ObjectMapper();
+    private static final ObjectMapper MAPPER = new ApplicationConfiguration().objectMapper();
     /**
      * Represents the User in the system corresponding to the given useId.
      */

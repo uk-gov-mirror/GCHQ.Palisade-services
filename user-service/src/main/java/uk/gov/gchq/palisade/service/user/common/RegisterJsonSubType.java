@@ -14,19 +14,20 @@
  * limitations under the License.
  */
 
-package uk.gov.gchq.palisade.service.policy;
+package uk.gov.gchq.palisade.service.user.common;
 
-import uk.gov.gchq.palisade.service.policy.common.Context;
-import uk.gov.gchq.palisade.service.policy.common.RegisterJsonSubType;
-import uk.gov.gchq.palisade.service.policy.common.rule.Rule;
-import uk.gov.gchq.palisade.service.policy.common.user.User;
+import com.fasterxml.jackson.annotation.JacksonAnnotation;
 
-import java.io.Serializable;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-@RegisterJsonSubType(Rule.class)
-public class PassThroughRule<T extends Serializable> implements Rule<T> {
-    @Override
-    public T apply(final T record, final User user, final Context context) {
-        return record;
-    }
+@Target({ElementType.ANNOTATION_TYPE, ElementType.TYPE})
+@Retention(RetentionPolicy.RUNTIME)
+@JacksonAnnotation
+public @interface RegisterJsonSubType {
+
+    Class<?> value();
+
 }

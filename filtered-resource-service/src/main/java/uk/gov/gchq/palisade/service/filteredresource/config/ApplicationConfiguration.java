@@ -57,7 +57,8 @@ import java.util.concurrent.Executor;
  */
 @Configuration
 @EnableConfigurationProperties(ServerProperties.class)
-public class ApplicationConfiguration {private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationConfiguration.class);
+public class ApplicationConfiguration {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationConfiguration.class);
     private static final ObjectMapper MAPPER;
 
     static {
