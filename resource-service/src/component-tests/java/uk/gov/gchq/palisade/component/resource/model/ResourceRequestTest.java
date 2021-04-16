@@ -16,7 +16,6 @@
 package uk.gov.gchq.palisade.component.resource.model;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 
 import uk.gov.gchq.palisade.service.resource.common.Context;
