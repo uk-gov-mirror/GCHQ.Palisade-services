@@ -22,10 +22,8 @@ import uk.gov.gchq.palisade.service.data.common.resource.LeafResource;
 import uk.gov.gchq.palisade.service.data.common.resource.impl.FileResource;
 import uk.gov.gchq.palisade.service.data.common.resource.impl.SimpleConnectionDetail;
 import uk.gov.gchq.palisade.service.data.common.resource.impl.SystemResource;
-import uk.gov.gchq.palisade.service.data.common.rule.Rules;
+import uk.gov.gchq.palisade.service.data.common.rule.RecordRules;
 import uk.gov.gchq.palisade.service.data.common.user.User;
-
-import java.io.Serializable;
 
 class DomainTestData {
     /**
@@ -48,5 +46,5 @@ class DomainTestData {
     public static final Context CONTEXT = new Context().purpose("test-purpose");
     public static final String RULE_MESSAGE = "test-rule";
 
-    public static final Rules<Serializable> RULES = new Rules<>().addRule(RULE_MESSAGE, new PassThroughRule<>());
+    public static final RecordRules RULES = new RecordRules().addRule(RULE_MESSAGE, PassThroughRule.class.getName());
 }

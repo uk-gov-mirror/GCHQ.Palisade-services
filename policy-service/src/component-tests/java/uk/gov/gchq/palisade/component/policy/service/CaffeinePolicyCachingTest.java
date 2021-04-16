@@ -27,13 +27,12 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.test.context.ActiveProfiles;
 
 import uk.gov.gchq.palisade.contract.policy.common.PolicyTestCommon;
-import uk.gov.gchq.palisade.service.policy.common.resource.LeafResource;
 import uk.gov.gchq.palisade.service.policy.common.resource.Resource;
 import uk.gov.gchq.palisade.service.policy.common.resource.StubResource;
 import uk.gov.gchq.palisade.service.policy.common.resource.impl.FileResource;
 import uk.gov.gchq.palisade.service.policy.common.resource.impl.SimpleConnectionDetail;
 import uk.gov.gchq.palisade.service.policy.common.rule.PassThroughRule;
-import uk.gov.gchq.palisade.service.policy.common.rule.Rules;
+import uk.gov.gchq.palisade.service.policy.common.rule.ResourceRules;
 import uk.gov.gchq.palisade.service.policy.config.ApplicationConfiguration;
 import uk.gov.gchq.palisade.service.policy.service.PolicyServiceCachingProxy;
 
@@ -107,7 +106,7 @@ class CaffeinePolicyCachingTest extends PolicyTestCommon {
 
         for (Resource resource : FILE_RESOURCES) {
             // When
-            Optional<Rules<LeafResource>> recordRules = policyService.getResourceRules(resource.getId());
+            Optional<ResourceRules> recordRules = policyService.getResourceRules(resource.getId());
 
             // Then
             assertThat(recordRules)
@@ -124,7 +123,7 @@ class CaffeinePolicyCachingTest extends PolicyTestCommon {
         // Given - the requested resource is not added
 
         // When
-        Optional<Rules<LeafResource>> recordRules = policyService.getResourceRules("does not exist");
+        Optional<ResourceRules> recordRules = policyService.getResourceRules("does not exist");
 
         // Then
         assertThat(recordRules)
@@ -142,14 +141,14 @@ class CaffeinePolicyCachingTest extends PolicyTestCommon {
                 i.toString(), i.toString(), i.toString(),
                 new SimpleConnectionDetail().serviceName(i.toString())
         );
-        Function<Integer, Rules<LeafResource>> makeRule = i -> new Rules<LeafResource>().addRule(i.toString(), new PassThroughRule<>());
+        Function<Integer, ResourceRules> makeRule = i -> new ResourceRules().addRule(i.toString(), new PassThroughRule<>());
         for (int count = 0; count <= 100; ++count) {
             policyService.setResourceRules(makeResource.apply(count).getId(), makeRule.apply(count));
         }
 
         // When - we try to get the first (now-evicted) entry
         forceCleanUp();
-        Optional<Rules<LeafResource>> recordRules = policyService.getResourceRules(makeResource.apply(0).getId());
+        Optional<ResourceRules> recordRules = policyService.getResourceRules(makeResource.apply(0).getId());
 
         // Then - it has been evicted
         assertThat(recordRules)
@@ -184,7 +183,7 @@ class CaffeinePolicyCachingTest extends PolicyTestCommon {
         forceCleanUp();
 
         // When - an old entry is requested
-        Optional<Rules<LeafResource>> recordRules = policyService.getResourceRules(ACCESSIBLE_JSON_TXT_FILE.getId());
+        Optional<ResourceRules> recordRules = policyService.getResourceRules(ACCESSIBLE_JSON_TXT_FILE.getId());
 
         // Then - it has been evicted
         assertThat(recordRules)

@@ -15,36 +15,31 @@
  */
 package uk.gov.gchq.palisade.service.policy.model;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import uk.gov.gchq.palisade.service.policy.common.Generated;
-import uk.gov.gchq.palisade.service.policy.common.resource.LeafResource;
 import uk.gov.gchq.palisade.service.policy.common.resource.Resource;
-import uk.gov.gchq.palisade.service.policy.common.rule.Rules;
+import uk.gov.gchq.palisade.service.policy.common.rule.ResourceRules;
 
 import java.util.Objects;
 import java.util.StringJoiner;
 
 /**
  * The class represents the resource have been modified by applying the rules.  This class is a container for
- * {@link PolicyRequest}, {@link Rules} and {@link AuditErrorMessage} during stream processing.  Under normal
+ * {@link PolicyRequest}, {@link ResourceRules} and {@link AuditErrorMessage} during stream processing.  Under normal
  * conditions {@code PolicyRequest} and {@code Rules} will be non-null, indicating successful process or
  * {@code AuditErrorMessage} when there has been an error in the process.
  */
 public final class AuditablePolicyResourceResponse {
 
     private final PolicyRequest policyRequest;
-    private final Rules<LeafResource> rules;
+    private final ResourceRules rules;
     private final AuditErrorMessage auditErrorMessage;
     private final Resource modifiedResource;
 
-    @JsonCreator
     private AuditablePolicyResourceResponse(
-            final @JsonProperty("policyRequest") PolicyRequest policyRequest,
-            final @JsonProperty("rules") Rules<LeafResource> rules,
-            final @JsonProperty("auditErrorMessage") AuditErrorMessage auditErrorMessage,
-            final @JsonProperty("resource") Resource modifiedResource) {
+            final PolicyRequest policyRequest,
+            final ResourceRules rules,
+            final AuditErrorMessage auditErrorMessage,
+            final Resource modifiedResource) {
 
         this.policyRequest = policyRequest;
         this.rules = rules;
@@ -59,7 +54,7 @@ public final class AuditablePolicyResourceResponse {
     }
 
     @Generated
-    public Rules<LeafResource> getRules() {
+    public ResourceRules getRules() {
         return rules;
     }
 
@@ -123,7 +118,7 @@ public final class AuditablePolicyResourceResponse {
              * @param rules or null
              * @return value object
              */
-            IAuditErrorMessage withRules(Rules<LeafResource> rules);
+            IAuditErrorMessage withRules(ResourceRules rules);
         }
 
         /**

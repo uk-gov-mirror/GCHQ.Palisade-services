@@ -17,7 +17,8 @@
 package uk.gov.gchq.palisade.service.policy.common.policy;
 
 import uk.gov.gchq.palisade.service.policy.common.resource.LeafResource;
-import uk.gov.gchq.palisade.service.policy.common.rule.Rules;
+import uk.gov.gchq.palisade.service.policy.common.rule.RecordRules;
+import uk.gov.gchq.palisade.service.policy.common.rule.ResourceRules;
 
 import java.io.Serializable;
 import java.util.Map.Entry;
@@ -30,19 +31,19 @@ import java.util.Map.Entry;
 public interface PolicyPrepopulationFactory {
 
     /**
-     * Creates a {@link Rules} of type {@link LeafResource} that is associated to a resourceId using the
+     * Creates a {@link ResourceRules} of type {@link LeafResource} that is associated to a resourceId using the
      * data within an implementation of the PolicyPrepopulationFactory
      *
-     * @return an {@link Entry} value that consists of a resourceId and the created {@link Rules} of type {@link LeafResource}.
+     * @return an {@link Entry} value that consists of a resourceId and the created {@link ResourceRules} of type {@link LeafResource}.
      */
-    Entry<String, Rules<LeafResource>> buildResourceRules();
+    Entry<String, ResourceRules> buildResourceRules();
 
     /**
-     * Creates a {@link Rules} of type {@link Serializable} that is associated to a resourceId using the
+     * Creates a {@link RecordRules} of type {@link Serializable} that is associated to a resourceId using the
      * data within an implementation of the PolicyPrepopulationFactory.
      *
-     * @return an {@link Entry} value that consists of a resourceId and the created {@link Rules} of type {@link Serializable}.
+     * @return an {@link Entry} value that consists of a resourceId and the created {@link ResourceRules} of type {@link Serializable}.
      */
-    Entry<String, Rules<Serializable>> buildRecordRules();
+    Entry<String, RecordRules> buildRecordRules();
 
 }

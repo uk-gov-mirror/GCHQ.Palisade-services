@@ -17,8 +17,8 @@
 package uk.gov.gchq.palisade.service.data.common.util;
 
 import uk.gov.gchq.palisade.service.data.common.Context;
+import uk.gov.gchq.palisade.service.data.common.rule.RecordRules;
 import uk.gov.gchq.palisade.service.data.common.rule.Rule;
-import uk.gov.gchq.palisade.service.data.common.rule.Rules;
 import uk.gov.gchq.palisade.service.data.common.user.User;
 
 import java.io.Serializable;
@@ -49,7 +49,7 @@ public final class RulesUtil {
      * @param recordsReturned  a counter for the number of records being returned
      * @return filtered stream
      */
-    public static <T extends Serializable> Stream<T> applyRulesToStream(final Stream<T> records, final User user, final Context context, final Rules<T> rules, final AtomicLong recordsProcessed, final AtomicLong recordsReturned) {
+    public static <T extends Serializable> Stream<T> applyRulesToStream(final Stream<T> records, final User user, final Context context, final RecordRules rules, final AtomicLong recordsProcessed, final AtomicLong recordsReturned) {
         Objects.requireNonNull(records);
         if (isNull(rules) || isNull(rules.getRules()) || rules.getRules().isEmpty()) {
             return records;
@@ -57,7 +57,7 @@ public final class RulesUtil {
 
         return records
                 .peek(processed -> recordsProcessed.incrementAndGet())
-                .map(record -> applyRulesToItem(record, user, context, rules))
+                .map(record -> applyRulesToRecord(record, user, context, rules))
                 .filter(Objects::nonNull)
                 .peek(returned -> recordsReturned.incrementAndGet());
     }
@@ -72,13 +72,14 @@ public final class RulesUtil {
      * @param <T>     record type
      * @return item with rules applied
      */
-    public static <T extends Serializable> T applyRulesToItem(final T item, final User user, final Context context, final Rules<T> rules) {
+    @SuppressWarnings("unchecked")
+    public static <T extends Serializable> T applyRulesToRecord(final T item, final User user, final Context context, final RecordRules rules) {
         if (isNull(rules) || isNull(rules.getRules()) || rules.getRules().isEmpty()) {
             return item;
         }
         T updateItem = item;
-        for (final Rule<T> rule : rules.getRules().values()) {
-            updateItem = rule.apply(updateItem, user, context);
+        for (final Rule<?> rule : rules.getRuleObjects().values()) {
+            updateItem = ((Rule<T>) rule).apply(updateItem, user, context);
             if (null == updateItem) {
                 break;
             }

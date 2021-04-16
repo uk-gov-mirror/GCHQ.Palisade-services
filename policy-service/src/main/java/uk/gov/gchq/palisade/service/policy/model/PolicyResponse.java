@@ -30,7 +30,7 @@ import uk.gov.gchq.palisade.service.policy.common.Context;
 import uk.gov.gchq.palisade.service.policy.common.Generated;
 import uk.gov.gchq.palisade.service.policy.common.resource.LeafResource;
 import uk.gov.gchq.palisade.service.policy.common.resource.Resource;
-import uk.gov.gchq.palisade.service.policy.common.rule.Rules;
+import uk.gov.gchq.palisade.service.policy.common.rule.RecordRules;
 import uk.gov.gchq.palisade.service.policy.common.user.User;
 import uk.gov.gchq.palisade.service.policy.config.ApplicationConfiguration;
 
@@ -56,7 +56,7 @@ public final class PolicyResponse {
     private final JsonNode context;  // Json Node representation of the Context
     private final JsonNode user;  //Json Node representation of the User
     private final JsonNode resource; // Json Node representation of the Resources
-    private final Rules rules;  //Holds all of the Rules applicable to this request
+    private final RecordRules rules;  //Holds all of the Rules applicable to this request
 
     @JsonCreator
     private PolicyResponse(
@@ -65,7 +65,7 @@ public final class PolicyResponse {
             final @JsonProperty("context") JsonNode context,
             final @JsonProperty("user") JsonNode user,
             final @JsonProperty("resource") JsonNode resource,
-            final @JsonProperty("rules") Rules rules) {
+            final @JsonProperty("rules") RecordRules rules) {
 
         this.userId = Optional.ofNullable(userId).orElseThrow(() -> new IllegalArgumentException("User ID cannot be null"));
         this.resourceId = Optional.ofNullable(resourceId).orElseThrow(() -> new IllegalArgumentException("Resource ID  cannot be null"));
@@ -131,7 +131,7 @@ public final class PolicyResponse {
     }
 
     @Generated
-    public Rules getRules() {
+    public RecordRules getRules() {
         return rules;
     }
 
@@ -274,7 +274,7 @@ public final class PolicyResponse {
              * @param rules that apply to this request.
              * @return class {@link PolicyResponse} for the completed class from the builder.
              */
-            PolicyResponse withRules(Rules rules);
+            PolicyResponse withRules(RecordRules rules);
         }
     }
 

@@ -41,8 +41,8 @@ import uk.gov.gchq.palisade.service.policy.common.policy.PolicyPrepopulationFact
 import uk.gov.gchq.palisade.service.policy.common.policy.PolicyService;
 import uk.gov.gchq.palisade.service.policy.common.resource.LeafResource;
 import uk.gov.gchq.palisade.service.policy.common.resource.Resource;
+import uk.gov.gchq.palisade.service.policy.common.rule.ResourceRules;
 import uk.gov.gchq.palisade.service.policy.common.rule.Rule;
-import uk.gov.gchq.palisade.service.policy.common.rule.Rules;
 import uk.gov.gchq.palisade.service.policy.exception.ApplicationAsyncExceptionHandler;
 import uk.gov.gchq.palisade.service.policy.service.NullPolicyService;
 import uk.gov.gchq.palisade.service.policy.service.PolicyServiceAsyncProxy;
@@ -101,7 +101,7 @@ public class ApplicationConfiguration implements AsyncConfigurer {
     }
 
     /**
-     * A factory for a map of {@link Rules} to a resourceId, using:
+     * A factory for a map of {@link ResourceRules} to a resourceId, using:
      * - a {@link String} value of the resourceId
      * - a list of {@link Rule} resource-level rules operating on a {@link Resource}
      * - a list of {@link Rule} record-level rules operating on the type of a {@link LeafResource}

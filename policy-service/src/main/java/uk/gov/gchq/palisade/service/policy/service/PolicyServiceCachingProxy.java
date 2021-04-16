@@ -23,10 +23,9 @@ import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 
 import uk.gov.gchq.palisade.service.policy.common.policy.PolicyService;
-import uk.gov.gchq.palisade.service.policy.common.resource.LeafResource;
-import uk.gov.gchq.palisade.service.policy.common.rule.Rules;
+import uk.gov.gchq.palisade.service.policy.common.rule.RecordRules;
+import uk.gov.gchq.palisade.service.policy.common.rule.ResourceRules;
 
-import java.io.Serializable;
 import java.util.Optional;
 
 /**
@@ -56,7 +55,7 @@ public class PolicyServiceCachingProxy {
      * @return the resource rules that apply to the resource
      */
     @Cacheable(value = "resourceRules", key = "#resourceId")
-    public Optional<Rules<LeafResource>> getResourceRules(final String resourceId) {
+    public Optional<ResourceRules> getResourceRules(final String resourceId) {
         LOGGER.info("Cache miss for resourceId {}", resourceId);
         return service.getResourceRules(resourceId);
     }
@@ -69,7 +68,7 @@ public class PolicyServiceCachingProxy {
      * @return the resource rules that apply to this LeafResource
      */
     @CachePut(value = "resourceRules", key = "#resourceId")
-    public Optional<Rules<LeafResource>> setResourceRules(final String resourceId, final Rules<LeafResource> rules) {
+    public Optional<ResourceRules> setResourceRules(final String resourceId, final ResourceRules rules) {
         LOGGER.info("Cache add for resourceId {} and rules message {}", resourceId, rules.getMessage());
         LOGGER.debug("ResourceRules {} added to cache", rules);
         return service.setResourceRules(resourceId, rules);
@@ -83,7 +82,7 @@ public class PolicyServiceCachingProxy {
      * @return the record rules that apply to the resource
      */
     @Cacheable(value = "recordRules", key = "#resourceId")
-    public Optional<Rules<Serializable>> getRecordRules(final String resourceId) {
+    public Optional<RecordRules> getRecordRules(final String resourceId) {
         LOGGER.info("Cache miss for resourceId {}", resourceId);
         return service.getRecordRules(resourceId);
     }
@@ -96,7 +95,7 @@ public class PolicyServiceCachingProxy {
      * @return the record rules that apply to this LeafResource
      */
     @CachePut(value = "recordRules", key = "#resourceId")
-    public Optional<Rules<Serializable>> setRecordRules(final String resourceId, final Rules<Serializable> rules) {
+    public Optional<RecordRules> setRecordRules(final String resourceId, final RecordRules rules) {
         LOGGER.info("Cache add for resourceId {} and rules message {}", resourceId, rules.getMessage());
         LOGGER.debug("RecordRules {} added to cache", rules);
         return service.setRecordRules(resourceId, rules);

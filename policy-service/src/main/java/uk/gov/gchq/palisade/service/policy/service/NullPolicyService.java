@@ -16,11 +16,11 @@
 
 package uk.gov.gchq.palisade.service.policy.service;
 
+import uk.gov.gchq.palisade.service.policy.common.Generated;
 import uk.gov.gchq.palisade.service.policy.common.policy.PolicyService;
-import uk.gov.gchq.palisade.service.policy.common.resource.LeafResource;
-import uk.gov.gchq.palisade.service.policy.common.rule.Rules;
+import uk.gov.gchq.palisade.service.policy.common.rule.RecordRules;
+import uk.gov.gchq.palisade.service.policy.common.rule.ResourceRules;
 
-import java.io.Serializable;
 import java.util.Optional;
 
 /**
@@ -32,22 +32,26 @@ import java.util.Optional;
 public class NullPolicyService implements PolicyService {
 
     @Override
-    public Optional<Rules<LeafResource>> getResourceRules(final String resourceId) {
+    @Generated
+    public Optional<ResourceRules> getResourceRules(final String resourceId) {
         return Optional.empty();
     }
 
     @Override
-    public Optional<Rules<Serializable>> getRecordRules(final String resourceId) {
+    @Generated
+    public Optional<RecordRules> getRecordRules(final String resourceId) {
         return Optional.empty();
     }
 
     @Override
-    public Optional<Rules<LeafResource>> setResourceRules(final String resourceId, final Rules<LeafResource> rules) {
+    @Generated
+    public Optional<ResourceRules> setResourceRules(final String resourceId, final ResourceRules rules) {
         return Optional.of(rules);
     }
 
     @Override
-    public Optional<Rules<Serializable>> setRecordRules(final String resourceId, final Rules<Serializable> rules) {
+    @Generated
+    public Optional<RecordRules> setRecordRules(final String resourceId, final RecordRules rules) {
         return Optional.of(rules);
     }
 }

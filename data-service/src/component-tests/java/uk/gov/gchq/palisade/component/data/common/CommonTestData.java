@@ -20,7 +20,7 @@ import uk.gov.gchq.palisade.service.data.common.resource.LeafResource;
 import uk.gov.gchq.palisade.service.data.common.resource.impl.FileResource;
 import uk.gov.gchq.palisade.service.data.common.resource.impl.SimpleConnectionDetail;
 import uk.gov.gchq.palisade.service.data.common.resource.impl.SystemResource;
-import uk.gov.gchq.palisade.service.data.common.rule.Rules;
+import uk.gov.gchq.palisade.service.data.common.rule.RecordRules;
 import uk.gov.gchq.palisade.service.data.common.user.User;
 import uk.gov.gchq.palisade.service.data.domain.AuthorisedRequestEntity;
 import uk.gov.gchq.palisade.service.data.exception.ForbiddenException;
@@ -59,7 +59,7 @@ public class CommonTestData {
             .connectionDetail(new SimpleConnectionDetail().serviceName("test-service"))
             .parent(new SystemResource().id("/test"));
 
-    public static final Rules<LeafResource> RULES = new Rules<>();
+    public static final RecordRules RULES = new RecordRules();
     public static final Map<String, Object> ATTRIBUTES = Collections.singletonMap("test key", "test value");
 
     public static final AuditSuccessMessage AUDIT_SUCCESS_MESSAGE = AuditSuccessMessage.Builder.create()
@@ -109,7 +109,7 @@ public class CommonTestData {
             new User().userId("user-id"),
             new FileResource().id(RESOURCE_ID + "1"),
             new Context(),
-            new Rules<>()
+            new RecordRules()
     );
 
     public static final AuthorisedRequestEntity ENTITY2 = new AuthorisedRequestEntity(
@@ -117,7 +117,7 @@ public class CommonTestData {
             new User().userId("user-id"),
             new FileResource().id(RESOURCE_ID + "1"),
             new Context(),
-            new Rules<>()
+            new RecordRules()
     );
 
     public static final AuthorisedRequestEntity ENTITY3 = new AuthorisedRequestEntity(
@@ -125,7 +125,7 @@ public class CommonTestData {
             new User().userId("user-id"),
             new FileResource().id(RESOURCE_ID + "3"),
             new Context(),
-            new Rules<>()
+            new RecordRules()
     );
 
 }

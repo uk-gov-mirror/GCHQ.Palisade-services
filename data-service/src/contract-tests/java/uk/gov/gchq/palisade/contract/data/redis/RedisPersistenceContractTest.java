@@ -38,7 +38,7 @@ import uk.gov.gchq.palisade.service.data.common.data.reader.DataReaderRequest;
 import uk.gov.gchq.palisade.service.data.common.resource.impl.FileResource;
 import uk.gov.gchq.palisade.service.data.common.resource.impl.SimpleConnectionDetail;
 import uk.gov.gchq.palisade.service.data.common.resource.impl.SystemResource;
-import uk.gov.gchq.palisade.service.data.common.rule.Rules;
+import uk.gov.gchq.palisade.service.data.common.rule.RecordRules;
 import uk.gov.gchq.palisade.service.data.common.user.User;
 import uk.gov.gchq.palisade.service.data.domain.AuthorisedRequestEntity;
 import uk.gov.gchq.palisade.service.data.model.AuthorisedDataRequest;
@@ -98,7 +98,7 @@ class RedisPersistenceContractTest {
                         .connectionDetail(new SimpleConnectionDetail().serviceName("data-service"))
                         .parent(new SystemResource().id("/")))
                 .context(new Context().purpose("test-purpose"))
-                .rules(new Rules<>());
+                .rules(new RecordRules());
 
         var authorisedDataRequest = AuthorisedDataRequest.Builder.create().withResource(new FileResource().id("/resource/id")
                 .serialisedFormat("avro")
@@ -107,7 +107,7 @@ class RedisPersistenceContractTest {
                 .parent(new SystemResource().id("/")))
                 .withUser(new User().userId("test-user"))
                 .withContext(new Context().purpose("test-purpose"))
-                .withRules(new Rules<>());
+                .withRules(new RecordRules());
         repository.save(new AuthorisedRequestEntity(
                 token,
                 readerRequest.getUser(),

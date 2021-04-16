@@ -24,7 +24,7 @@ import org.springframework.lang.Nullable;
 
 import uk.gov.gchq.palisade.service.attributemask.common.Context;
 import uk.gov.gchq.palisade.service.attributemask.common.resource.LeafResource;
-import uk.gov.gchq.palisade.service.attributemask.common.rule.Rules;
+import uk.gov.gchq.palisade.service.attributemask.common.rule.RecordRules;
 import uk.gov.gchq.palisade.service.attributemask.common.user.User;
 import uk.gov.gchq.palisade.service.attributemask.model.AttributeMaskingRequest;
 import uk.gov.gchq.palisade.service.attributemask.model.AttributeMaskingResponse;
@@ -71,10 +71,10 @@ public class AttributeMaskingService {
      * @param user     the {@link User} as authorised and returned by the User Service
      * @param resource one of many {@link LeafResource} as discovered and returned by the Resource Service
      * @param context  the {@link Context} as originally supplied by the client
-     * @param rules    the {@link Rules} that will be applied to the resource and its records as returned by the Policy Service
+     * @param rules    the {@link RecordRules} that will be applied to the resource and its records as returned by the Policy Service
      * @return a completable future representing the asynchronous completion of the storage operation
      */
-    private CompletableFuture<AttributeMaskingRequest> storeAuthorisedRequest(final String token, final User user, final LeafResource resource, final Context context, final Rules<?> rules) {
+    private CompletableFuture<AttributeMaskingRequest> storeAuthorisedRequest(final String token, final User user, final LeafResource resource, final Context context, final RecordRules rules) {
         LOGGER.debug("Storing authorised request for token {} and leaf resource id {}", token, resource.getId());
         return this.persistenceLayer.putAsync(token, user, resource, context, rules);
     }

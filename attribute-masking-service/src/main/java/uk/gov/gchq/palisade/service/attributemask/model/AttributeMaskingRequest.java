@@ -28,7 +28,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import uk.gov.gchq.palisade.service.attributemask.common.Context;
 import uk.gov.gchq.palisade.service.attributemask.common.Generated;
 import uk.gov.gchq.palisade.service.attributemask.common.resource.LeafResource;
-import uk.gov.gchq.palisade.service.attributemask.common.rule.Rules;
+import uk.gov.gchq.palisade.service.attributemask.common.rule.RecordRules;
 import uk.gov.gchq.palisade.service.attributemask.common.user.User;
 import uk.gov.gchq.palisade.service.attributemask.config.ApplicationConfiguration;
 
@@ -104,8 +104,8 @@ public final class AttributeMaskingRequest {
     }
 
     @Generated
-    public Rules getRules() throws JsonProcessingException {
-        return MAPPER.treeToValue(this.rules, Rules.class);
+    public RecordRules getRules() throws JsonProcessingException {
+        return MAPPER.treeToValue(this.rules, RecordRules.class);
     }
 
     @Generated
@@ -226,7 +226,7 @@ public final class AttributeMaskingRequest {
              * @param rules that apply to this request.
              * @return class {@link AttributeMaskingRequest} for the completed class from the builder.
              */
-            default AttributeMaskingRequest withRules(Rules rules) {
+            default AttributeMaskingRequest withRules(RecordRules rules) {
                 return withRulesNode(MAPPER.valueToTree(rules));
             }
 

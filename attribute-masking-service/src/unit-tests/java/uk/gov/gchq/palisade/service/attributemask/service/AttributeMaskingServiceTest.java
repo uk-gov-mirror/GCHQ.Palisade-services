@@ -23,7 +23,7 @@ import org.mockito.Mockito;
 import uk.gov.gchq.palisade.service.attributemask.ApplicationTestData;
 import uk.gov.gchq.palisade.service.attributemask.common.Context;
 import uk.gov.gchq.palisade.service.attributemask.common.resource.LeafResource;
-import uk.gov.gchq.palisade.service.attributemask.common.rule.Rules;
+import uk.gov.gchq.palisade.service.attributemask.common.rule.RecordRules;
 import uk.gov.gchq.palisade.service.attributemask.common.user.User;
 import uk.gov.gchq.palisade.service.attributemask.repository.JpaPersistenceLayer;
 
@@ -53,7 +53,7 @@ class AttributeMaskingServiceTest {
     @Test
     void testAttributeMaskingServiceDelegatesToPersistenceLayer() {
         // given we have a simpleAttributeMaskingService with a mocked persistenceLayer
-        Mockito.when(mockPersistenceLayer.putAsync(anyString(), any(User.class), any(LeafResource.class), any(Context.class), any(Rules.class)))
+        Mockito.when(mockPersistenceLayer.putAsync(anyString(), any(User.class), any(LeafResource.class), any(Context.class), any(RecordRules.class)))
                 .thenReturn(CompletableFuture.completedFuture(ApplicationTestData.REQUEST));
         // when we request to store some data
         attributeMaskingService.storeAuthorisedRequest(ApplicationTestData.REQUEST_TOKEN, ApplicationTestData.REQUEST);

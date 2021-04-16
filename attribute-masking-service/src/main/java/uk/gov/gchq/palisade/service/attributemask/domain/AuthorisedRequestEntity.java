@@ -23,7 +23,7 @@ import org.springframework.data.redis.core.index.Indexed;
 import uk.gov.gchq.palisade.service.attributemask.common.Context;
 import uk.gov.gchq.palisade.service.attributemask.common.Generated;
 import uk.gov.gchq.palisade.service.attributemask.common.resource.LeafResource;
-import uk.gov.gchq.palisade.service.attributemask.common.rule.Rules;
+import uk.gov.gchq.palisade.service.attributemask.common.rule.RecordRules;
 import uk.gov.gchq.palisade.service.attributemask.common.user.User;
 import uk.gov.gchq.palisade.service.attributemask.config.RedisTtlConfiguration;
 
@@ -80,7 +80,7 @@ public class AuthorisedRequestEntity {
 
     @Column(name = "rules", columnDefinition = "clob")
     @Convert(converter = RulesConverter.class)
-    private Rules<?> rules;
+    private RecordRules rules;
 
     @TimeToLive
     protected Long timeToLive;
@@ -103,7 +103,7 @@ public class AuthorisedRequestEntity {
      * @param rules        the {@link Rules} that will be applied to the resource and its records as returned by the policy-service
      */
     @PersistenceConstructor
-    public AuthorisedRequestEntity(final String token, final User user, final LeafResource leafResource, final Context context, final Rules<?> rules) {
+    public AuthorisedRequestEntity(final String token, final User user, final LeafResource leafResource, final Context context, final RecordRules rules) {
         this.uniqueId = new AuthorisedRequestEntityId(token, leafResource.getId()).getUniqueId();
         this.token = token;
         this.resourceId = leafResource.getId();
@@ -140,7 +140,7 @@ public class AuthorisedRequestEntity {
     }
 
     @Generated
-    public Rules<?> getRules() {
+    public RecordRules getRules() {
         return rules;
     }
 

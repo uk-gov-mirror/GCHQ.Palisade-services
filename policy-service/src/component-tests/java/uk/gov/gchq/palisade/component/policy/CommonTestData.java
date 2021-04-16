@@ -22,7 +22,8 @@ import uk.gov.gchq.palisade.service.policy.common.resource.impl.FileResource;
 import uk.gov.gchq.palisade.service.policy.common.resource.impl.SimpleConnectionDetail;
 import uk.gov.gchq.palisade.service.policy.common.resource.impl.SystemResource;
 import uk.gov.gchq.palisade.service.policy.common.rule.PassThroughRule;
-import uk.gov.gchq.palisade.service.policy.common.rule.Rules;
+import uk.gov.gchq.palisade.service.policy.common.rule.RecordRules;
+import uk.gov.gchq.palisade.service.policy.common.rule.ResourceRules;
 import uk.gov.gchq.palisade.service.policy.common.user.User;
 import uk.gov.gchq.palisade.service.policy.exception.NoSuchPolicyException;
 import uk.gov.gchq.palisade.service.policy.model.AuditErrorMessage;
@@ -32,7 +33,6 @@ import uk.gov.gchq.palisade.service.policy.model.AuditablePolicyResourceRules;
 import uk.gov.gchq.palisade.service.policy.model.PolicyRequest;
 import uk.gov.gchq.palisade.service.policy.model.PolicyResponse;
 
-import java.io.Serializable;
 import java.util.HashMap;
 
 /**
@@ -51,8 +51,8 @@ public class CommonTestData {
             .serialisedFormat("format")
             .connectionDetail(new SimpleConnectionDetail().serviceName("test-service"))
             .parent(new SystemResource().id("/test"));
-    public static final Rules<Serializable> RULES = new Rules<>().addRule("test-rule", new PassThroughRule<>());
-    public static final Rules<LeafResource> RESOURCE_RULES = new Rules<LeafResource>().addRule("test-rule", new PassThroughRule<>());
+    public static final RecordRules RULES = new RecordRules().addRule("test-rule", PassThroughRule.class.getName());
+    public static final ResourceRules RESOURCE_RULES = new ResourceRules().addRule("test-rule", new PassThroughRule<>());
 
     public static final AuditErrorMessage AUDIT_ERROR_MESSAGE = AuditErrorMessage.Builder.create()
             .withUserId(USER_ID)

@@ -31,13 +31,12 @@ import org.springframework.context.event.EventListener;
 
 import uk.gov.gchq.palisade.service.policy.common.policy.PolicyConfiguration;
 import uk.gov.gchq.palisade.service.policy.common.policy.PolicyPrepopulationFactory;
-import uk.gov.gchq.palisade.service.policy.common.resource.LeafResource;
-import uk.gov.gchq.palisade.service.policy.common.rule.Rules;
+import uk.gov.gchq.palisade.service.policy.common.rule.RecordRules;
+import uk.gov.gchq.palisade.service.policy.common.rule.ResourceRules;
 import uk.gov.gchq.palisade.service.policy.service.PolicyServiceCachingProxy;
 import uk.gov.gchq.palisade.service.policy.stream.ConsumerTopicConfiguration;
 import uk.gov.gchq.palisade.service.policy.stream.ProducerTopicConfiguration;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Map.Entry;
@@ -104,12 +103,12 @@ public class PolicyApplication {
         LOGGER.debug("Pre-populating using policy config: {}", policyConfig.getClass());
         policyConfig.getPolicies()
                 .forEach((PolicyPrepopulationFactory factory) -> {
-                    //Build Resource Rules
-                    Entry<String, Rules<LeafResource>> resourceMap = factory.buildResourceRules();
+                    // Build Resource Rules
+                    Entry<String, ResourceRules> resourceMap = factory.buildResourceRules();
                     service.setResourceRules(resourceMap.getKey(), resourceMap.getValue());
 
-                    //Build Record Rules
-                    Entry<String, Rules<Serializable>> recordMap = factory.buildRecordRules();
+                    // Build Record Rules
+                    Entry<String, RecordRules> recordMap = factory.buildRecordRules();
                     service.setRecordRules(recordMap.getKey(), recordMap.getValue());
                 });
 

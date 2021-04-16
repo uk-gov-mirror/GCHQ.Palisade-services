@@ -23,7 +23,7 @@ import uk.gov.gchq.palisade.service.attributemask.common.Context;
 import uk.gov.gchq.palisade.service.attributemask.common.resource.impl.FileResource;
 import uk.gov.gchq.palisade.service.attributemask.common.resource.impl.SimpleConnectionDetail;
 import uk.gov.gchq.palisade.service.attributemask.common.resource.impl.SystemResource;
-import uk.gov.gchq.palisade.service.attributemask.common.rule.Rules;
+import uk.gov.gchq.palisade.service.attributemask.common.rule.RecordRules;
 import uk.gov.gchq.palisade.service.attributemask.common.user.User;
 import uk.gov.gchq.palisade.service.attributemask.config.ApplicationConfiguration;
 import uk.gov.gchq.palisade.service.attributemask.model.AttributeMaskingRequest;
@@ -54,7 +54,7 @@ class AttributeMaskingRequestTest {
                 .withContext(new Context().purpose("testContext"))
                 .withUser(new User().userId("testUserId"))
                 .withResource(resource)
-                .withRules(new Rules<>());
+                .withRules(new RecordRules());
 
         var actualJson = MAPPER.writeValueAsString(attributeMaskingRequest);
         var actualInstance = MAPPER.readValue(actualJson, attributeMaskingRequest.getClass());

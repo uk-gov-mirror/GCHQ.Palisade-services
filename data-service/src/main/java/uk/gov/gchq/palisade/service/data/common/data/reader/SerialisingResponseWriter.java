@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory;
 import uk.gov.gchq.palisade.service.data.common.Context;
 import uk.gov.gchq.palisade.service.data.common.Generated;
 import uk.gov.gchq.palisade.service.data.common.data.seralise.Serialiser;
-import uk.gov.gchq.palisade.service.data.common.rule.Rules;
+import uk.gov.gchq.palisade.service.data.common.rule.RecordRules;
 import uk.gov.gchq.palisade.service.data.common.user.User;
 import uk.gov.gchq.palisade.service.data.common.util.RulesUtil;
 
@@ -102,7 +102,7 @@ public class SerialisingResponseWriter<T extends Serializable> implements Respon
     }
 
     @Override
-    @SuppressWarnings("unchecked") // Cast Rules<?> to Rules<T>
+    @SuppressWarnings("unchecked") // Cast RecordRules to RecordRules
     public ResponseWriter write(final OutputStream output) throws IOException {
         requireNonNull(output, "output");
 
@@ -113,7 +113,7 @@ public class SerialisingResponseWriter<T extends Serializable> implements Respon
             throw new IOException("response already written");
         }
 
-        final Rules<T> rules = (Rules<T>) request.getRules();
+        final RecordRules rules = request.getRules();
 
         try {
 
@@ -159,9 +159,9 @@ public class SerialisingResponseWriter<T extends Serializable> implements Respon
      * @return whether the rules need to be applied to the resource, false if all of them may be skipped
      * @apiNote if this returns false, the resource will not be de/serialised into records, improving performance
      */
-    private boolean doApplyRules(final Rules<T> rules, final User user, final Context context) {
+    private boolean doApplyRules(final RecordRules rules, final User user, final Context context) {
         // No need to consider the case where the rules list is empty as this is disallowed by the policy-service
-        return rules.getRules().values()
+        return rules.getRuleObjects().values()
                 .stream()
                 .anyMatch(rule -> rule.isApplicable(user, context));
     }

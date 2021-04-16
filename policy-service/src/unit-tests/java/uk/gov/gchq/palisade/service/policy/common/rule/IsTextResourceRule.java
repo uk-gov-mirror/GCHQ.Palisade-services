@@ -19,18 +19,20 @@ package uk.gov.gchq.palisade.service.policy.common.rule;
 import uk.gov.gchq.palisade.service.policy.common.Context;
 import uk.gov.gchq.palisade.service.policy.common.RegisterJsonSubType;
 import uk.gov.gchq.palisade.service.policy.common.resource.LeafResource;
+import uk.gov.gchq.palisade.service.policy.common.resource.Resource;
 import uk.gov.gchq.palisade.service.policy.common.user.User;
 
 /**
  * A Test rule created to filter out resources if the leafResources format is a txt format
  */
 @RegisterJsonSubType(Rule.class)
-public class IsTextResourceRule implements Rule<LeafResource> {
+public class IsTextResourceRule implements Rule<Resource> {
     private static final long serialVersionUID = 1L;
 
     @Override
-    public LeafResource apply(final LeafResource record, final User user, final Context context) {
-        if ("txt".equalsIgnoreCase(record.getSerialisedFormat())) {
+    public Resource apply(final Resource record, final User user, final Context context) {
+        LeafResource leaf = (LeafResource) record;
+        if ("txt".equalsIgnoreCase(leaf.getSerialisedFormat())) {
             return record;
         }
         return null;

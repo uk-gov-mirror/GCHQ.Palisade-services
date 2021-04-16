@@ -19,7 +19,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.core.serializer.support.SerializationFailedException;
 
-import uk.gov.gchq.palisade.service.data.common.rule.Rules;
+import uk.gov.gchq.palisade.service.data.common.rule.RecordRules;
 
 import javax.persistence.AttributeConverter;
 
@@ -29,7 +29,7 @@ import java.util.Optional;
  * Convert between Java {@link Rules} objects and serialised {@link String}s stored in a database.
  * Simply wraps an {@link ObjectMapper}, elevating any {@link JsonProcessingException}s to {@link RuntimeException}s.
  */
-public class RulesConverter implements AttributeConverter<Rules<?>, String> {
+public class RulesConverter implements AttributeConverter<RecordRules, String> {
     private final ObjectMapper objectMapper;
 
     /**
@@ -43,7 +43,7 @@ public class RulesConverter implements AttributeConverter<Rules<?>, String> {
     }
 
     @Override
-    public String convertToDatabaseColumn(final Rules<?> rules) {
+    public String convertToDatabaseColumn(final RecordRules rules) {
         try {
             return this.objectMapper.writeValueAsString(rules);
         } catch (JsonProcessingException e) {
@@ -52,9 +52,9 @@ public class RulesConverter implements AttributeConverter<Rules<?>, String> {
     }
 
     @Override
-    public Rules<?> convertToEntityAttribute(final String attribute) {
+    public RecordRules convertToEntityAttribute(final String attribute) {
         try {
-            return this.objectMapper.readValue(attribute, Rules.class);
+            return this.objectMapper.readValue(attribute, RecordRules.class);
         } catch (JsonProcessingException e) {
             throw new SerializationFailedException("Could not convert json string to rules", e);
         }

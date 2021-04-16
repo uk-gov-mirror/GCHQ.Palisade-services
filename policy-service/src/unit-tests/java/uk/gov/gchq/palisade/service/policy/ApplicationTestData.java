@@ -21,7 +21,8 @@ import uk.gov.gchq.palisade.service.policy.common.resource.impl.FileResource;
 import uk.gov.gchq.palisade.service.policy.common.resource.impl.SimpleConnectionDetail;
 import uk.gov.gchq.palisade.service.policy.common.resource.impl.SystemResource;
 import uk.gov.gchq.palisade.service.policy.common.rule.PassThroughRule;
-import uk.gov.gchq.palisade.service.policy.common.rule.Rules;
+import uk.gov.gchq.palisade.service.policy.common.rule.RecordRules;
+import uk.gov.gchq.palisade.service.policy.common.rule.ResourceRules;
 import uk.gov.gchq.palisade.service.policy.common.user.User;
 import uk.gov.gchq.palisade.service.policy.common.user.UserId;
 import uk.gov.gchq.palisade.service.policy.exception.NoSuchPolicyException;
@@ -32,7 +33,6 @@ import uk.gov.gchq.palisade.service.policy.model.AuditablePolicyResourceRules;
 import uk.gov.gchq.palisade.service.policy.model.PolicyRequest;
 import uk.gov.gchq.palisade.service.policy.model.PolicyResponse;
 
-import java.io.Serializable;
 import java.util.HashMap;
 
 public class ApplicationTestData {
@@ -55,8 +55,8 @@ public class ApplicationTestData {
     public static final Context CONTEXT = new Context().purpose(PURPOSE);
     public static final String RULE_MESSAGE = "test-rule";
 
-    public static final Rules<LeafResource> RESOURCE_RULES = new Rules<LeafResource>().addRule(RULE_MESSAGE, new PassThroughRule<>());
-    public static final Rules<Serializable> RULES = new Rules<>().addRule(RULE_MESSAGE, new PassThroughRule<>());
+    public static final ResourceRules RESOURCE_RULES = new ResourceRules().addRule(RULE_MESSAGE, new PassThroughRule<>());
+    public static final RecordRules RULES = new RecordRules().addRule(RULE_MESSAGE, PassThroughRule.class.getName());
 
     public static final PolicyRequest REQUEST = PolicyRequest.Builder.create()
             .withUserId(USER_ID.getId())
@@ -68,7 +68,7 @@ public class ApplicationTestData {
     public static final PolicyResponse RESPONSE = PolicyResponse.Builder.create(REQUEST)
             .withRules(RULES);
     public static final PolicyResponse RESPONSE_NO_RULES = PolicyResponse.Builder.create(REQUEST)
-            .withRules(new Rules<>());
+            .withRules(new RecordRules());
 
     public static final AuditErrorMessage AUDIT_ERROR_MESSAGE = AuditErrorMessage.Builder.create()
             .withUserId(USER_ID.getId())

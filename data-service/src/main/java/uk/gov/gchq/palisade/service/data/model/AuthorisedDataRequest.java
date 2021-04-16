@@ -18,7 +18,7 @@ package uk.gov.gchq.palisade.service.data.model;
 import uk.gov.gchq.palisade.service.data.common.Context;
 import uk.gov.gchq.palisade.service.data.common.Generated;
 import uk.gov.gchq.palisade.service.data.common.resource.LeafResource;
-import uk.gov.gchq.palisade.service.data.common.rule.Rules;
+import uk.gov.gchq.palisade.service.data.common.rule.RecordRules;
 import uk.gov.gchq.palisade.service.data.common.user.User;
 
 import java.util.Objects;
@@ -34,13 +34,13 @@ public final class AuthorisedDataRequest {
     private final LeafResource resource; //resource that is to be viewed
     private final User user; //user that is requesting the information
     private final Context context;  //context of the request
-    private final Rules<?> rules;  //rules that apply to the resource
+    private final RecordRules rules;  //rules that apply to the resource
 
     private AuthorisedDataRequest(
             final LeafResource resource,
             final User user,
             final Context context,
-            final Rules<?> rules) {
+            final RecordRules rules) {
 
         this.resource = Optional.ofNullable(resource)
                 .orElseThrow(() -> new IllegalArgumentException("resource cannot be null"));
@@ -69,7 +69,7 @@ public final class AuthorisedDataRequest {
 
     @SuppressWarnings("java:S1452")
     @Generated
-    public Rules<?> getRules() {
+    public RecordRules getRules() {
         return rules;
     }
 
@@ -139,7 +139,7 @@ public final class AuthorisedDataRequest {
              * @param rules that are to apply to the resource
              * @return the completed class from the builder
              */
-            AuthorisedDataRequest withRules(Rules<?> rules);
+            AuthorisedDataRequest withRules(RecordRules rules);
 
         }
     }

@@ -21,7 +21,7 @@ import uk.gov.gchq.palisade.service.policy.common.policy.PolicyConfiguration;
 import uk.gov.gchq.palisade.service.policy.common.policy.PolicyPrepopulationFactory;
 import uk.gov.gchq.palisade.service.policy.common.policy.PolicyService;
 import uk.gov.gchq.palisade.service.policy.common.resource.Resource;
-import uk.gov.gchq.palisade.service.policy.common.rule.Rules;
+import uk.gov.gchq.palisade.service.policy.common.rule.ResourceRules;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -33,7 +33,7 @@ import static java.util.Objects.requireNonNull;
 
 /**
  * Implementation of a {@link PolicyConfiguration} that uses Spring to configure a list of policies from a yaml file
- * A container for a number of {@link StdPolicyPrepopulationFactory} builders used for creating policies by mapping {@link Resource} to {@link Rules}
+ * A container for a number of {@link StdPolicyPrepopulationFactory} builders used for creating policies by mapping {@link Resource} to {@link ResourceRules}
  * These will be populated further using a UserConfiguration and ResourceConfiguration
  * These policies will be used for pre-populating the {@link PolicyService}
  */

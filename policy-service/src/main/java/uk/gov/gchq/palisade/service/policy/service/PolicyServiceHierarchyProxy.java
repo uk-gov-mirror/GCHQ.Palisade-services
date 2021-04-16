@@ -18,19 +18,15 @@ package uk.gov.gchq.palisade.service.policy.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import uk.gov.gchq.palisade.service.policy.common.Context;
 import uk.gov.gchq.palisade.service.policy.common.policy.PolicyService;
 import uk.gov.gchq.palisade.service.policy.common.resource.ChildResource;
 import uk.gov.gchq.palisade.service.policy.common.resource.LeafResource;
 import uk.gov.gchq.palisade.service.policy.common.resource.Resource;
-import uk.gov.gchq.palisade.service.policy.common.rule.Rule;
-import uk.gov.gchq.palisade.service.policy.common.rule.Rules;
-import uk.gov.gchq.palisade.service.policy.common.user.User;
+import uk.gov.gchq.palisade.service.policy.common.rule.RecordRules;
+import uk.gov.gchq.palisade.service.policy.common.rule.ResourceRules;
 import uk.gov.gchq.palisade.service.policy.common.util.RulesUtil;
 import uk.gov.gchq.palisade.service.policy.exception.NoSuchPolicyException;
 
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -57,47 +53,6 @@ public class PolicyServiceHierarchyProxy {
         this.service = service;
     }
 
-    private static <T extends Serializable> Rules<T> mergeRules(final Rules<T> inheritedRules, final Rules<T> newRules) {
-        LOGGER.debug("inheritedRules and newRules both present\n MessageInherited: {}\n MessageNew: {}\n RulesInherited: {}\n RulesNew: {}",
-                inheritedRules.getMessage(), newRules.getMessage(), inheritedRules.getRules(), newRules.getRules());
-        Rules<T> mergedRules = new Rules<>();
-
-        // Merge messages
-        ArrayList<String> messages = new ArrayList<>();
-        String inheritedMessage = inheritedRules.getMessage();
-        String newMessage = newRules.getMessage();
-        if (!inheritedMessage.equals(Rules.NO_RULES_SET)) {
-            messages.add(inheritedMessage);
-        }
-        if (!newMessage.equals(Rules.NO_RULES_SET)) {
-            messages.add(newMessage);
-        }
-        mergedRules.message(String.join(",", messages));
-        LOGGER.debug("Merged messages: {} + {} -> {}", inheritedRules.getMessage(), newRules.getMessage(), mergedRules.getMessage());
-
-        // Merge rules
-        mergedRules.addRules(inheritedRules.getRules());
-        mergedRules.addRules(newRules.getRules());
-        LOGGER.debug("Merged rules: {} + {} -> {}", inheritedRules.getRules(), newRules.getRules(), mergedRules.getRules());
-
-        return mergedRules;
-    }
-
-
-    /**
-     * This is where any resource level access controls are enforced, taking the resource, user, context and rules.
-     *
-     * @param <R>      the type of resource (may be a supertype)
-     * @param user     the {@link User} requesting the data
-     * @param resource the {@link Resource} being queried for access
-     * @param context  the query time {@link Context} containing environmental variables such as why they want the data
-     * @param rules    the {@link Rule} that will be applied to the resource
-     * @return an Optional {@link Resource} which is only present if the resource is accessible
-     */
-    public static <R extends Resource> R applyRulesToResource(final User user, final R resource, final Context context, final Rules<R> rules) {
-        return RulesUtil.applyRulesToItem(resource, user, context, rules);
-    }
-
     /**
      * This method is used to recursively go up the resource hierarchy ending with the original
      * data type to extract and merge the policies at each stage of the hierarchy.
@@ -105,12 +60,12 @@ public class PolicyServiceHierarchyProxy {
      * @param resource       A {@link Resource} to get the applicable rules for.
      * @param <R>            the type of resource (may be a supertype)
      * @param rulesExtractor The rule type to extract from each policy
-     * @return An optional {@link Rules} object, which contains the list of rules found
+     * @return An optional {@link ResourceRules} object, which contains the list of rules found
      * that need to be applied to the resource.
      */
-    private <R extends Resource> Optional<Rules<Serializable>> getRecordRules(final R resource, final Function<Resource, Optional<Rules<Serializable>>> rulesExtractor) {
+    private <R extends Resource> Optional<RecordRules> getRecordRules(final R resource, final Function<Resource, Optional<RecordRules>> rulesExtractor) {
         LOGGER.debug("Getting the applicable rules: {}", resource);
-        Optional<Rules<Serializable>> inheritedRules;
+        Optional<RecordRules> inheritedRules;
         if (resource instanceof ChildResource) {
             // We will also need the policy applied to the parent resource
             LOGGER.debug("resource {} an instance of ChildResource", resource);
@@ -122,12 +77,12 @@ public class PolicyServiceHierarchyProxy {
             inheritedRules = Optional.empty();
         }
 
-        Optional<Rules<Serializable>> newRules = rulesExtractor.apply(resource);
+        Optional<RecordRules> newRules = rulesExtractor.apply(resource);
 
         // If both present, merge both
         // If either present, return present
         // If none present, return Optional.empty()
-        return inheritedRules.map(iRules -> newRules.map(nRules -> mergeRules(iRules, nRules)).or(() -> inheritedRules)).orElse(newRules);
+        return inheritedRules.map(iRules -> newRules.map(nRules -> RulesUtil.mergeRules(iRules, nRules)).or(() -> inheritedRules)).orElse(newRules);
     }
 
     /**
@@ -137,12 +92,12 @@ public class PolicyServiceHierarchyProxy {
      * @param resource       A {@link Resource} to get the applicable rules for.
      * @param rulesExtractor The rule type to extract from each policy
      * @param <R>            the type of resource (may be a supertype)
-     * @return An optional {@link Rules} object, which contains the list of rules found
+     * @return An optional {@link ResourceRules} object, which contains the list of rules found
      * that need to be applied to the resource.
      */
-    private <R extends Resource> Optional<Rules<LeafResource>> getResourceRules(final R resource, final Function<Resource, Optional<Rules<LeafResource>>> rulesExtractor) {
+    private <R extends Resource> Optional<ResourceRules> getResourceRules(final R resource, final Function<Resource, Optional<ResourceRules>> rulesExtractor) {
         LOGGER.debug("Getting the applicable rules: {}", resource);
-        Optional<Rules<LeafResource>> inheritedRules;
+        Optional<ResourceRules> inheritedRules;
         if (resource instanceof ChildResource) {
             // We will also need the policy applied to the parent resource
             LOGGER.debug("resource {} an instance of ChildResource", resource);
@@ -154,12 +109,12 @@ public class PolicyServiceHierarchyProxy {
             inheritedRules = Optional.empty();
         }
 
-        Optional<Rules<LeafResource>> newRules = rulesExtractor.apply(resource);
+        Optional<ResourceRules> newRules = rulesExtractor.apply(resource);
 
         // If both present, merge both
         // If either present, return present
         // If none present, return Optional.empty()
-        return inheritedRules.map(iRules -> newRules.map(nRules -> mergeRules(iRules, nRules)).or(() -> inheritedRules)).orElse(newRules);
+        return inheritedRules.map(iRules -> newRules.map(nRules -> RulesUtil.mergeRules(iRules, nRules)).or(() -> inheritedRules)).orElse(newRules);
     }
 
     /**
@@ -169,8 +124,8 @@ public class PolicyServiceHierarchyProxy {
      * @param resource a {@link LeafResource} to get rules for
      * @return the record rules that apply to the LeafResource
      */
-    public Rules<Serializable> getRecordRules(final LeafResource resource) {
-        Optional<Rules<Serializable>> optionalRules = getRecordRules(resource, rulesResource -> service.getRecordRules(rulesResource.getId()));
+    public RecordRules getRecordRules(final LeafResource resource) {
+        Optional<RecordRules> optionalRules = getRecordRules(resource, rulesResource -> service.getRecordRules(rulesResource.getId()));
 
         return optionalRules
                 .filter(rules -> !rules.getRules().isEmpty())
@@ -183,10 +138,10 @@ public class PolicyServiceHierarchyProxy {
      * A resource rule may be applied at any point in the file tree, and could cause the record to be redacted.
      *
      * @param resource {@link Resource} the user wants access to, this could be a Directory, stream, system resource or file
-     * @return rules {@link Rules} object, which contains the list of rules found that need to be applied to the resource
+     * @return rules {@link ResourceRules} object, which contains the list of rules found that need to be applied to the resource
      */
-    public Rules<LeafResource> getResourceRules(final LeafResource resource) {
-        Optional<Rules<LeafResource>> optionalRules = getResourceRules(resource, ruleResource -> service.getResourceRules(ruleResource.getId()));
+    public ResourceRules getResourceRules(final LeafResource resource) {
+        Optional<ResourceRules> optionalRules = getResourceRules(resource, ruleResource -> service.getResourceRules(ruleResource.getId()));
 
         return optionalRules
                 .filter(rules -> !rules.getRules().isEmpty())
@@ -197,9 +152,9 @@ public class PolicyServiceHierarchyProxy {
      * This method sets the record rules against the resource for which the user will eventually request
      *
      * @param resource {@link Resource} the resource which the user wants to apply rules against
-     * @param rules    {@link Rules} object, which contains the list of rules to be applied to the resource.
+     * @param rules    {@link ResourceRules} object, which contains the list of rules to be applied to the resource.
      */
-    public void setRecordRules(final Resource resource, final Rules<Serializable> rules) {
+    public void setRecordRules(final Resource resource, final RecordRules rules) {
         this.service.setRecordRules(resource.getId(), rules);
     }
 
@@ -207,9 +162,9 @@ public class PolicyServiceHierarchyProxy {
      * This method sets the resource rules against the resource for which the user will eventually request
      *
      * @param resource {@link Resource} the user wants access to, this could be a Directory, stream, system resource or file
-     * @param rules    {@link Rules} object, which contains the list of rules to be applied to the resource.
+     * @param rules    {@link ResourceRules} object, which contains the list of rules to be applied to the resource.
      */
-    public void setResourceRules(final Resource resource, final Rules<LeafResource> rules) {
+    public void setResourceRules(final Resource resource, final ResourceRules rules) {
         this.service.setResourceRules(resource.getId(), rules);
     }
 }

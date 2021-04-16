@@ -24,13 +24,11 @@ import uk.gov.gchq.palisade.service.attributemask.common.resource.LeafResource;
 import uk.gov.gchq.palisade.service.attributemask.common.resource.impl.FileResource;
 import uk.gov.gchq.palisade.service.attributemask.common.resource.impl.SimpleConnectionDetail;
 import uk.gov.gchq.palisade.service.attributemask.common.resource.impl.SystemResource;
-import uk.gov.gchq.palisade.service.attributemask.common.rule.Rules;
+import uk.gov.gchq.palisade.service.attributemask.common.rule.RecordRules;
 import uk.gov.gchq.palisade.service.attributemask.common.user.User;
 import uk.gov.gchq.palisade.service.attributemask.common.user.UserId;
 import uk.gov.gchq.palisade.service.attributemask.model.AttributeMaskingRequest;
 import uk.gov.gchq.palisade.service.attributemask.model.AttributeMaskingResponse;
-
-import java.io.Serializable;
 
 public class ApplicationTestData {
     /**
@@ -62,7 +60,7 @@ public class ApplicationTestData {
 
     public static final String RULE_MESSAGE = "test-rule";
 
-    public static final Rules<Serializable> RULES = new Rules<>().addRule(RULE_MESSAGE, new PassThroughRule<>());
+    public static final RecordRules RULES = new RecordRules().addRule(RULE_MESSAGE, PassThroughRule.class.getName());
 
     public static final AttributeMaskingRequest REQUEST = AttributeMaskingRequest.Builder.create()
             .withUserId(USER_ID.getId())

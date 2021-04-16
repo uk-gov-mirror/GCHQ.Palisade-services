@@ -39,17 +39,16 @@ import org.testcontainers.containers.Network;
 
 import uk.gov.gchq.palisade.component.policy.service.RedisPolicyCachingTest.RedisInitializer;
 import uk.gov.gchq.palisade.contract.policy.common.PolicyTestCommon;
-import uk.gov.gchq.palisade.service.policy.common.resource.LeafResource;
 import uk.gov.gchq.palisade.service.policy.common.resource.Resource;
 import uk.gov.gchq.palisade.service.policy.common.resource.impl.FileResource;
 import uk.gov.gchq.palisade.service.policy.common.resource.impl.SystemResource;
 import uk.gov.gchq.palisade.service.policy.common.rule.IsTextResourceRule;
 import uk.gov.gchq.palisade.service.policy.common.rule.PassThroughRule;
-import uk.gov.gchq.palisade.service.policy.common.rule.Rules;
+import uk.gov.gchq.palisade.service.policy.common.rule.RecordRules;
+import uk.gov.gchq.palisade.service.policy.common.rule.ResourceRules;
 import uk.gov.gchq.palisade.service.policy.config.ApplicationConfiguration;
 import uk.gov.gchq.palisade.service.policy.service.PolicyServiceCachingProxy;
 
-import java.io.Serializable;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
@@ -122,13 +121,13 @@ class RedisPolicyCachingTest extends PolicyTestCommon {
 
         for (Resource resource : FILE_RESOURCES) {
             // When
-            Optional<Rules<LeafResource>> resourceRules = cacheProxy.getResourceRules(resource.getId());
+            Optional<ResourceRules> resourceRules = cacheProxy.getResourceRules(resource.getId());
 
             // Then
             assertThat(resourceRules)
                     .as("The returned rules optional should have a value present")
                     .isPresent()
-                    .map(Rules::getRules)
+                    .map(ResourceRules::getRules)
                     .as("The rules inside the optional should not be null")
                     .isNotNull();
         }
@@ -139,7 +138,7 @@ class RedisPolicyCachingTest extends PolicyTestCommon {
         // Given - the requested resource is not added
 
         // When
-        Optional<Rules<Serializable>> recordRules = cacheProxy.getRecordRules("does not exist");
+        Optional<RecordRules> recordRules = cacheProxy.getRecordRules("does not exist");
 
         // Then
         assertThat(recordRules)
@@ -151,17 +150,17 @@ class RedisPolicyCachingTest extends PolicyTestCommon {
     void testUpdateRules() {
         // Given I add a policy and resource
         final SystemResource systemResource = new SystemResource().id("/txt");
-        final Rules<LeafResource> policy = new Rules<LeafResource>()
+        final ResourceRules policy = new ResourceRules()
                 .addRule("Resource serialised format is txt", new IsTextResourceRule());
         cacheProxy.setResourceRules(systemResource.getId(), policy);
 
         //Then I update the Policies resourceLevelRules
-        final Rules<LeafResource> newPolicy = new Rules<LeafResource>()
+        final ResourceRules newPolicy = new ResourceRules()
                 .addRule("NewSerialisedFormat", new IsTextResourceRule());
         cacheProxy.setResourceRules(systemResource.getId(), newPolicy);
 
         // When
-        Optional<Rules<LeafResource>> recordRules = cacheProxy.getResourceRules(systemResource.getId());
+        Optional<ResourceRules> recordRules = cacheProxy.getResourceRules(systemResource.getId());
 
         // Then the returned policy should have the updated resource rules
         assertAll(
@@ -199,7 +198,7 @@ class RedisPolicyCachingTest extends PolicyTestCommon {
         TimeUnit.SECONDS.sleep(1);
 
         // When - an old entry is requested
-        Optional<Rules<LeafResource>> recordRules = cacheProxy.getResourceRules(ACCESSIBLE_JSON_TXT_FILE.getId());
+        Optional<ResourceRules> recordRules = cacheProxy.getResourceRules(ACCESSIBLE_JSON_TXT_FILE.getId());
 
         // Then - it has been evicted
         assertThat(recordRules)

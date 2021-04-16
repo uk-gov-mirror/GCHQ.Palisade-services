@@ -19,7 +19,7 @@ package uk.gov.gchq.palisade.service.data.common.data.reader;
 import uk.gov.gchq.palisade.service.data.common.Context;
 import uk.gov.gchq.palisade.service.data.common.Generated;
 import uk.gov.gchq.palisade.service.data.common.resource.LeafResource;
-import uk.gov.gchq.palisade.service.data.common.rule.Rules;
+import uk.gov.gchq.palisade.service.data.common.rule.RecordRules;
 import uk.gov.gchq.palisade.service.data.common.user.User;
 
 import java.util.Objects;
@@ -36,7 +36,7 @@ public class DataReaderRequest {
     private LeafResource resource;
     private User user;
     private Context context;
-    private Rules<?> rules;
+    private RecordRules rules;
 
     public DataReaderRequest() {
         // no args constructor required
@@ -85,7 +85,7 @@ public class DataReaderRequest {
      * @return the {@link DataReaderRequest}
      */
     @Generated
-    public DataReaderRequest rules(final Rules<?> rules) {
+    public DataReaderRequest rules(final RecordRules rules) {
         this.setRules(rules);
         return this;
     }
@@ -103,12 +103,12 @@ public class DataReaderRequest {
 
     @Generated
     @SuppressWarnings("java:S1452")
-    public Rules<?> getRules() {
+    public RecordRules getRules() {
         return rules;
     }
 
     @Generated
-    public void setRules(final Rules<?> rules) {
+    public void setRules(final RecordRules rules) {
         requireNonNull(rules);
         this.rules = rules;
     }

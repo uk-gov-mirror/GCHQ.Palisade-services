@@ -25,8 +25,8 @@ import uk.gov.gchq.palisade.service.data.common.resource.LeafResource;
 import uk.gov.gchq.palisade.service.data.common.resource.impl.FileResource;
 import uk.gov.gchq.palisade.service.data.common.resource.impl.SimpleConnectionDetail;
 import uk.gov.gchq.palisade.service.data.common.resource.impl.SystemResource;
+import uk.gov.gchq.palisade.service.data.common.rule.RecordRules;
 import uk.gov.gchq.palisade.service.data.common.rule.Rule;
-import uk.gov.gchq.palisade.service.data.common.rule.Rules;
 import uk.gov.gchq.palisade.service.data.common.user.User;
 import uk.gov.gchq.palisade.service.data.serialise.SimpleStringSerialiser;
 
@@ -95,45 +95,6 @@ class SerialisingResponseWriterTest {
     }
 
     /**
-     * Test for the the writer method with a set of rules with one that requires its rule is enforced.
-     * The response should be call deseralise/seralise methods and return the same data that was in the inputstream.
-     * The recordsProcessed and recordsReturned will both be 3 indicating that they were 3 records processed and
-     * returned in the output stream.
-     *
-     * @throws Exception if an error occurs during the running of the test
-     */
-    @Test
-    void testSerialisingResponseWriterWithMixedRules() throws Exception {
-        var mixOfRules = new Rules<>()
-                .addRule("first", new TestPassThroughRule<>())
-                .addRule("second", new TestPassThroughRule<>())
-                .addRule("third", new TestApplyRule<>())
-                .addRule("fourth", new TestPassThroughRule<>());
-
-        var readerRequestWithMixedRules = new DataReaderRequest()
-                .user(USER)
-                .resource(LEAF_RESOURCE)
-                .context(CONTEXT)
-                .rules(mixOfRules);
-
-        var serialisingResponseWriter = new SerialisingResponseWriter(inputStream, stringSeraliser, readerRequestWithMixedRules, recordsProcessed, recordsReturned);
-        serialisingResponseWriter.write(outputStream);
-        var outputString = outputStream.toString();
-
-        assertThat(recordsProcessed.longValue())
-                .as("Expected to show that there are 3 records processed during the deserialising/serialising")
-                .isEqualTo(3L);
-
-        assertThat(recordsReturned.longValue())
-                .as("Expected to show that there are 3 records processed during the deserialising/serialising")
-                .isEqualTo(3L);
-
-        assertThat(outputString)
-                .as("Expected to show the output of test records as 'line1\\nline2\\nline3\\n'")
-                .isEqualTo(testString);
-    }
-
-    /**
      * Test for the the writer method with a set of rules that all bypass and do not need to be applied.
      * The response should be not deseralise/seralise the data and return the same data that was in the inputstream.
      * The recordsProcessed and recordsReturned will both be -1 indicating that the rules were not used to track the number
@@ -143,11 +104,11 @@ class SerialisingResponseWriterTest {
      */
     @Test
     void testSerialisingResponseWriterWithBypassRules() throws Exception {
-        var passThroughRules = new Rules<>()
-                .addRule("first", new TestPassThroughRule<>())
-                .addRule("second", new TestPassThroughRule<>())
-                .addRule("third", new TestPassThroughRule<>())
-                .addRule("fourth", new TestPassThroughRule<>());
+        var passThroughRules = new RecordRules()
+                .addRule("first", TestPassThroughRule.class.getName())
+                .addRule("second", TestPassThroughRule.class.getName())
+                .addRule("third", TestPassThroughRule.class.getName())
+                .addRule("fourth", TestPassThroughRule.class.getName());
 
         var readerRequestWithPassThroughRules = new DataReaderRequest()
                 .user(USER)

@@ -19,7 +19,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import uk.gov.gchq.palisade.service.attributemask.common.Context;
 import uk.gov.gchq.palisade.service.attributemask.common.resource.LeafResource;
-import uk.gov.gchq.palisade.service.attributemask.common.rule.Rules;
+import uk.gov.gchq.palisade.service.attributemask.common.rule.RecordRules;
 import uk.gov.gchq.palisade.service.attributemask.common.user.User;
 import uk.gov.gchq.palisade.service.attributemask.domain.AuthorisedRequestEntity;
 
@@ -34,10 +34,10 @@ public interface AuthorisedRequestsRepository extends CrudRepository<AuthorisedR
      * @param user     the {@link User} as authorised and returned by the user-service
      * @param resource one of many {@link LeafResource} as discovered and returned by the resource-service
      * @param context  the {@link Context} as originally supplied by the client
-     * @param rules    the {@link Rules} that will be applied to the resource and its records as returned by the policy-service
+     * @param rules    the {@link RecordRules} that will be applied to the resource and its records as returned by the policy-service
      * @return the persisted entity
      */
-    default AuthorisedRequestEntity save(final String token, final User user, final LeafResource resource, final Context context, final Rules<?> rules) {
+    default AuthorisedRequestEntity save(final String token, final User user, final LeafResource resource, final Context context, final RecordRules rules) {
         return save(new AuthorisedRequestEntity(token, user, resource, context, rules));
     }
 

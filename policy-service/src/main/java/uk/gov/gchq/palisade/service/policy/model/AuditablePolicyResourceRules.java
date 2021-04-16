@@ -19,14 +19,13 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import uk.gov.gchq.palisade.service.policy.common.Generated;
-import uk.gov.gchq.palisade.service.policy.common.resource.LeafResource;
-import uk.gov.gchq.palisade.service.policy.common.rule.Rules;
+import uk.gov.gchq.palisade.service.policy.common.rule.ResourceRules;
 
 import java.util.Objects;
 import java.util.StringJoiner;
 
 /**
- * This class is a container for {@link PolicyRequest}, {@link Rules} and {@link AuditErrorMessage} during stream
+ * This class is a container for {@link PolicyRequest}, {@link ResourceRules} and {@link AuditErrorMessage} during stream
  * processing.  The class represents the data after making the request for the rules. Under normal conditions
  * {@code PolicyRequest} and {@code Rules} will be non-null, indicating successful process OR {@code AuditErrorMessage}
  * when there has been an error in the process.
@@ -34,13 +33,13 @@ import java.util.StringJoiner;
 public final class AuditablePolicyResourceRules {
 
     private final PolicyRequest policyRequest;
-    private final Rules<LeafResource> rules;
+    private final ResourceRules rules;
     private final AuditErrorMessage auditErrorMessage;
 
     @JsonCreator
     private AuditablePolicyResourceRules(
             final @JsonProperty("policyRequest") PolicyRequest policyRequest,
-            final @JsonProperty("rules") Rules<LeafResource> rules,
+            final @JsonProperty("rules") ResourceRules rules,
             final @JsonProperty("auditErrorMessage") AuditErrorMessage auditErrorMessage) {
 
         this.policyRequest = policyRequest;
@@ -54,7 +53,7 @@ public final class AuditablePolicyResourceRules {
     }
 
     @Generated
-    public Rules<LeafResource> getRules() {
+    public ResourceRules getRules() {
         return rules;
     }
 
@@ -101,7 +100,7 @@ public final class AuditablePolicyResourceRules {
              * @param rules or null
              * @return value object
              */
-            IAuditErrorMessage withRules(Rules<LeafResource> rules);
+            IAuditErrorMessage withRules(ResourceRules rules);
         }
 
         /**

@@ -14,42 +14,39 @@
  * limitations under the License.
  */
 
-package uk.gov.gchq.palisade.service.attributemask.common.rule;
+package uk.gov.gchq.palisade.service.policy.common.rule;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-import uk.gov.gchq.palisade.service.attributemask.common.Generated;
+import uk.gov.gchq.palisade.service.policy.common.Generated;
 
 import java.io.Serializable;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.StringJoiner;
-import java.util.stream.Collectors;
 
 import static java.util.Objects.requireNonNull;
 
 /**
- * This class is used to encapsulate the list of {@link Rule}s that apply to a resource and is
- * provided with a user-friendly message to explain what the set of rules are.
- *
- * @param <T> The type of data records that the rules will be applied to.
+ * This class is used to encapsulate the list of references to rules that apply to a resource and is provided with a user
+ * friendly message to explain what the set of rules are.
+ * The rules do not necessarily exist on the classpath, so are described by a String.
  */
 @JsonPropertyOrder(value = {"message", "rules"}, alphabetic = true)
-public class Rules<T extends Serializable> implements Serializable {
+public class RecordRules implements Serializable {
     private static final long serialVersionUID = 1L;
     private static final String ID_CANNOT_BE_NULL = "The id field can not be null.";
     private static final String RULE_CANNOT_BE_NULL = "The rule can not be null.";
     public static final String NO_RULES_SET = "no rules set";
 
     private String message;
-    private LinkedHashMap<String, Rule<T>> rulesMap;
+    private LinkedHashMap<String, String> rulesMap;
 
     /**
      * Constructs an empty instance of Rules.
      */
-    public Rules() {
+    public RecordRules() {
         rulesMap = new LinkedHashMap<>();
         message = NO_RULES_SET;
     }
@@ -61,14 +58,13 @@ public class Rules<T extends Serializable> implements Serializable {
      * @return this Rules instance
      */
     @Generated
-    public Rules<T> rules(final Map<String, Rule<T>> rules) {
+    public RecordRules rules(final Map<String, String> rules) {
         this.setRules(rules);
         return this;
     }
 
-
     @Generated
-    public Rules<T> addRules(final Map<String, Rule<T>> rules) {
+    public RecordRules addRules(final Map<String, String> rules) {
         requireNonNull(rules, "Cannot add null to the existing rules.");
         this.rulesMap.putAll(rules);
         return this;
@@ -81,7 +77,7 @@ public class Rules<T extends Serializable> implements Serializable {
      * @return this Rules instance
      */
     @Generated
-    public Rules<T> message(final String message) {
+    public RecordRules message(final String message) {
         this.setMessage(message);
         return this;
     }
@@ -94,51 +90,10 @@ public class Rules<T extends Serializable> implements Serializable {
      * @return this Rules instance
      */
     @Generated
-    public Rules<T> addRule(final String id, final Rule<T> rule) {
+    public RecordRules addRule(final String id, final String rule) {
         requireNonNull(id, ID_CANNOT_BE_NULL);
         requireNonNull(rule, RULE_CANNOT_BE_NULL);
         rulesMap.put(id, rule);
-        return this;
-    }
-
-    /**
-     * Adds a predicate rule.
-     *
-     * @param id   the unique rule id
-     * @param rule the predicate rule
-     * @return this Rules instance
-     */
-    @Generated
-    public Rules<T> addPredicateRule(final String id, final PredicateRule<T> rule) {
-        this.addRule(id, rule);
-        return this;
-    }
-
-    /**
-     * Adds a simple predicate rule that just takes the record and returns true or false. Note - using this means your
-     * rule will not be given the User or Context.
-     *
-     * @param id   the unique rule id
-     * @param rule the simple predicate rule
-     * @return this Rules instance
-     */
-    @Generated
-    public Rules<T> addSimplePredicateRule(final String id, final SerialisablePredicate<T> rule) {
-        this.addRule(id, new WrappedRule<>(rule));
-        return this;
-    }
-
-    /**
-     * Adds a simple function rule that just takes the record and returns a modified record or null if the record should
-     * be fully redacted. Note - using this means your rule will not be given the User or Context.
-     *
-     * @param id   the unique rule id
-     * @param rule the simple function rule
-     * @return this Rules instance
-     */
-    @Generated
-    public Rules<T> addSimpleFunctionRule(final String id, final SerialisableUnaryOperator<T> rule) {
-        this.addRule(id, new WrappedRule<>(rule));
         return this;
     }
 
@@ -154,23 +109,14 @@ public class Rules<T extends Serializable> implements Serializable {
     }
 
     @Generated
-    public Map<String, Rule<T>> getRules() {
+    public Map<String, String> getRules() {
         return rulesMap;
     }
 
     @Generated
-    public void setRules(final Map<String, Rule<T>> rulesMap) {
+    public void setRules(final Map<String, String> rulesMap) {
         requireNonNull(rulesMap);
         this.rulesMap = new LinkedHashMap<>(rulesMap);
-    }
-
-    /**
-     * Tests if this rule set if empty.
-     *
-     * @return true if this rule set contains at least one rule
-     */
-    public boolean containsRules() {
-        return !rulesMap.isEmpty();
     }
 
     @Override
@@ -178,17 +124,11 @@ public class Rules<T extends Serializable> implements Serializable {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof Rules)) {
+        if (!(o instanceof RecordRules)) {
             return false;
         }
-        Rules<?> other = (Rules<?>) o;
-        List<Class<? extends Rule>> thisRuleClasses = this.rulesMap.values().stream()
-                .map(Rule::getClass)
-                .collect(Collectors.toList());
-        List<Class<? extends Rule>> otherRuleClasses = other.rulesMap.values().stream()
-                .map(Rule::getClass)
-                .collect(Collectors.toList());
-        return thisRuleClasses.equals(otherRuleClasses);
+        RecordRules other = (RecordRules) o;
+        return Objects.equals(this.rulesMap, other.rulesMap);
     }
 
     @Override
@@ -200,9 +140,9 @@ public class Rules<T extends Serializable> implements Serializable {
     @Override
     @Generated
     public String toString() {
-        return new StringJoiner(", ", Rules.class.getSimpleName() + "[", "]")
+        return new StringJoiner(", ", RecordRules.class.getSimpleName() + "[", "]")
                 .add("message='" + message + "'")
-                .add("rulesHashMap=" + rulesMap)
+                .add("rulesMap=" + rulesMap)
                 .add(super.toString())
                 .toString();
     }

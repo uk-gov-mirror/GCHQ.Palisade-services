@@ -20,7 +20,7 @@ import org.slf4j.LoggerFactory;
 
 import uk.gov.gchq.palisade.service.attributemask.common.Context;
 import uk.gov.gchq.palisade.service.attributemask.common.resource.LeafResource;
-import uk.gov.gchq.palisade.service.attributemask.common.rule.Rules;
+import uk.gov.gchq.palisade.service.attributemask.common.rule.RecordRules;
 import uk.gov.gchq.palisade.service.attributemask.common.user.User;
 import uk.gov.gchq.palisade.service.attributemask.model.AttributeMaskingRequest;
 
@@ -55,7 +55,7 @@ public class JpaPersistenceLayer implements PersistenceLayer {
 
     @Override
     @Transactional
-    public CompletableFuture<AttributeMaskingRequest> putAsync(final String token, final User user, final LeafResource resource, final Context context, final Rules<?> rules) {
+    public CompletableFuture<AttributeMaskingRequest> putAsync(final String token, final User user, final LeafResource resource, final Context context, final RecordRules rules) {
         LOGGER.debug("Persisting authorised request for unique pair {}-{}", token, resource.getId());
         return CompletableFuture.supplyAsync(() -> {
             this.authorisedRequestsRepository.save(token, user, resource, context, rules);

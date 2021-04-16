@@ -22,7 +22,9 @@ import org.springframework.lang.Nullable;
 
 import uk.gov.gchq.palisade.service.policy.common.resource.LeafResource;
 import uk.gov.gchq.palisade.service.policy.common.resource.Resource;
-import uk.gov.gchq.palisade.service.policy.common.rule.Rules;
+import uk.gov.gchq.palisade.service.policy.common.rule.RecordRules;
+import uk.gov.gchq.palisade.service.policy.common.rule.ResourceRules;
+import uk.gov.gchq.palisade.service.policy.common.util.RulesUtil;
 import uk.gov.gchq.palisade.service.policy.model.AuditErrorMessage;
 import uk.gov.gchq.palisade.service.policy.model.AuditablePolicyRecordResponse;
 import uk.gov.gchq.palisade.service.policy.model.AuditablePolicyResourceResponse;
@@ -104,7 +106,7 @@ public class PolicyServiceAsyncProxy {
                                         .withNoErrors())
                                 .exceptionally(e -> AuditablePolicyRecordResponse.Builder.create()
                                         .withPolicyResponse(PolicyResponse.Builder.create(request)
-                                                .withRules(new Rules<>()))
+                                                .withRules(new RecordRules()))
                                         .withAuditErrorMessage(AuditErrorMessage.Builder.create(request, Collections.emptyMap()).withError(e)))
                 )
                 .orElse(CompletableFuture.completedFuture(AuditablePolicyRecordResponse.Builder.create()
@@ -113,17 +115,17 @@ public class PolicyServiceAsyncProxy {
     }
 
     /**
-     * Applies the {@link Rules} to the {@link Resource}.
+     * Applies the {@link ResourceRules} to the {@link Resource}.
      *
      * @param auditablePolicyResourceRules container for holding the {@code PolicyRequest}, {@code Rules} and the {@code AuditErrorMessage}
      * @return an instance of {@code AuditablePolicyResourceResponse} with the rules applied to the {@code Resource}
      */
     public static AuditablePolicyResourceResponse applyRulesToResource(final AuditablePolicyResourceRules auditablePolicyResourceRules) {
-        Rules<LeafResource> rules = auditablePolicyResourceRules.getRules();
+        ResourceRules rules = auditablePolicyResourceRules.getRules();
         PolicyRequest policyRequest = auditablePolicyResourceRules.getPolicyRequest();
         if (!Objects.isNull(rules)) {
             //apply the rules to the resource - a coarse grain filtering
-            Resource resource = PolicyServiceHierarchyProxy.applyRulesToResource(policyRequest.getUser(), policyRequest.getResource(), policyRequest.getContext(), rules);
+            Resource resource = RulesUtil.applyRulesToResource(policyRequest.getResource(), policyRequest.getUser(), policyRequest.getContext(), rules);
             return AuditablePolicyResourceResponse.Builder.create(auditablePolicyResourceRules).withModifiedResource(resource);
         } else {
             // do nothing and return

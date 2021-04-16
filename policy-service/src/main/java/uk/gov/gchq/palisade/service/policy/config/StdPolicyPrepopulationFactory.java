@@ -23,11 +23,11 @@ import uk.gov.gchq.palisade.service.policy.common.Generated;
 import uk.gov.gchq.palisade.service.policy.common.policy.PolicyPrepopulationFactory;
 import uk.gov.gchq.palisade.service.policy.common.resource.LeafResource;
 import uk.gov.gchq.palisade.service.policy.common.resource.Resource;
+import uk.gov.gchq.palisade.service.policy.common.rule.RecordRules;
+import uk.gov.gchq.palisade.service.policy.common.rule.ResourceRules;
 import uk.gov.gchq.palisade.service.policy.common.rule.Rule;
-import uk.gov.gchq.palisade.service.policy.common.rule.Rules;
 import uk.gov.gchq.palisade.service.policy.common.util.ResourceBuilder;
 
-import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.util.AbstractMap.SimpleImmutableEntry;
 import java.util.Collections;
@@ -72,11 +72,11 @@ public class StdPolicyPrepopulationFactory implements PolicyPrepopulationFactory
         this.recordRules = recordRules;
     }
 
-    @SuppressWarnings("java:S2658") // Suppress dynamic class loading smell
-    private static Rule createRule(final String rule) {
+    @SuppressWarnings({"java:S2658", "unchecked"}) // Suppress dynamic class loading smell
+    private static Rule<Resource> createRule(final String rule) {
         try {
             LOGGER.debug("Adding rule {}", rule);
-            return (Rule<?>) Class.forName(rule).getConstructor().newInstance();
+            return (Rule<Resource>) Class.forName(rule).getConstructor().newInstance();
         } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException ex) {
             LOGGER.error(String.format("Error creating rule %s", rule), ex);
             return null;
@@ -117,8 +117,8 @@ public class StdPolicyPrepopulationFactory implements PolicyPrepopulationFactory
     }
 
     @Override
-    public Entry<String, Rules<LeafResource>> buildResourceRules() {
-        Rules<LeafResource> rules = new Rules<>();
+    public Entry<String, ResourceRules> buildResourceRules() {
+        ResourceRules rules = new ResourceRules();
         resourceRules.forEach((message, rule) -> rules.addRule(message, createRule(rule)));
 
         // Interpret relative paths and prepend 'file:'
@@ -127,9 +127,9 @@ public class StdPolicyPrepopulationFactory implements PolicyPrepopulationFactory
     }
 
     @Override
-    public Entry<String, Rules<Serializable>> buildRecordRules() {
-        Rules<Serializable> rules = new Rules<>();
-        recordRules.forEach((message, rule) -> rules.addRule(message, createRule(rule)));
+    public Entry<String, RecordRules> buildRecordRules() {
+        RecordRules rules = new RecordRules();
+        recordRules.forEach(rules::addRule);
 
         // Interpret relative paths and prepend 'file:'
         String resourceUriId = ResourceBuilder.create(resourceId).getId();

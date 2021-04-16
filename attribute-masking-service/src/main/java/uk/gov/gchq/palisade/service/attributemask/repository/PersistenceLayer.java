@@ -17,7 +17,7 @@ package uk.gov.gchq.palisade.service.attributemask.repository;
 
 import uk.gov.gchq.palisade.service.attributemask.common.Context;
 import uk.gov.gchq.palisade.service.attributemask.common.resource.LeafResource;
-import uk.gov.gchq.palisade.service.attributemask.common.rule.Rules;
+import uk.gov.gchq.palisade.service.attributemask.common.rule.RecordRules;
 import uk.gov.gchq.palisade.service.attributemask.common.user.User;
 import uk.gov.gchq.palisade.service.attributemask.model.AttributeMaskingRequest;
 
@@ -38,6 +38,6 @@ public interface PersistenceLayer {
      * @param rules    the {@link Rules} that will be applied to the resource and its records as returned by the policy-service
      * @return a completable future representing the completion of the put operation
      */
-    CompletableFuture<AttributeMaskingRequest> putAsync(final String token, final User user, final LeafResource resource, final Context context, final Rules<?> rules);
+    CompletableFuture<AttributeMaskingRequest> putAsync(final String token, final User user, final LeafResource resource, final Context context, final RecordRules rules);
 
 }

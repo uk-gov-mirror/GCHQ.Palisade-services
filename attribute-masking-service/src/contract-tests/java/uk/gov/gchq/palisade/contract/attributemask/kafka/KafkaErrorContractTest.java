@@ -53,7 +53,7 @@ import uk.gov.gchq.palisade.service.attributemask.common.Context;
 import uk.gov.gchq.palisade.service.attributemask.common.Token;
 import uk.gov.gchq.palisade.service.attributemask.common.resource.LeafResource;
 import uk.gov.gchq.palisade.service.attributemask.common.resource.impl.FileResource;
-import uk.gov.gchq.palisade.service.attributemask.common.rule.Rules;
+import uk.gov.gchq.palisade.service.attributemask.common.rule.RecordRules;
 import uk.gov.gchq.palisade.service.attributemask.common.user.User;
 import uk.gov.gchq.palisade.service.attributemask.model.AttributeMaskingRequest;
 import uk.gov.gchq.palisade.service.attributemask.repository.PersistenceLayer;
@@ -204,7 +204,7 @@ class KafkaErrorContractTest {
     private static class ExceptionalPersistenceLayer implements PersistenceLayer {
 
         @Override
-        public CompletableFuture<AttributeMaskingRequest> putAsync(final String token, final User user, final LeafResource resource, final Context context, final Rules<?> rules) {
+        public CompletableFuture<AttributeMaskingRequest> putAsync(final String token, final User user, final LeafResource resource, final Context context, final RecordRules rules) {
             throw new RuntimeException("There was an issue with persisting the resource");
         }
     }

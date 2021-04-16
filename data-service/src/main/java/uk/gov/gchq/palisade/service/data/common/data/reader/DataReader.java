@@ -19,7 +19,6 @@ package uk.gov.gchq.palisade.service.data.common.data.reader;
 import uk.gov.gchq.palisade.service.data.common.Context;
 import uk.gov.gchq.palisade.service.data.common.data.DataFlavour;
 import uk.gov.gchq.palisade.service.data.common.data.seralise.Serialiser;
-import uk.gov.gchq.palisade.service.data.common.rule.Rules;
 import uk.gov.gchq.palisade.service.data.common.user.User;
 import uk.gov.gchq.palisade.service.data.common.util.RulesUtil;
 import uk.gov.gchq.palisade.service.data.exception.NoCapacityException;
