@@ -18,6 +18,8 @@ package uk.gov.gchq.palisade.component.policy.model;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.autoconfigure.json.JsonTest;
+import org.springframework.test.context.ContextConfiguration;
 
 import uk.gov.gchq.palisade.component.policy.CommonTestData;
 import uk.gov.gchq.palisade.component.policy.MapperConfiguration;

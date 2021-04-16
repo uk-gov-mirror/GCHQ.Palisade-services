@@ -77,7 +77,6 @@ import uk.gov.gchq.palisade.service.policy.stream.PropertiesConfigurer;
 import uk.gov.gchq.palisade.service.policy.stream.SerDesConfig;
 
 import java.io.IOException;
-import java.util.AbstractMap;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -488,7 +487,7 @@ class KafkaContractTest {
     }
 
     // Serializer for upstream test input
-    static class RequestSerialiser implements Serializer<JsonNode> {
+    class RequestSerialiser implements Serializer<JsonNode> {
         @Override
         public byte[] serialize(final String s, final JsonNode policyRequest) {
             try {
@@ -500,7 +499,7 @@ class KafkaContractTest {
     }
 
     // Deserializer for downstream test output
-    static class ResponseDeserialiser implements Deserializer<JsonNode> {
+    class ResponseDeserialiser implements Deserializer<JsonNode> {
         @Override
         public JsonNode deserialize(final String s, final byte[] policyResponse) {
             try {
