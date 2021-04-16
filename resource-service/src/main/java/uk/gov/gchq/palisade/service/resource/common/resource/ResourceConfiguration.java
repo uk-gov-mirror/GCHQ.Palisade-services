@@ -31,6 +31,7 @@ public interface ResourceConfiguration {
      *
      * @return a {@link List} of the objects that have implemented {@link ResourcePrepopulationFactory}.
      */
+    @SuppressWarnings("java:S1452")
     List<? extends ResourcePrepopulationFactory> getResources();
 
 }

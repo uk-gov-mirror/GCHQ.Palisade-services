@@ -31,7 +31,7 @@ public interface AuditService {
 
     /**
      * This method applies the functionality that the implementation of the Audit Service needs to apply, whether that
-     * is to forward to request somewhere else, put the request into cache so it can be aggregated with other requests,
+     * is to forward to request somewhere else, put the request into cache, so it can be aggregated with other requests,
      * or to write it to storage.
      *
      * @param token   the token value for the request that is passing the message

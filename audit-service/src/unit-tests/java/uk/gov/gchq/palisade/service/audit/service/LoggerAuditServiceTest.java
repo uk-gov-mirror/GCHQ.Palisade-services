@@ -114,7 +114,10 @@ class LoggerAuditServiceTest {
         auditService.audit(TEST_TOKEN, auditErrorMessage(USER_SERVICE));
 
         // Then
-        assertThat(infoCaptor.getAllValues()).isEmpty();
+        assertThat(infoCaptor.getAllValues())
+                .as("Check that no info messages were produced")
+                .isEmpty();
+
         assertThat(errorCaptor.getAllValues())
                 .as("Check the logged AuditErrorMessage is from the 'User Service'")
                 .hasSize(1)
@@ -132,7 +135,9 @@ class LoggerAuditServiceTest {
         auditService.audit(TEST_TOKEN, auditErrorMessage(RESOURCE_SERVICE));
 
         // Then
-        assertThat(infoCaptor.getAllValues()).isEmpty();
+        assertThat(infoCaptor.getAllValues())
+                .as("Check that no info messages were produced")
+                .isEmpty();
         assertThat(errorCaptor.getAllValues())
                 .as("Check the logged AuditErrorMessage is from the 'Resource Service'")
                 .hasSize(1)
@@ -149,7 +154,9 @@ class LoggerAuditServiceTest {
         auditService.audit(TEST_TOKEN, auditErrorMessage(POLICY_SERVICE));
 
         // Then
-        assertThat(infoCaptor.getAllValues()).isEmpty();
+        assertThat(infoCaptor.getAllValues())
+                .as("Check that no info messages were produced")
+                .isEmpty();
         assertThat(errorCaptor.getAllValues())
                 .as("Check the logged AuditErrorMessage is from the 'Policy Service'")
                 .hasSize(1)

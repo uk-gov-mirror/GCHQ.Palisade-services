@@ -53,7 +53,7 @@ import java.util.function.Function;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests to verify the handling of exceptions and the population of audit objects during stream processing
+ * Tests to verify the handling of exceptions, and the population of audit objects during stream processing
  */
 @SpringBootTest(classes = AttributeMaskingApplication.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @ContextConfiguration(classes = {ExecutorTestConfiguration.class, AttributeMaskingServiceErrorTest.Config.class})
@@ -88,27 +88,33 @@ class AttributeMaskingServiceErrorTest {
     @Test
     void testPersistenceFailure() {
         // Given a masking request
-        final AttributeMaskingRequest attributeMaskingRequest = requestFactoryObj.apply(1);
+        final var attributeMaskingRequest = requestFactoryObj.apply(1);
         // When persisting
-        final CompletableFuture<AuditableAttributeMaskingRequest> subject = this.attributeMaskingService.storeAuthorisedRequest("test-token", attributeMaskingRequest);
+        final var request = this.attributeMaskingService.storeAuthorisedRequest("test-token", attributeMaskingRequest).join();
+
         // Then the service suppresses exception and populates Audit object
-        assertThat(subject.getNow(AuditableAttributeMaskingRequest.Builder.create().withAttributeMaskingRequest(null).withNoError()).getAuditErrorMessage().getError().getMessage())
-                .as("verify that exception is propagated into an auditable object and returned")
+        assertThat(request)
+                .as("Check that the request has an error and that the error message has been populated successfully")
+                .extracting(AuditableAttributeMaskingRequest::getAuditErrorMessage)
+                .extracting(AuditErrorMessage::getError)
+                .isInstanceOf(Throwable.class)
+                .extracting(Throwable::getMessage)
                 .isEqualTo("Cannot persist");
 
-        assertThat(subject.getNow(AuditableAttributeMaskingRequest.Builder.create().withAttributeMaskingRequest(attributeMaskingRequest).withNoError()).getAttributeMaskingRequest())
-                .as("verify that auditable object has no payload")
+        assertThat(request)
+                .as("Check that the request has a null AttributeMaskingRequest")
+                .extracting(AuditableAttributeMaskingRequest::getAttributeMaskingRequest)
                 .isNull();
     }
 
     @Test
     void testMaskingFailure() {
         // Given a masking request
-        final AttributeMaskingRequest attributeMaskingRequest = requestFactoryObj.apply(1);
+        final var attributeMaskingRequest = requestFactoryObj.apply(1);
         // When masking
-        final AuditableAttributeMaskingResponse subject = this.attributeMaskingService.maskResourceAttributes(attributeMaskingRequest);
+        final var response = this.attributeMaskingService.maskResourceAttributes(attributeMaskingRequest);
         // Then the service suppresses exception and populates Audit object
-        assertThat(subject)
+        assertThat(response)
                 .as("verify that exception is propagated into an auditable object and returned")
                 .extracting(AuditableAttributeMaskingResponse::getAuditErrorMessage)
                 .isNotNull()
@@ -116,7 +122,7 @@ class AttributeMaskingServiceErrorTest {
                 .extracting(Throwable::getMessage)
                 .isEqualTo("Cannot mask");
 
-        assertThat(subject)
+        assertThat(response)
                 .as("verify that auditable object has no payload")
                 .extracting(AuditableAttributeMaskingResponse::getAttributeMaskingResponse)
                 .isNull();
@@ -142,9 +148,9 @@ class AttributeMaskingServiceErrorTest {
                 .withResource(attributeMaskingRequest.getResource())
                 .withRules(attributeMaskingRequest.getRules());
         // When persisting
-        var subject = this.attributeMaskingService.storeAuthorisedRequest("broken-token", broken);
-        // hen the service suppresses exception and populates Audit object
-        assertThat(subject.getNow(AuditableAttributeMaskingRequest.Builder.create().withAttributeMaskingRequest(null).withNoError()))
+        var request = this.attributeMaskingService.storeAuthorisedRequest("broken-token", broken).join();
+        // Then the service suppresses exception and populates Audit object
+        assertThat(request)
                 .as("verify that exception is propagated into an auditable object and returned")
                 .extracting(AuditableAttributeMaskingRequest::getAuditErrorMessage)
                 .extracting(AuditErrorMessage::getError)

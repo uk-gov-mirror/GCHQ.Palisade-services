@@ -64,7 +64,7 @@ public class Context {
      * Sets the contents of this Context object
      *
      * @param contents a map of contents that will be added to this class
-     * @return the Context class with attached contents
+     * @return the {@link Context} object
      */
     @Generated
     public Context contents(final Map<String, Object> contents) {
@@ -72,17 +72,32 @@ public class Context {
         return this;
     }
 
+    /**
+     * Get the contents map of the {@link Context}
+     *
+     * @return a map of {@link String} and {@link Object}
+     */
     @Generated
     public Map<String, Object> getContents() {
         return contents;
     }
 
+    /**
+     * Set the contents map of the {@link Context}
+     *
+     * @param contents the map to be added to the Context
+     */
     @Generated
     public void setContents(final Map<String, Object> contents) {
         requireNonNull(contents);
         this.contents = contents;
     }
 
+    /**
+     * Get a copy of the contents map of the {@link Context}
+     *
+     * @return an unmodifiable map of the contents
+     */
     @JsonIgnore
     @Generated
     public Map<String, Object> getContentsCopy() {
@@ -93,7 +108,7 @@ public class Context {
      * Adds a purpose, or reason for requesting data to the Context object.
      *
      * @param purpose a String containing why the User wants access to the data
-     * @return the Context object with the purpose attached to the contents object
+     * @return the Context object with the purpose added to the contents map
      */
     @JsonIgnore
     @Generated
@@ -102,6 +117,11 @@ public class Context {
         return this;
     }
 
+    /**
+     * Get the purpose from the contents map of the {@link Context}
+     *
+     * @return a string value of the purpose
+     */
     @SuppressWarnings({"java:S112", "java:S1166"})
     @JsonIgnore
     public String getPurpose() {
@@ -123,6 +143,13 @@ public class Context {
         return contents.get(key);
     }
 
+    /**
+     * Put the provided key and value into the contents map
+     *
+     * @param key the key value
+     * @param value the value object
+     * @return the {@link Context} object
+     */
     @Generated
     public Context put(final String key, final Object value) {
         requireNonNull(key, "The key cannot be null.");
@@ -131,6 +158,13 @@ public class Context {
         return this;
     }
 
+    /**
+     * Put the provided key and value into the contents map if it does not already exist
+     *
+     * @param key the key value
+     * @param value the value object
+     * @return the {@link Context} object
+     */
     @Generated
     public Context putIfAbsent(final String key, final Object value) {
         requireNonNull(key, "The key cannot be null.");

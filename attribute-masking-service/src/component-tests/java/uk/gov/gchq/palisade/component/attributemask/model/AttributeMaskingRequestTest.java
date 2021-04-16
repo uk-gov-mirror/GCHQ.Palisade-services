@@ -64,7 +64,7 @@ class AttributeMaskingRequestTest {
                 .isEqualTo(attributeMaskingRequest);
 
         assertThat(actualInstance)
-                .as("Check %s using recursion)", attributeMaskingRequest.getClass().getSimpleName())
+                .as("Check %s using recursion", attributeMaskingRequest.getClass().getSimpleName())
                 .usingRecursiveComparison()
                 .isEqualTo(attributeMaskingRequest);
 

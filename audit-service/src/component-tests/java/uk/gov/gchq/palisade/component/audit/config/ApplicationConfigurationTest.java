@@ -35,10 +35,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ContextConfiguration(classes = ApplicationConfiguration.class)
 class ApplicationConfigurationTest {
 
-    @SuppressWarnings("rawtypes")
     @Test
     void testConfigurationDefinesLoadedServices(@Autowired final Map<String, AuditService> auditServices) {
         assertThat(auditServices.values())
+                .as("Check that the different Audit Services have been started successfully")
                 .extracting(as -> (Class) as.getClass())
                 .containsExactlyInAnyOrder(
                         LoggerAuditService.class,

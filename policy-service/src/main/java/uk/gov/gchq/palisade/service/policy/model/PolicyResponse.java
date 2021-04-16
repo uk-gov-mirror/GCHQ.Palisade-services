@@ -42,8 +42,8 @@ import java.util.StringJoiner;
  * PolicyResponse represents the output for policy-service which will include the Rules to implement with this Resource.
  * This will be forwarded to the attribute-masking-service for preliminary processing and routing of the data.
  * Note there are two classes that effectively represent the same data but represent a different stage of the process.
- * The PolicyResponse  is the output from the Policy Service.
- * {@link uk.gov.gchq.palisade.service.attributemask.model.AttributeMaskingRequest} is the input for the Attribute-Masking Service.
+ * uk.gov.gchq.palisade.service.policy.model.PolicyResponse is the output from the Policy Service.
+ * uk.gov.gchq.palisade.service.attributemask.model.AttributeMaskingRequest is the input for the Attribute-Masking Service.
  */
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 @JsonTypeInfo(use = Id.NONE)

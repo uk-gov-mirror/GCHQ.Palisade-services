@@ -26,7 +26,11 @@ import java.io.InputStream;
 import java.net.URI;
 import java.nio.file.Paths;
 
+/**
+ * A simple extension of the {@link SerialisedDataReader} to allow the Data Service to read from the local file system.
+ */
 public class SimpleDataReader extends SerialisedDataReader {
+
     @Override
     protected InputStream readRaw(final LeafResource resource) {
         try {

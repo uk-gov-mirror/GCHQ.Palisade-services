@@ -26,16 +26,18 @@ import java.lang.annotation.Target;
  * a simple name of "Generated' is ignored from code coverage reports. For best
  * results, this should be integrated into one's IDE. In IntelliJ, this is done
  * through: Code ->
- * Generate ->
- * [method] ->
- * ... ->
- * Prepend "@uk.gov.gchq.palisade.Generated" to the velocity template.
+ *          Generate ->
+ *          [method] ->
+ *          ... ->
+ *          Prepend "@uk.gov.gchq.palisade.service.attributemask.common.Generated" to the velocity template.
+ *
  * Alternatively, xml files representing these code generation templates can
  * be found under ~/.IntelliJIdea${year.version}/config/options:
  * - equalsHashCodeTemplates.xml
  * - getterTemplates.xml
  * - setterTemplates.xml
  * - toStringTemplates.xml
+ *
  * It is recommended to include this in all code generation methods used, such
  * as: equals, hashCode, toString, getters, setters
  */

@@ -102,6 +102,7 @@ public class DataReaderRequest {
     }
 
     @Generated
+    @SuppressWarnings("java:S1452")
     public Rules<?> getRules() {
         return rules;
     }

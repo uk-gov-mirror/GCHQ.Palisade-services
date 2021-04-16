@@ -24,7 +24,6 @@ import akka.kafka.javadsl.Consumer;
 import akka.kafka.javadsl.Producer;
 import akka.stream.Materializer;
 import akka.stream.javadsl.Source;
-import akka.stream.testkit.TestSubscriber.Probe;
 import akka.stream.testkit.javadsl.TestSink;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
@@ -57,7 +56,6 @@ import uk.gov.gchq.palisade.service.attributemask.common.resource.impl.FileResou
 import uk.gov.gchq.palisade.service.attributemask.common.rule.Rules;
 import uk.gov.gchq.palisade.service.attributemask.common.user.User;
 import uk.gov.gchq.palisade.service.attributemask.model.AttributeMaskingRequest;
-import uk.gov.gchq.palisade.service.attributemask.model.AuditErrorMessage;
 import uk.gov.gchq.palisade.service.attributemask.repository.PersistenceLayer;
 import uk.gov.gchq.palisade.service.attributemask.service.AttributeMaskingAspect;
 import uk.gov.gchq.palisade.service.attributemask.service.AttributeMaskingService;
@@ -109,17 +107,17 @@ class KafkaErrorContractTest {
                 .flatMap(Function.identity());
 
         // Given - we are already listening to the errors
-        ConsumerSettings<String, AuditErrorMessage> errorConsumerSettings = ConsumerSettings
+        var errorConsumerSettings = ConsumerSettings
                 .create(akkaActorSystem, new StringDeserializer(), new ErrorDeserializer())
                 .withBootstrapServers(KafkaInitializer.KAFKA_CONTAINER.getBootstrapServers())
                 .withProperty(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
 
-        Probe<ConsumerRecord<String, AuditErrorMessage>> errorProbe = Consumer
+        var errorProbe = Consumer
                 .atMostOnceSource(errorConsumerSettings, Subscriptions.topics(producerTopicConfiguration.getTopics().get("error-topic").getName()))
                 .runWith(TestSink.probe(akkaActorSystem), akkaMaterializer);
 
         // When - we write to the input
-        ProducerSettings<String, JsonNode> producerSettings = ProducerSettings
+        var producerSettings = ProducerSettings
                 .create(akkaActorSystem, new StringSerializer(), new RequestSerializer())
                 .withBootstrapServers(KafkaInitializer.KAFKA_CONTAINER.getBootstrapServers());
 
@@ -127,8 +125,8 @@ class KafkaErrorContractTest {
                 .runWith(Producer.plainSink(producerSettings), akkaMaterializer);
 
         // When - errors are pulled from the error stream, pulling the number of errors thrown
-        Probe<ConsumerRecord<String, AuditErrorMessage>> errorSeq = errorProbe.request(1);
-        LinkedList<ConsumerRecord<String, AuditErrorMessage>> errors = LongStream.range(0, 1)
+        var errorSeq = errorProbe.request(1);
+        var errors = LongStream.range(0, 1)
                 .mapToObj(i -> errorSeq.expectNext(new FiniteDuration(21, TimeUnit.SECONDS)))
                 .collect(Collectors.toCollection(LinkedList::new));
 
@@ -136,9 +134,11 @@ class KafkaErrorContractTest {
         assertAll("Errors are correct",
                 // The correct number of errors were received
                 () -> assertThat(errors)
+                        .as("Check that one message has been returned")
                         .hasSize(1),
 
                 () -> assertThat(errors)
+                        .as("Check that the message has the correct contents")
                         .allSatisfy(error ->
                                 assertAll("Error records all satisfy requirements",
                                         () -> assertThat(error.headers().lastHeader(Token.HEADER).value())
@@ -199,7 +199,7 @@ class KafkaErrorContractTest {
     }
 
     /**
-     * Override the Persistence Layer in the service and force it to throw an exception so we can test the services auditing
+     * Override the Persistence Layer in the service and force it to throw an exception, so we can test the services auditing
      */
     private static class ExceptionalPersistenceLayer implements PersistenceLayer {
 

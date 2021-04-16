@@ -44,7 +44,7 @@ import java.time.format.DateTimeFormatter;
  * Static configuration for kafka key/value serialisers/deserialisers
  * - Each input has a pair of key/value deserialisers
  * - Each output has a pair of key/value serialisers
- * In general, the keys are not used so the choice of serialiser is not important
+ * In general, the keys are not used, so the choice of serialiser is not important
  */
 public final class SerDesConfig {
     private static final Logger LOGGER = LoggerFactory.getLogger(SerDesConfig.class);
@@ -168,7 +168,7 @@ public final class SerDesConfig {
 
     private static void createFile(final String prefix, final String failedAuditString, final AuditServiceConfigProperties configProperties) {
         // Create a fileName using the prefix value and a timestamp.
-        // A replace needs to be done on the timestamp value to allow saving a file on Windows machines
+        // A replacement needs to be done on the timestamp value to allow saving a file on Windows machines
         String fileName = prefix + ZonedDateTime.now(ZoneOffset.UTC)
                 .format(DateTimeFormatter.ISO_INSTANT).replace(":", "-");
         File directory = new File(configProperties.getErrorDirectory());
