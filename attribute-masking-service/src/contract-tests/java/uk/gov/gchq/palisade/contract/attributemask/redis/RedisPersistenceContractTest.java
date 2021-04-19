@@ -20,7 +20,6 @@ import akka.actor.ActorSystem;
 import akka.stream.Materializer;
 import org.apache.kafka.clients.admin.AdminClient;
 import org.apache.kafka.clients.admin.NewTopic;
-import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -43,6 +42,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.support.TestPropertySourceUtils;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.KafkaContainer;
+import org.testcontainers.utility.DockerImageName;
 
 import uk.gov.gchq.palisade.contract.attributemask.ContractTestData;
 import uk.gov.gchq.palisade.service.attributemask.AttributeMaskingApplication;
@@ -132,12 +132,12 @@ class RedisPersistenceContractTest {
 
         private static final int REDIS_PORT = 6379;
 
-        static GenericContainer<?> redis = new GenericContainer<>("redis:6-alpine")
+        static GenericContainer<?> redis = new GenericContainer<>(DockerImageName.parse("redis:6-alpine"))
                 .withExposedPorts(REDIS_PORT)
                 .withReuse(true);
 
         @Override
-        public void initialize(@NotNull final ConfigurableApplicationContext context) {
+        public void initialize(final ConfigurableApplicationContext context) {
             context.getEnvironment().setActiveProfiles("redis", "akkatest");
             // Start container
             redis.start();
@@ -153,7 +153,7 @@ class RedisPersistenceContractTest {
     }
 
     public static class KafkaInitializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
-        static KafkaContainer kafka = new KafkaContainer("5.5.1")
+        static KafkaContainer kafka = new KafkaContainer(DockerImageName.parse("confluentinc/cp-kafka:5.5.1"))
                 .withReuse(true);
 
         @Override

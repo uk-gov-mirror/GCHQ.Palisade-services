@@ -38,6 +38,7 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.serializer.support.SerializationFailedException;
 import org.springframework.test.context.support.TestPropertySourceUtils;
 import org.testcontainers.containers.KafkaContainer;
+import org.testcontainers.utility.DockerImageName;
 
 import uk.gov.gchq.palisade.service.attributemask.model.AuditErrorMessage;
 import uk.gov.gchq.palisade.service.attributemask.stream.PropertiesConfigurer;
@@ -56,7 +57,7 @@ import static org.apache.kafka.clients.admin.AdminClientConfig.BOOTSTRAP_SERVERS
  * Common test file used configure Kafka for use in the KafkaContractTests
  */
 public class KafkaInitializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
-    public static final KafkaContainer KAFKA_CONTAINER = new KafkaContainer("5.5.1")
+    public static final KafkaContainer KAFKA_CONTAINER = new KafkaContainer(DockerImageName.parse("confluentinc/cp-kafka:5.5.1"))
             .withReuse(true);
     private static final Logger LOGGER = LoggerFactory.getLogger(KafkaInitializer.class);
     private static final ObjectMapper MAPPER = new ObjectMapper();
